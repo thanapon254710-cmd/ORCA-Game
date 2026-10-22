@@ -14,6 +14,10 @@ config/name="ORCA-Game"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameState="*uid://n64r777n0u6t"
+
 [display]
 
 window/stretch/mode="canvas_items"
