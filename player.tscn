@@ -22,8 +22,8 @@ func _physics_process(_delta: float) -> void:
 "
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hq3ai"]
-radius = 21.0
-height = 58.0
+radius = 13.0
+height = 44.0
 
 [node name="Player" type="CharacterBody2D" unique_id=472222300]
 position = Vector2(452, 247)
@@ -36,7 +36,7 @@ scale = Vector2(1.601563, 1.601563)
 texture = ExtResource("1_4flbx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2041220931]
-position = Vector2(-21, -25)
+position = Vector2(-21, -20)
 shape = SubResource("CapsuleShape2D_hq3ai")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=632584784]
@@ -44,8 +44,8 @@ position = Vector2(-21, -24)
 zoom = Vector2(1.5, 1.5)
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=225097483]
-position = Vector2(-20.999985, -18.000004)
-scale = Vector2(18.764715, 18.621912)
-color = Color(0.83975405, 0.83975405, 0.839754, 1)
+position = Vector2(-19.999994, -21.000004)
+scale = Vector2(23.78453, 23.603525)
+color = Color(0.8392157, 0.8392157, 0.8392157, 0.8784314)
 texture = ExtResource("2_onrkg")
 texture_scale = 0.01
