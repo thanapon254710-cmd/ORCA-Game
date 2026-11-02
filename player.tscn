@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://c7pwe2ghy86cb"]
+
+[ext_resource type="Texture2D" uid="uid://cqo4ryfwm6wpy" path="res://Front_Draft1 (1).png" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสง.jpg" id="2_onrkg"]
+
+[sub_resource type="GDScript" id="GDScript_4flbx"]
+resource_name = "player"
+script/source = "extends CharacterBody2D
+
+@export var speed: float = 200.0
+
+func _physics_process(_delta: float) -> void:
+	var direction := Input.get_vector(
+		\"move_left\",
+		\"move_right\",
+		\"move_up\",
+        \"move_down\"
+	)
+
+	velocity = direction * speed
+	move_and_slide()
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hq3ai"]
+radius = 21.0
+height = 58.0
+
+[node name="Player" type="CharacterBody2D" unique_id=472222300]
+position = Vector2(452, 247)
+script = SubResource("GDScript_4flbx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=453819253]
+texture_filter = 1
+position = Vector2(-20.625008, -23.625008)
+scale = Vector2(1.601563, 1.601563)
+texture = ExtResource("1_4flbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2041220931]
+position = Vector2(-21, -25)
+shape = SubResource("CapsuleShape2D_hq3ai")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=632584784]
+position = Vector2(-21, -24)
+zoom = Vector2(1.5, 1.5)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=225097483]
+position = Vector2(-20.999985, -18.000004)
+scale = Vector2(18.764715, 18.621912)
+color = Color(0.83975405, 0.83975405, 0.839754, 1)
+texture = ExtResource("2_onrkg")
+texture_scale = 0.01
