@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="ORCA-Game"
-run/main_scene="uid://b3fydi2tvkekk"
+run/main_scene="uid://djtx14u2o4nne"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameState="*uid://n64r777n0u6t"
+TransitionManager="*uid://cp11wy35hwv4s"
 
 [display]
 

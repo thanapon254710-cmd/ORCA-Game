@@ -443,3 +443,6 @@ layer_3/tile_data = PackedInt32Array(1048606, 393218, 0, 1114142, 393218, 1, 117
 
 [node name="Player" parent="." unique_id=472222300 instance=ExtResource("5_e4m50")]
 position = Vector2(89, 205)
+
+[node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1634471411]
+position = Vector2(137, 558)
