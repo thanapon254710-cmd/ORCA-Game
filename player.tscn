@@ -8,6 +8,9 @@
 radius = 13.0
 height = 44.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_b50fy"]
+radius = 40.0
+
 [node name="Player" type="CharacterBody2D" unique_id=472222300]
 position = Vector2(452, 247)
 script = ExtResource("1_i3pqv")
@@ -32,3 +35,10 @@ scale = Vector2(25.833122, 24.495941)
 color = Color(0.8392157, 0.8392157, 0.8392157, 0.7921569)
 texture = ExtResource("2_onrkg")
 texture_scale = 0.01
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=2075346170]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=726863881]
+position = Vector2(-21, -21)
+shape = SubResource("CircleShape2D_b50fy")

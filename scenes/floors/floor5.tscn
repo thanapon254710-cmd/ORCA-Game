@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://c0rdh1n84esx7" path="res://assets/sprites/prop4.png" id="10_03g0n"]
 [ext_resource type="Texture2D" uid="uid://bk0tttd0vwnfg" path="res://assets/sprites/school-wall-props-doors-clean.png" id="10_6cp4t"]
 [ext_resource type="Texture2D" uid="uid://dqmv74ap1wxu2" path="res://assets/sprites/TX Props with Shadow.png" id="11_xljit"]
+[ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="20_e3i4a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ea2ge"]
 texture = ExtResource("1_t6y78")
@@ -1248,6 +1249,9 @@ sources/24 = SubResource("TileSetAtlasSource_ty1mm")
 sources/4 = SubResource("TileSetAtlasSource_uc22s")
 sources/18 = SubResource("TileSetAtlasSource_8rjlg")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b50fy"]
+size = Vector2(192, 126)
+
 [node name="floor5" type="Node2D" unique_id=1642363128]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=844832280]
@@ -1275,3 +1279,12 @@ color = Color(0.22745098, 0.22745098, 0.22745098, 1)
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1442653289]
 position = Vector2(729, 33)
+
+[node name="FloorStairs" type="Area2D" parent="." unique_id=546862548]
+position = Vector2(384, 576)
+collision_mask = 0
+script = ExtResource("20_e3i4a")
+destination_spawn_marker = "SpawnFromFloor5"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs" unique_id=1923539718]
+shape = SubResource("RectangleShape2D_b50fy")

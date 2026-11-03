@@ -6,36 +6,43 @@ extends Area2D
 # Name of the spawn marker in the destination floor.
 @export var destination_spawn_marker: String = ""
 
-var player_inside: bool = false
+@export var prompt_text: String = "Press E to use stairs"
+
+var prompt: Label
 
 
 func _ready() -> void:
-	body_entered.connect(_on_body_entered)
-	body_exited.connect(_on_body_exited)
+	# Create the interaction prompt.
+	prompt = Label.new()
+	prompt.name = "Prompt"
+	prompt.text = prompt_text
+	prompt.position = Vector2(-65, -55)
+	prompt.z_index = 10
+	prompt.visible = false
+	add_child(prompt)
 
 
-func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		player_inside = true
+# Check whether these stairs can be used.
+func can_interact() -> bool:
+	return (
+		not destination_spawn_marker.is_empty()
+		and not TransitionManager.is_transitioning
+		and not GameState.game_is_over
+	)
 
 
-func _on_body_exited(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		player_inside = false
+# Show or hide the interaction prompt.
+func set_focused(on: bool) -> void:
+	if is_instance_valid(prompt):
+		prompt.visible = on
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if not player_inside:
+# Called when the player presses E.
+func interact(_player: Node) -> void:
+	if not can_interact():
 		return
 
-	if event.is_action_pressed("interact"):
-		get_viewport().set_input_as_handled()
-
-		if destination_spawn_marker.is_empty():
-			push_error("Destination spawn marker is not configured.")
-			return
-
-		TransitionManager.change_floor(
-			target_floor,
-			destination_spawn_marker
-		)
+	TransitionManager.change_floor(
+		target_floor,
+		destination_spawn_marker
+	)
