@@ -646,3 +646,6 @@ layer_3/tile_data = PackedInt32Array(131078, 393218, 2, 65542, 393218, 1, 6, 131
 
 [node name="Player" parent="." unique_id=472222300 instance=ExtResource("6_xhphg")]
 position = Vector2(264, 169)
+
+[node name="SpawnFromFloor2" type="Marker2D" parent="." unique_id=337179768]
+position = Vector2(241, 72)

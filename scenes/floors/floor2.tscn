@@ -1712,3 +1712,9 @@ position = Vector2(259, 505)
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=373061406]
 visible = false
 color = Color(0.525894, 0.52589405, 0.525894, 1)
+
+[node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1149319654]
+position = Vector2(89, 546)
+
+[node name="SpawnFromFloor3" type="Marker2D" parent="." unique_id=979052304]
+position = Vector2(240, 572)

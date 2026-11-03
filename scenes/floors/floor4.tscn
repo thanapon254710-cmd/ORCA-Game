@@ -1303,4 +1303,7 @@ position = Vector2(353, 505)
 color = Color(0.2789908, 0.27899083, 0.27899083, 1)
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1515179127]
-position = Vector2(341, 541)
+position = Vector2(953, 33)
+
+[node name="SpawnFromFloor5" type="Marker2D" parent="." unique_id=312168866]
+position = Vector2(336, 573)

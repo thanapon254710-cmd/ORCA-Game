@@ -1397,8 +1397,11 @@ layer_4/tile_data = PackedInt32Array(852000, 3, 13, 917536, 3, 14, 852001, 65539
 [node name="Player" parent="." unique_id=472222300 instance=ExtResource("5_e4m50")]
 position = Vector2(67, 508)
 
-[node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1634471411]
-position = Vector2(137, 558)
-
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1264508418]
 color = Color(0.38928655, 0.38928664, 0.38928658, 1)
+
+[node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1634471411]
+position = Vector2(25, 33)
+
+[node name="SpawnFromFloor4" type="Marker2D" parent="." unique_id=58620511]
+position = Vector2(51, 579)

@@ -1,11 +1,10 @@
-
 extends Area2D
 
 # Destination floor number.
-@export_range(3, 5, 1) var target_floor: int = 4
+@export_range(1, 5, 1) var target_floor: int = 4
 
 # Name of the spawn marker in the destination floor.
-@export var destination_spawn_marker: String = "PlayerSpawn"
+@export var destination_spawn_marker: String = ""
 
 var player_inside: bool = false
 
@@ -31,6 +30,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("interact"):
 		get_viewport().set_input_as_handled()
+
+		if destination_spawn_marker.is_empty():
+			push_error("Destination spawn marker is not configured.")
+			return
 
 		TransitionManager.change_floor(
 			target_floor,
