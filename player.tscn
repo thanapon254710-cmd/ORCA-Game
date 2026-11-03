@@ -27,8 +27,8 @@ position = Vector2(-21, -24)
 zoom = Vector2(1.5, 1.5)
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=225097483]
-position = Vector2(-19.999994, -21.000004)
-scale = Vector2(23.78453, 23.603525)
-color = Color(0.8392157, 0.8392157, 0.8392157, 0.8784314)
+position = Vector2(-18.999996, -20.000002)
+scale = Vector2(25.833122, 24.495941)
+color = Color(0.8392157, 0.8392157, 0.8392157, 0.7921569)
 texture = ExtResource("2_onrkg")
 texture_scale = 0.01
