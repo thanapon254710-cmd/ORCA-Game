@@ -19,13 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://c0rdh1n84esx7" path="res://assets/sprites/prop4.png" id="10_03g0n"]
 [ext_resource type="Texture2D" uid="uid://bk0tttd0vwnfg" path="res://assets/sprites/school-wall-props-doors-clean.png" id="10_6cp4t"]
 [ext_resource type="Texture2D" uid="uid://dqmv74ap1wxu2" path="res://assets/sprites/TX Props with Shadow.png" id="11_xljit"]
-<<<<<<< Updated upstream
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="20_e3i4a"]
-=======
-[ext_resource type="PackedScene" uid="uid://ctaivvhm6c2l3" path="res://orca.tscn" id="19_03g0n"]
-[ext_resource type="Script" uid="uid://lsws3p4a7m1x" path="res://orca.gd" id="20_e3i4a"]
-[ext_resource type="Script" uid="uid://b5feq77nojh47" path="res://scenes/floors/orca_manager.gd" id="21_c5wpi"]
->>>>>>> Stashed changes
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ea2ge"]
 texture = ExtResource("1_t6y78")
@@ -1255,20 +1249,10 @@ sources/24 = SubResource("TileSetAtlasSource_ty1mm")
 sources/4 = SubResource("TileSetAtlasSource_uc22s")
 sources/18 = SubResource("TileSetAtlasSource_8rjlg")
 
-<<<<<<< Updated upstream
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b50fy"]
 size = Vector2(192, 126)
 
 [node name="floor5" type="Node2D" unique_id=1642363128]
-=======
-[sub_resource type="Curve2D" id="Curve2D_xljit"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 5, 412, 0, 0, 0, 0, 138, 412, 0, 0, 0, 0, 144, 550, 0, 0, 0, 0, 159, 421, 0, 0, 0, 0, 248, 418, 70.73845, 4.7158966, -70.73845, -4.7158966, 790, 425, -64.450584, 7.859827, 64.450584, -7.859827, 797, 620, 113.18151, 0, -113.18151, 0, 814, 513, 0, 0, 0, 0, 943, 505, -99.03382, 36.155205, 99.03382, -36.155205, 806, 500, 0, 0, 0, 0, 781, 242, 0, 0, 0, 0, 926, 236, 0, 0, 0, 0, 927, 197, 0, 0, 0, 0, 781, 172, 0, 0, 0, 0, 789, 8, 0, 0, 0, 0, 739, 25, 0, 0, 0, 0, 724, 344, 0, 0, 0, 0, 9, 354, 0, 0, 0, 0, 5, 412)
-}
-point_count = 19
-
-[node name="Floor5" type="Node2D" unique_id=1642363128]
->>>>>>> Stashed changes
 
 [node name="TileMap" type="TileMap" parent="." unique_id=844832280]
 tile_set = SubResource("TileSet_4kxuq")
@@ -1286,20 +1270,13 @@ layer_3/tile_data = PackedInt32Array(1048588, 196620, 0, 1114124, 589836, 1, 117
 layer_4/name = "Prop"
 layer_4/tile_data = PackedInt32Array(458763, 524306, 15, 589836, 524306, 15, 458765, 262162, 8, 458764, 196626, 8, 524300, 196626, 9, 524301, 262162, 9)
 
-<<<<<<< Updated upstream
 [node name="Player" parent="." unique_id=472222300 instance=ExtResource("7_hq3ai")]
 position = Vector2(753, 108)
-=======
-[node name="Player" parent="." unique_id=472222300 groups=["player"] instance=ExtResource("7_hq3ai")]
-position = Vector2(565, 440)
-collision_layer = 2
->>>>>>> Stashed changes
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=727667385]
 position = Vector2(-1, -1)
 color = Color(0.22745098, 0.22745098, 0.22745098, 1)
 
-<<<<<<< Updated upstream
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1442653289]
 position = Vector2(729, 33)
 
@@ -1311,21 +1288,3 @@ destination_spawn_marker = "SpawnFromFloor5"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs" unique_id=1923539718]
 shape = SubResource("RectangleShape2D_b50fy")
-=======
-[node name="Orca" parent="." unique_id=1627774813 node_paths=PackedStringArray("path_follow") groups=["orca"] instance=ExtResource("19_03g0n")]
-position = Vector2(793, 53)
-script = ExtResource("20_e3i4a")
-path_follow = NodePath("../PatrolPath1/PathFollow2D")
-
-[node name="PatrolPath1" type="Path2D" parent="." unique_id=1771264]
-position = Vector2(-6, 3)
-curve = SubResource("Curve2D_xljit")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="PatrolPath1" unique_id=941360023]
-position = Vector2(5, 412)
-rotates = false
-
-[node name="OrcaManager" type="Node" parent="." unique_id=1552876312]
-process_mode = 3
-script = ExtResource("21_c5wpi")
->>>>>>> Stashed changes
