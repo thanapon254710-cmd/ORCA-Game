@@ -13,6 +13,7 @@ radius = 40.0
 
 [node name="Player" type="CharacterBody2D" unique_id=472222300]
 position = Vector2(452, 247)
+collision_layer = 2
 script = ExtResource("1_i3pqv")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=453819253]

@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://buys13wha88m7"]
+
+[ext_resource type="Texture2D" uid="uid://bb1f0up708ait" path="res://OrcaBloody.png" id="1_44a57"]
+[ext_resource type="Script" uid="uid://tyrj60b5uerr" path="res://orca.gd" id="1_yluti"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p376d"]
+radius = 244.0
+height = 596.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p376d"]
+radius = 315.96994
+
+[node name="Orca" type="CharacterBody2D" unique_id=2000482544]
+position = Vector2(598, 335.99997)
+scale = Vector2(0.18804632, 0.17629834)
+collision_layer = 4
+script = ExtResource("1_yluti")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=647995575]
+position = Vector2(-2, 2.7500315)
+scale = Vector2(0.29327732, 0.282563)
+texture = ExtResource("1_44a57")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=507106653]
+position = Vector2(-6, 0)
+shape = SubResource("CapsuleShape2D_p376d")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=327751792]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1671433477]
+shape = SubResource("CircleShape2D_p376d")
+
+[node name="Vision" type="RayCast2D" parent="." unique_id=1804388924]
+collision_mask = 3
