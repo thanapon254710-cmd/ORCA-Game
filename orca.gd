@@ -121,7 +121,7 @@ func _face(dir: Vector2) -> void:
 	if dir.length() > 0.01:
 		facing = dir.normalized()
 		if absf(dir.x) > 0.01:
-			sprite.flip_h = dir.x < 0
+			sprite.flip_h = dir.x > 0  
 
 func _update_visual() -> void:
 	match state:
