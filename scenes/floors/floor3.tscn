@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dkv5gfcrpfsfn" path="res://assets/sprites/school-wall-props-doors-horror.png" id="8_oimqh"]
 [ext_resource type="Texture2D" uid="uid://b40ctsx5opw33" path="res://assets/sprites/prop3.png" id="9_4dxh7"]
 [ext_resource type="Texture2D" uid="uid://c0rdh1n84esx7" path="res://assets/sprites/prop4.png" id="10_oimqh"]
+[ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="13_i23eo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hkwmq"]
 texture = ExtResource("1_qn337")
@@ -1378,6 +1379,9 @@ sources/9 = SubResource("TileSetAtlasSource_4dxh7")
 sources/10 = SubResource("TileSetAtlasSource_oimqh")
 sources/11 = SubResource("TileSetAtlasSource_upcpg")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kipsh"]
+size = Vector2(88.5, 114)
+
 [node name="floor3" type="Node2D" unique_id=1008020499]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=531926006]
@@ -1404,4 +1408,26 @@ color = Color(0.38928655, 0.38928664, 0.38928658, 1)
 position = Vector2(25, 33)
 
 [node name="SpawnFromFloor4" type="Marker2D" parent="." unique_id=58620511]
-position = Vector2(51, 579)
+position = Vector2(49, 570)
+
+[node name="SpawnFromFloor2" type="Marker2D" parent="." unique_id=101084792]
+position = Vector2(145, 570)
+
+[node name="FloorStairs3to4" type="Area2D" parent="." unique_id=1209210378]
+position = Vector2(49, 570)
+collision_mask = 0
+script = ExtResource("13_i23eo")
+destination_spawn_marker = "SpawnFromFloor3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs3to4" unique_id=2017440712]
+shape = SubResource("RectangleShape2D_kipsh")
+
+[node name="FloorStairs3to2" type="Area2D" parent="." unique_id=1281134782]
+position = Vector2(145, 570)
+collision_mask = 0
+script = ExtResource("13_i23eo")
+target_floor = 2
+destination_spawn_marker = "SpawnFromFloor3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs3to2" unique_id=1785667734]
+shape = SubResource("RectangleShape2D_kipsh")

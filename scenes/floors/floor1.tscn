@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dkv5gfcrpfsfn" path="res://assets/sprites/school-wall-props-doors-horror.png" id="4_2y1be"]
 [ext_resource type="Texture2D" uid="uid://gi1w7ltxvfkq" path="res://assets/sprites/prop5.png" id="5_7nq3v"]
 [ext_resource type="PackedScene" uid="uid://c7pwe2ghy86cb" path="res://player.tscn" id="6_xhphg"]
+[ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="7_rv4a6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xhphg"]
 texture = ExtResource("1_ouej7")
@@ -630,6 +631,9 @@ sources/2 = SubResource("TileSetAtlasSource_e64pu")
 sources/3 = SubResource("TileSetAtlasSource_7nq3v")
 sources/4 = SubResource("TileSetAtlasSource_pkswe")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e64pu"]
+size = Vector2(88.5, 114)
+
 [node name="floor1" type="Node2D" unique_id=1704164976]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=61051801]
@@ -648,4 +652,14 @@ layer_3/tile_data = PackedInt32Array(131078, 393218, 2, 65542, 393218, 1, 6, 131
 position = Vector2(264, 169)
 
 [node name="SpawnFromFloor2" type="Marker2D" parent="." unique_id=337179768]
-position = Vector2(241, 72)
+position = Vector2(241, 64)
+
+[node name="FloorStairs1to2" type="Area2D" parent="." unique_id=2067320050]
+position = Vector2(241, 64)
+collision_mask = 0
+script = ExtResource("7_rv4a6")
+target_floor = 2
+destination_spawn_marker = "SpawnFromFloor1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs1to2" unique_id=1895639199]
+shape = SubResource("RectangleShape2D_e64pu")
