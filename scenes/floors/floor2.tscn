@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dxs07k7566a32" path="res://assets/sprites/Classrooms.png" id="9_i6siy"]
 [ext_resource type="Texture2D" uid="uid://bul8a3uklbk33" path="res://assets/sprites/school-floor-overlays-horror48.png" id="10_5twv8"]
 [ext_resource type="Texture2D" uid="uid://clj4n5xgb46fk" path="res://assets/sprites/school-furniture-lockers-horror.png" id="11_ukwv0"]
+[ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="14_o81gl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_312yu"]
 texture = ExtResource("1_qoq52")
@@ -1690,6 +1691,9 @@ sources/10 = SubResource("TileSetAtlasSource_p1j4b")
 sources/11 = SubResource("TileSetAtlasSource_xofbi")
 sources/12 = SubResource("TileSetAtlasSource_o81gl")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6siy"]
+size = Vector2(88.5, 114)
+
 [node name="floor2" type="Node2D" unique_id=2030209140]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=837420413]
@@ -1718,3 +1722,26 @@ position = Vector2(89, 546)
 
 [node name="SpawnFromFloor3" type="Marker2D" parent="." unique_id=979052304]
 position = Vector2(240, 572)
+
+[node name="SpawnFromFloor1" type="Marker2D" parent="." unique_id=1106729128]
+position = Vector2(337, 572)
+
+[node name="FloorStairs2to3" type="Area2D" parent="." unique_id=1616622690]
+position = Vector2(240, 572)
+collision_mask = 0
+script = ExtResource("14_o81gl")
+target_floor = 3
+destination_spawn_marker = "SpawnFromFloor2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs2to3" unique_id=654253409]
+shape = SubResource("RectangleShape2D_i6siy")
+
+[node name="FloorStairs2to1" type="Area2D" parent="." unique_id=169451854]
+position = Vector2(337, 572)
+collision_mask = 0
+script = ExtResource("14_o81gl")
+target_floor = 1
+destination_spawn_marker = "SpawnFromFloor2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs2to1" unique_id=145436873]
+shape = SubResource("RectangleShape2D_i6siy")
