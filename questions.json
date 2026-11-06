@@ -1,0 +1,47 @@
+{
+  "questions": [
+	{
+	  "id": "q_5_1",
+	  "floor": 5,
+	  "subject": "SDG",
+	  "type": "multiple_choice",
+	  "question": "5.1 SDG มีกี่ข้อ?",
+	  "choices": [
+		"15 ข้อ",
+		"16 ข้อ",
+		"17 ข้อ",
+        "18 ข้อ"
+	  ],
+	  "correct_answer": "17 ข้อ"
+	},
+	{
+	  "id": "q_4_1",
+	  "floor": 4,
+	  "subject": "Law",
+	  "type": "multiple_choice",
+	  "question": "4.1 Juristic person คือใคร?",
+	  "choices": [
+		"a. legal person",
+		"b. illegal person",
+		"c. jurassic person",
+        "d. jujutsu person"
+	  ],
+	  "correct_answer": "a. legal person"
+	},
+	{
+	  "id": "q_1_2",
+	  "floor": 1,
+	  "subject": "General",
+	  "type": "multiple_choice",
+	  "question": "1.2 What is the capital city of South Korea?",
+	  "choices": [
+		"a. Bangkok",
+		"b. Tokyo",
+		"c. Seoul",
+		"d. Dubai",
+        "e. Paris"
+	  ],
+	  "correct_answer": "c. Seoul"
+	}
+  ]
+}

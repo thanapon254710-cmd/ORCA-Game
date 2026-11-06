@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://x6vdm4wml6sa"]
+
+[ext_resource type="Script" uid="uid://vovt2php6igy" path="res://scenes/quiz/question_box.gd" id="1_jnr7e"]
+
+[node name="QuestionBox" type="CanvasLayer" unique_id=759334856]
+script = ExtResource("1_jnr7e")
+
+[node name="Panel" type="Panel" parent="." unique_id=2053485633]
+offset_right = 731.0
+offset_bottom = 376.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=343894738]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 29.0
+offset_right = 709.0
+offset_bottom = 344.0
+
+[node name="QuestionLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1769929401]
+layout_mode = 2
+text = "ซังกิวคือใคร"
+
+[node name="QuestionImage" type="TextureRect" parent="Panel/VBoxContainer" unique_id=164370336]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ChoicesContainer" type="VBoxContainer" parent="Panel/VBoxContainer" unique_id=1940734399]
+layout_mode = 2
+
+[node name="Choice1" type="Button" parent="Panel/VBoxContainer/ChoicesContainer" unique_id=502768763]
+layout_mode = 2
+text = "จารย์เกมเดฟ"
+
+[node name="Choice2" type="Button" parent="Panel/VBoxContainer/ChoicesContainer" unique_id=1150122985]
+layout_mode = 2
+text = "คนเกาหลี"
+
+[node name="Choice3" type="Button" parent="Panel/VBoxContainer/ChoicesContainer" unique_id=1088635733]
+layout_mode = 2
+text = "ไบรอัน"
+
+[node name="Choice4" type="Button" parent="Panel/VBoxContainer/ChoicesContainer" unique_id=11822993]
+layout_mode = 2
+text = "ฉันเป็นมิจนะเป็นมิจ"
+
+[node name="Choice5" type="Button" parent="Panel/VBoxContainer/ChoicesContainer" unique_id=939075563]
+layout_mode = 2
+
+[node name="InputContainer" type="VBoxContainer" parent="Panel/VBoxContainer" unique_id=590204915]
+layout_mode = 2
+
+[node name="AnswerInput" type="LineEdit" parent="Panel/VBoxContainer/InputContainer" unique_id=442360187]
+layout_mode = 2
+
+[node name="SubmitButton" type="Button" parent="Panel/VBoxContainer/InputContainer" unique_id=810363060]
+layout_mode = 2
+
+[node name="FeedbackLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1588737483]
+layout_mode = 2
+
+[node name="OsiPuzzle" type="CanvasLayer" parent="." unique_id=357793314]
+
+[node name="Panel" type="Panel" parent="OsiPuzzle" unique_id=397045062]
+anchors_preset = -1
+anchor_right = 0.64100003
+anchor_bottom = 0.57900006
+offset_left = 14.0
+offset_top = 392.0
+offset_right = 13.567993
+offset_bottom = 391.80795
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OsiPuzzle/Panel" unique_id=135830309]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 738.0
+offset_bottom = 380.0
+
+[node name="TitleLabel" type="Label" parent="OsiPuzzle/Panel/VBoxContainer" unique_id=1610166270]
+layout_mode = 2
+text = "order"
+
+[node name="OsiList" type="ItemList" parent="OsiPuzzle/Panel/VBoxContainer" unique_id=1902090202]
+layout_mode = 2
+auto_height = true
+
+[node name="ButtonGroup" type="HBoxContainer" parent="OsiPuzzle/Panel/VBoxContainer" unique_id=619858294]
+layout_mode = 2
+
+[node name="CheckButton" type="Button" parent="OsiPuzzle/Panel/VBoxContainer/ButtonGroup" unique_id=272301348]
+layout_mode = 2
+
+[node name="ResetButton" type="Button" parent="OsiPuzzle/Panel/VBoxContainer/ButtonGroup" unique_id=2034255698]
+layout_mode = 2
+
+[node name="FeedbackLabel" type="Label" parent="OsiPuzzle/Panel/VBoxContainer" unique_id=381944370]
+layout_mode = 2
