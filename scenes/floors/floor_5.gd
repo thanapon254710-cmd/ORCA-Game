@@ -15,13 +15,38 @@ extends Node2D
 
 func _ready() -> void:
 	# call function remove fences
-	# remove_fences()
-	pass
+	GameState.question_answered.connect(_on_question_answered)
+	
+	# Check previously completed questions when returning to Floor 5
+	check_all_questions_completed()
+
+func _on_question_answered(question_id: String, is_correct: bool) -> void:
+
+	# Ignore incorrect answers
+	if not is_correct:
+		return
+
+	check_all_questions_completed()
+
+func check_all_questions_completed() -> void:
+
+	var required_questions = [
+		"q_5_1",
+		"q_5_2",
+        "q_5_3"
+	]
+
+	for question_id in required_questions:
+
+		if not GameState.questions_answered.has(question_id):
+			return
+
+	# All questions are correct!
+	remove_fences()
 
 func remove_fences() -> void:
 	if target_tilemap:
-		# วนลูปพิกัดรั้วทั้งหมด แล้วสั่งลบออกด้วยค่า -1
 		for coord in fence_coords:
-			target_tilemap.set_cell(3, coord, -1) # เลข 0 คือ Layer ของ TileMap
-			
+			target_tilemap.set_cell(3, coord, -1)
+
 		print("The barrier has fallen! The way down to the 4th floor is now open.")
