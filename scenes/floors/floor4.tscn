@@ -1326,7 +1326,7 @@ sources/22 = SubResource("TileSetAtlasSource_vyvwq")
 sources/23 = SubResource("TileSetAtlasSource_b8gyh")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b50fy"]
-size = Vector2(91, 94.5)
+size = Vector2(71, 81.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1drc"]
 size = Vector2(87, 54)
@@ -1364,7 +1364,7 @@ target_floor = 5
 destination_spawn_marker = "SpawnFromFloor4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs4to5" unique_id=106097877]
-position = Vector2(0, 0.25)
+position = Vector2(-4, 6)
 shape = SubResource("RectangleShape2D_b50fy")
 
 [node name="SpawnFromFloor5" type="Marker2D" parent="." unique_id=312168866]
@@ -1378,10 +1378,11 @@ target_floor = 3
 destination_spawn_marker = "SpawnFromFloor4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs4to3" unique_id=1519308949]
+position = Vector2(-1, 6)
 shape = SubResource("RectangleShape2D_b50fy")
 
 [node name="SpawnFromFloor3" type="Marker2D" parent="." unique_id=1258481884]
-position = Vector2(433, 573)
+position = Vector2(433, 574)
 
 [node name="Room407Door" type="Area2D" parent="." unique_id=1056625285]
 position = Vector2(81.7, 432)
