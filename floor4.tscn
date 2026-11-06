@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ddo1mmy0aws03"]
+[gd_scene format=3 uid="uid://kumhrwsijcbu"]
 
 [ext_resource type="PackedScene" uid="uid://c7pwe2ghy86cb" path="res://player.tscn" id="1_5vcy3"]
 [ext_resource type="Texture2D" uid="uid://b85y2tkh3jsej" path="res://assets/sprites/TX Tileset Stone Ground.png" id="1_hy4yd"]
