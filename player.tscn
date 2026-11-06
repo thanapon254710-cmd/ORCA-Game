@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://ck5yk5bj007nn" path="res://assets/sprites/Animation/Main_player/Back_Draft1.png" id="11_dx0e4"]
 [ext_resource type="Texture2D" uid="uid://cbumuptxe0bob" path="res://assets/sprites/Animation/Main_player/Back_Draft1_เดิน1.png" id="12_jm5j8"]
 [ext_resource type="Texture2D" uid="uid://cttrt6fsfcket" path="res://assets/sprites/Animation/Main_player/Back_Draft1_เดิน2.png" id="13_7hik5"]
-[ext_resource type="AudioStream" uid="uid://dq65acin7x0eq" path="res://dragon-studio-heartbeat-sound-372448.mp3" id="15_606se"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5h11f"]
 animations = [{
@@ -183,10 +182,4 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=726863881]
 shape = SubResource("CircleShape2D_b50fy")
-<<<<<<< Updated upstream
 debug_color = Color(0.9800499, 0, 0.38687718, 0.41960785)
-=======
-
-[node name="HeartbeatStream" type="AudioStreamPlayer" parent="." unique_id=810995992]
-stream = ExtResource("15_606se")
->>>>>>> Stashed changes

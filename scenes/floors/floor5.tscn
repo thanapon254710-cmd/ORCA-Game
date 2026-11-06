@@ -1340,7 +1340,6 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-
 [node name="Question_Law" parent="." unique_id=312159243 instance=ExtResource("23_8rjlg")]
 position = Vector2(139, 545)
 question_index = 2

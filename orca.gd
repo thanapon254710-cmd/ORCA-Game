@@ -16,15 +16,6 @@ enum State { PATROL, CHASE, RETURN }
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var vision: RayCast2D = $Vision
 
-# ==========================================
-# Audio Nodes (โหนดเสียง)
-# ==========================================
-@onready var sfx_detect: AudioStreamPlayer2D = $SfxDetect if has_node("SfxDetect") else null
-@onready var sfx_chase_loop: AudioStreamPlayer2D = $SfxChaseLoop if has_node("SfxChaseLoop") else null
-
-# รองรับโหนด SfxCaught ทั้งแบบ AudioStreamPlayer และ AudioStreamPlayer2D เพื่อกัน Type Mismatch Error
-@onready var sfx_caught: Node = $SfxCaught if has_node("SfxCaught") else null
-
 var state: State = State.PATROL
 var has_caught := false
 var facing := Vector2.RIGHT
@@ -71,14 +62,16 @@ func _patrol(delta: float) -> void:
 	if move.length() > 0.01:
 		_face(move)
 
-# ---------- STATE: CHASE (พุ่งใส่ Player) ----------
+# ---------- STATE: CHASE (พุ่งใส่ Player โดยใช้ Velocity ปลดล็อก Path2D) ----------
 func _chase(delta: float) -> void:
 	if player == null:
 		player = get_tree().get_first_node_in_group("player")
 
 	if player:
+		# อัปเดตพิกัดเป้าหมายตามตัว Player ตลอดเวลา
 		last_seen_pos = player.global_position
 		
+		# ถ้าเห็นตัว หรืออยู่ในระยะสายตา ให้เติมเวลาเต็มเสมอ
 		if can_see_player() or global_position.distance_to(player.global_position) <= sight_range:
 			lose_timer = lose_sight_time
 		else:
@@ -86,15 +79,18 @@ func _chase(delta: float) -> void:
 	else:
 		lose_timer -= delta
 
+	# หลุดสายตาและหมดเวลาดมกลิ่นแล้วจริงๆ ถึงจะถอยกลับ
 	if lose_timer <= 0.0:
 		_change_state(State.RETURN)
 		return
 
+	# คำนวณทิศทางและสั่งเคลื่อนที่ด้วย velocity
 	var to_target := last_seen_pos - global_position
 	if to_target.length() > 4.0:
 		var target_dir := to_target.normalized()
 		var move_velocity := target_dir * (speed * chase_multiplier)
 		
+		# ไถลหลบขอบตู้หนังสือ/สิ่งกีดขวางกันติดมุม[cite: 5]
 		if is_on_wall():
 			var wall_n := get_wall_normal().normalized()
 			if wall_n.length() > 0.0:
@@ -128,17 +124,13 @@ func _return_to_path(delta: float) -> void:
 	move_and_slide()
 	_face(velocity)
 
-# ---------- State Machine & Sound Control ----------
+# ---------- State Machine Handling ----------
 func _change_state(new_state: State) -> void:
 	if new_state == state:
 		return
 	state = new_state
 
 	match state:
-		State.PATROL:
-			if sfx_chase_loop and sfx_chase_loop.playing:
-				sfx_chase_loop.stop()
-				
 		State.CHASE:
 			if player == null:
 				player = get_tree().get_first_node_in_group("player")
@@ -147,16 +139,8 @@ func _change_state(new_state: State) -> void:
 				var to_p := (player.global_position - global_position).normalized()
 				_face(to_p)
 			lose_timer = lose_sight_time
-			
-			if sfx_detect and not sfx_detect.playing:
-				sfx_detect.play()
-			if sfx_chase_loop and not sfx_chase_loop.playing:
-				sfx_chase_loop.play()
-				
 		State.RETURN:
 			_snap_guide_to_nearest_point()
-			if sfx_chase_loop and sfx_chase_loop.playing:
-				sfx_chase_loop.stop()
 
 	print("Orca → ", State.keys()[state])
 	state_changed.emit(state)
@@ -217,20 +201,10 @@ func _draw() -> void:
 	var cone_color := Color(1, 0, 0, 0.25) if state == State.CHASE else Color(1, 1, 0, 0.25)
 	draw_colored_polygon(points, cone_color)
 
-# ---------- HitBox Trigger (Catch / Jumpscare) ----------
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if has_caught:
 		return
 	if body.is_in_group("player"):
 		has_caught = true
-		
-		# หยุดเสียงไล่ล่า
-		if sfx_chase_loop and sfx_chase_loop.playing:
-			sfx_chase_loop.stop()
-			
-		# เล่นเสียง Jumpscare
-		if sfx_caught and sfx_caught.has_method("play"):
-			sfx_caught.play()
-			
 		print("Player caught!")
 		player_caught.emit()
