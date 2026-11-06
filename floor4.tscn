@@ -19,7 +19,10 @@
 [ext_resource type="Texture2D" uid="uid://cs65i4s65k46a" path="res://assets/sprites/prop.png" id="9_hiquo"]
 [ext_resource type="Texture2D" uid="uid://eveg8hxu0w3u" path="res://assets/sprites/prop2.png" id="11_b1tob"]
 [ext_resource type="Texture2D" uid="uid://b40ctsx5opw33" path="res://assets/sprites/prop3.png" id="12_2aqni"]
-[ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="20_h4yqk"]
+[ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="20_h4yqk"]
+[ext_resource type="Script" uid="uid://cr7aguwcp27jo" path="res://scenes/room/RoomDoor.gd" id="21_77k8e"]
+[ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="22_obppl"]
+[ext_resource type="Script" uid="uid://dhqokselbjnyg" path="res://scenes/floors/orca_floor_4.gd" id="23_h848w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kxqf"]
 texture = ExtResource("1_hy4yd")
@@ -1281,11 +1284,17 @@ sources/19 = SubResource("TileSetAtlasSource_h848w")
 sources/20 = SubResource("TileSetAtlasSource_mmbjh")
 sources/21 = SubResource("TileSetAtlasSource_lsugr")
 
-[sub_resource type="Curve2D" id="Curve2D_h4yqk"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b50fy"]
+size = Vector2(91, 94.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1drc"]
+size = Vector2(87, 54)
+
+[sub_resource type="Curve2D" id="Curve2D_mmbjh"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 992, 481, 0, 0, 0, 0, 844, 427, 0, 0, 0, 0, 664, 477, 0, 0, 0, 0, 548, 420, 0, 0, 0, 0, 439, 478, 0, 0, 0, 0, 329, 420, 0, 0, 0, 0, 232, 482, 0, 0, 0, 0, 179, 375, 0, 0, 0, 0, 252, 310, 0, 0, 0, 0, 174, 235, 0, 0, 0, 0, 285, 177, 0, 0, 0, 0, 440, 215, 0, 0, 0, 0, 531, 165, 0, 0, 0, 0, 658, 228, 0, 0, 0, 0, 750, 172, 0, 0, 0, 0, 826, 230, 0, 0, 0, 0, 925, 176, 0, 0, 0, 0, 974, 96, 0, 0, 0, 0, 996, 230, 0, 0, 0, 0, 994, 390, 0, 0, 0, 0, 992, 481)
+"points": PackedVector2Array(0, 0, 0, 0, 910, 469, 0, 0, 0, 0, 861, 426, 0, 0, 0, 0, 782, 445, 0, 0, 0, 0, 708, 423, 0, 0, 0, 0, 633, 456, 0, 0, 0, 0, 589, 421, 0, 0, 0, 0, 417, 428, 0, 0, 0, 0, 285, 426, 0, 0, 0, 0, 229, 458, 0, 0, 0, 0, 184, 371, 0, 0, 0, 0, 240, 331, 0, 0, 0, 0, 185, 272, 0, 0, 0, 0, 220, 204, 0, 0, 0, 0, 326, 173, 0, 0, 0, 0, 371, 228, 0, 0, 0, 0, 451, 183, 0, 0, 0, 0, 490, 221, 0, 0, 0, 0, 553, 169, 0, 0, 0, 0, 639, 231, 0, 0, 0, 0, 671, 184, 0, 0, 0, 0, 738, 222, 0, 0, 0, 0, 846, 223, 0, 0, 0, 0, 952, 186, 0, 0, 0, 0, 984, 228, 0, 0, 0, 0, 987, 365, 0, 0, 0, 0, 910, 469)
 }
-point_count = 21
+point_count = 26
 
 [node name="floor4" type="Node2D" unique_id=1963433244]
 
@@ -1312,17 +1321,69 @@ color = Color(0.2789908, 0.27899083, 0.27899083, 1)
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1515179127]
 position = Vector2(953, 33)
 
+[node name="FloorStairs4to5" type="Area2D" parent="." unique_id=1942002682]
+position = Vector2(336, 573)
+collision_mask = 0
+script = ExtResource("20_h4yqk")
+target_floor = 5
+destination_spawn_marker = "SpawnFromFloor4"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs4to5" unique_id=106097877]
+position = Vector2(0, 0.25)
+shape = SubResource("RectangleShape2D_b50fy")
+
 [node name="SpawnFromFloor5" type="Marker2D" parent="." unique_id=312168866]
 position = Vector2(336, 573)
 
-[node name="Orca" parent="." unique_id=2000482544 node_paths=PackedStringArray("path_follow") instance=ExtResource("20_h4yqk")]
+[node name="FloorStairs4to3" type="Area2D" parent="." unique_id=371450711]
+position = Vector2(433, 573)
+collision_mask = 0
+script = ExtResource("20_h4yqk")
+target_floor = 3
+destination_spawn_marker = "SpawnFromFloor4"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs4to3" unique_id=1519308949]
+shape = SubResource("RectangleShape2D_b50fy")
+
+[node name="SpawnFromFloor3" type="Marker2D" parent="." unique_id=1258481884]
+position = Vector2(433, 573)
+
+[node name="Room407Door" type="Area2D" parent="." unique_id=1056625285]
+position = Vector2(81.7, 432)
+collision_mask = 0
+script = ExtResource("21_77k8e")
+destination_scene = "res://scenes/room/room407.tscn"
+destination_spawn_marker = "PlayerSpawn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room407Door" unique_id=380931620]
+shape = SubResource("RectangleShape2D_v1drc")
+
+[node name="SpawnFrom407" type="Marker2D" parent="." unique_id=1171427419]
+position = Vector2(141, 432)
+
+[node name="Room408Door" type="Area2D" parent="." unique_id=913874979]
+position = Vector2(82, 175)
+collision_mask = 0
+script = ExtResource("21_77k8e")
+destination_scene = "res://scenes/room/room408.tscn"
+destination_spawn_marker = "PlayerSpawn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room408Door" unique_id=441379801]
+shape = SubResource("RectangleShape2D_v1drc")
+
+[node name="SpawnFrom408" type="Marker2D" parent="." unique_id=850332194]
+position = Vector2(140, 175)
+
+[node name="Orca" parent="." unique_id=2000482544 node_paths=PackedStringArray("path_follow") instance=ExtResource("22_obppl")]
+position = Vector2(992, 456.00003)
 path_follow = NodePath("../PatrolPath/PathFollow2D")
-sight_range = 500.0
 
-[node name="PatrolPath" type="Path2D" parent="." unique_id=1055430866]
-curve = SubResource("Curve2D_h4yqk")
+[node name="orca_floor_4" type="Node" parent="." unique_id=160735088]
+script = ExtResource("23_h848w")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="PatrolPath" unique_id=774012256]
-position = Vector2(992, 481)
-rotation = 3.1415925
-rotates = false
+[node name="PatrolPath" type="Path2D" parent="." unique_id=188990803]
+curve = SubResource("Curve2D_mmbjh")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="PatrolPath" unique_id=779048837]
+position = Vector2(910, 469)
+rotation = -2.4213197
