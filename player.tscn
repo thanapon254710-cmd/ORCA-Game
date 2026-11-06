@@ -20,6 +20,38 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_606se")
+}],
+"loop": 1,
+"name": &"Idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_q13i1")
+}],
+"loop": 1,
+"name": &"Idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_5tmop")
+}],
+"loop": 1,
+"name": &"Idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_dx0e4")
+}],
+"loop": 1,
+"name": &"Idle_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_606se")
 }, {
 "duration": 1.0,
 "texture": ExtResource("3_u1c27")
@@ -128,13 +160,11 @@ collision_layer = 2
 script = ExtResource("1_i3pqv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=639495596]
-position = Vector2(54, 0)
 scale = Vector2(1.602, 1.602)
 sprite_frames = SubResource("SpriteFrames_5h11f")
-frame_progress = 0.7318238
+animation = &"Idle_up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2041220931]
-position = Vector2(54, 0)
 shape = SubResource("CapsuleShape2D_hq3ai")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=632584784]
@@ -142,7 +172,6 @@ position = Vector2(-21, -24)
 zoom = Vector2(1.5, 1.5)
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=225097483]
-position = Vector2(54, 0)
 scale = Vector2(25.833122, 24.495941)
 color = Color(0.8392157, 0.8392157, 0.8392157, 0.7921569)
 texture = ExtResource("2_onrkg")
@@ -152,5 +181,5 @@ texture_scale = 0.01
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=726863881]
-position = Vector2(54, 0)
 shape = SubResource("CircleShape2D_b50fy")
+debug_color = Color(0.9800499, 0, 0.38687718, 0.41960785)
