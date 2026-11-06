@@ -17,35 +17,80 @@ func _ready() -> void:
 		orca.player_caught.connect(_on_player_caught)
 
 func _on_player_caught() -> void:
-	print("GAME OVER")
-	get_tree().paused = true                   # หยุดเกมทั้งหมด
-	
-	# ทำเอฟเฟกต์ภาพสั่น
-	await _trigger_screen_shake()
-	
-	# รอจนครบ 1 วินาที (หากสั่นเสร็จก่อน)
-	await get_tree().create_timer(0.5).timeout
-	
-	get_tree().paused = false
-	get_tree().reload_current_scene()          # เริ่มด่านใหม่
 
+	print("GAME OVER")
+
+	# Save the SceneTree reference before awaiting
+	var tree = get_tree()
+
+	if tree == null:
+		return
+
+	# Close question popups
+	tree.call_group(
+		"question_points",
+        "close_question_ui"
+	)
+
+	# Pause the game
+	tree.paused = true
+
+	await _trigger_screen_shake()
+
+	# Check that the tree is still valid
+	if not is_instance_valid(tree):
+		return
+
+	# Wait using the saved SceneTree reference
+	tree.paused = false
+
+	await tree.create_timer(0.5).timeout
+
+	if not is_instance_valid(tree):
+		return
+
+	tree.reload_current_scene()
+	
 # ฟังก์ชันสุ่มเขย่ากล้อง Camera2D
 func _trigger_screen_shake() -> void:
-	var camera := get_viewport().get_camera_2d()
-	if camera == null:
+
+	# Make sure this node is still inside the scene tree
+	if not is_inside_tree():
 		return
-		
-	var original_offset := camera.offset
-	var elapsed := 0.0
-	
+
+	var tree = get_tree()
+
+	if tree == null:
+		return
+
+	# Get the main viewport safely
+	var viewport = tree.root
+
+	if viewport == null:
+		return
+
+	var camera = viewport.get_camera_2d()
+
+	if camera == null:
+		print("WARNING: No active Camera2D found!")
+		return
+
+	var original_offset = camera.offset
+	var elapsed = 0.0
+
 	while elapsed < shake_duration:
-		# สุ่มตำแหน่ง offset ของกล้อง
+
+		if not is_instance_valid(camera):
+			return
+
 		camera.offset = original_offset + Vector2(
 			randf_range(-shake_intensity, shake_intensity),
 			randf_range(-shake_intensity, shake_intensity)
 		)
-		# ใช้ process_frame เพื่ออัปเดตตำแหน่งกล้องทุกเฟรมแม้ขณะ paused
-		await get_tree().process_frame
+
+		await tree.process_frame
+
 		elapsed += get_process_delta_time()
-		
-	camera.offset = original_offset # คืนค่าตำแหน่งกล้องเดิม
+
+	if is_instance_valid(camera):
+		camera.offset = original_offset

@@ -17,6 +17,8 @@ var prompt: Label = null
 # --------------------------------------------------
 
 func _ready() -> void:
+	add_to_group("question_points")
+
 	collision_layer = 1
 	collision_mask = 0
 
@@ -289,3 +291,12 @@ func _submit_answer(answer: String) -> void:
 	else:
 
 		print("Incorrect! Try again.")
+
+func close_question_ui() -> void:
+
+	if is_instance_valid(question_ui):
+		question_ui.free()
+		question_ui = null
+
+	if is_instance_valid(prompt):
+		prompt.visible = false
