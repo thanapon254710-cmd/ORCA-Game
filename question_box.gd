@@ -22,6 +22,18 @@ signal question_answered(correct: bool)
 @onready var double_input_container: HBoxContainer = $Panel/VBoxContainer/InputContainer/DoubleInputContainer
 @onready var input_a: LineEdit = $Panel/VBoxContainer/InputContainer/DoubleInputContainer/AnswerInputA
 @onready var input_b: LineEdit = $Panel/VBoxContainer/InputContainer/DoubleInputContainer/AnswerInputB
+
+# กลุ่มช่องกรอก 4 ช่อง (Quad Input - ข้อ 3.1)
+@onready var quad_input_container: GridContainer = $Panel/VBoxContainer/InputContainer/QuadInputContainer
+@onready var label_1: Label = $Panel/VBoxContainer/InputContainer/QuadInputContainer/Label1
+@onready var input_1: LineEdit = $Panel/VBoxContainer/InputContainer/QuadInputContainer/AnswerInput1
+@onready var label_2: Label = $Panel/VBoxContainer/InputContainer/QuadInputContainer/Label2
+@onready var input_2: LineEdit = $Panel/VBoxContainer/InputContainer/QuadInputContainer/AnswerInput2
+@onready var label_3: Label = $Panel/VBoxContainer/InputContainer/QuadInputContainer/Label3
+@onready var input_3: LineEdit = $Panel/VBoxContainer/InputContainer/QuadInputContainer/AnswerInput3
+@onready var label_4: Label = $Panel/VBoxContainer/InputContainer/QuadInputContainer/Label4
+@onready var input_4: LineEdit = $Panel/VBoxContainer/InputContainer/QuadInputContainer/AnswerInput4
+
 @onready var submit_button: Button = $Panel/VBoxContainer/InputContainer/SubmitButton
 
 var current_question_data = {}
@@ -37,8 +49,16 @@ func _ready():
 	# ผูกปุ่มกดยืนยัน
 	submit_button.pressed.connect(_on_submit_input)
 	single_input.text_submitted.connect(func(_t): _on_submit_input())
-	input_a.text_submitted.connect(func(_t): input_b.grab_focus()) # กด Enter ที่ช่อง A ให้เด้งไปช่อง B ทันที
-	input_b.text_submitted.connect(func(_t): _on_submit_input())   # กด Enter ที่ช่อง B ให้ส่งคำตอบเลย
+	
+	# กด Enter ข้ามช่องสำหรับ Double Input (A -> B -> ส่งคำตอบ)
+	input_a.text_submitted.connect(func(_t): input_b.grab_focus())
+	input_b.text_submitted.connect(func(_t): _on_submit_input())
+	
+	# กด Enter ข้ามช่องสำหรับ Quad Input (1 -> 2 -> 3 -> 4 -> ส่งคำตอบ)
+	input_1.text_submitted.connect(func(_t): input_2.grab_focus())
+	input_2.text_submitted.connect(func(_t): input_3.grab_focus())
+	input_3.text_submitted.connect(func(_t): input_4.grab_focus())
+	input_4.text_submitted.connect(func(_t): _on_submit_input())
 	
 	load_questions_from_json()
 	
@@ -46,7 +66,6 @@ func _ready():
 	if questions_list.size() > 0:
 		current_question_index = 0
 		display_question(questions_list[current_question_index])
-		
 
 func load_questions_from_json():
 	var file_path = "res://data/questions.json"
@@ -80,24 +99,46 @@ func display_question(data: Dictionary):
 	if img_path != "" and ResourceLoader.exists(img_path):
 		question_image.texture = load(img_path)
 		question_image.visible = true
-		question_image.custom_minimum_size = Vector2(0, 150) # ปรับความสูงรูปตามความเหมาะสม
+		question_image.custom_minimum_size = Vector2(0, 150)
 	else:
 		question_image.texture = null
 		question_image.visible = false
 	
 	var q_type = data.get("type", "multiple_choice")
 	
-	# 2. กรณีช่องกรอกคู่ (ข้อ 5.2)
-	if q_type == "text_input_double":
+	# 2. กรณีช่องกรอก 4 ช่อง (ข้อ 3.1 XOR)
+	if q_type == "text_input_quad":
+		choices_container.visible = false
+		input_container.visible = true
+		single_input.visible = false
+		double_input_container.visible = false
+		quad_input_container.visible = true
+		
+		# กำหนด Label ข้อความ XOR ในโค้ดโดยตรง
+		label_1.text = "0 XOR 0 = "
+		label_2.text = "0 XOR 1 = "
+		label_3.text = "1 XOR 0 = "
+		label_4.text = "1 XOR 1 = "
+		
+		# ล้างค่าช่องพิมพ์และเปิดให้แก้ไข
+		for inp in [input_1, input_2, input_3, input_4]:
+			inp.text = ""
+			inp.editable = true
+			inp.placeholder_text = "0 หรือ 1"
+			
+		submit_button.disabled = false
+		input_1.grab_focus()
+		
+	# 3. กรณีช่องกรอกคู่ (ข้อ 5.2)
+	elif q_type == "text_input_double":
 		choices_container.visible = false
 		input_container.visible = true
 		single_input.visible = false
 		double_input_container.visible = true
+		quad_input_container.visible = false
 		
 		input_a.text = ""
 		input_b.text = ""
-		
-		# เพิ่ม 2 บรรทัดนี้เพื่อใส่ข้อความนำทางในช่อง:
 		input_a.placeholder_text = "A ="
 		input_b.placeholder_text = "B ="
 		
@@ -106,19 +147,20 @@ func display_question(data: Dictionary):
 		submit_button.disabled = false
 		input_a.grab_focus()
 		
-	# 3. กรณีช่องกรอกเดี่ยว (ข้อ 5.1)
+	# 4. กรณีช่องกรอกเดี่ยว (ข้อ 5.1)
 	elif q_type == "text_input":
 		choices_container.visible = false
 		input_container.visible = true
 		single_input.visible = true
 		double_input_container.visible = false
+		quad_input_container.visible = false
 		
 		single_input.text = ""
 		single_input.editable = true
 		submit_button.disabled = false
 		single_input.grab_focus()
 		
-	# 4. กรณีตัวเลือก (Multiple Choice)
+	# 5. กรณีตัวเลือก (Multiple Choice)
 	else:
 		input_container.visible = false
 		choices_container.visible = true
@@ -154,11 +196,29 @@ func _on_submit_input():
 	var correct_val = str(current_question_data.get("correct_answer", ""))
 	var is_correct = false
 	
-	if q_type == "text_input_double":
+	if q_type == "text_input_quad":
+		var u1 = input_1.text.strip_edges()
+		var u2 = input_2.text.strip_edges()
+		var u3 = input_3.text.strip_edges()
+		var u4 = input_4.text.strip_edges()
+		
+		# เฉลยรูปแบบ "0, 1, 1, 0"
+		var parts = correct_val.split(",")
+		if parts.size() >= 4:
+			is_correct = (
+				u1 == parts[0].strip_edges() and
+				u2 == parts[1].strip_edges() and
+				u3 == parts[2].strip_edges() and
+				u4 == parts[3].strip_edges()
+			)
+			
+		for inp in [input_1, input_2, input_3, input_4]:
+			inp.editable = false
+			
+	elif q_type == "text_input_double":
 		var val_a = input_a.text.strip_edges().replace(" ", "").to_lower()
 		var val_b = input_b.text.strip_edges().replace(" ", "").to_lower()
 		
-		# เฉลยรูปแบบ "n, n+1"
 		var parts = correct_val.split(",")
 		if parts.size() >= 2:
 			var ans_a = parts[0].strip_edges().replace(" ", "").to_lower()
