@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://gi1w7ltxvfkq" path="res://assets/sprites/prop5.png" id="5_7nq3v"]
 [ext_resource type="PackedScene" uid="uid://c7pwe2ghy86cb" path="res://player.tscn" id="6_xhphg"]
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="7_rv4a6"]
+[ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="8_e64pu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xhphg"]
 texture = ExtResource("1_ouej7")
@@ -663,3 +664,6 @@ destination_spawn_marker = "SpawnFromFloor1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs1to2" unique_id=1895639199]
 shape = SubResource("RectangleShape2D_e64pu")
+
+[node name="Orca" parent="." unique_id=2000482544 instance=ExtResource("8_e64pu")]
+position = Vector2(1000, 528)

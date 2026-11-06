@@ -1,16 +1,16 @@
 extends CharacterBody2D
 
 signal player_caught
-signal state_changed(new_state: int)   # Signal for sound/VFX state triggers
+signal state_changed(new_state: int)
 
 enum State { PATROL, CHASE, RETURN }
 
 @export var speed: float = 100.0
-@export var chase_multiplier: float = 1.5     # Speed multiplier when chasing
-@export var lose_sight_time: float = 1.5      # Time before giving up chase after losing sight (seconds)
+@export var chase_multiplier: float = 1.8
+@export var lose_sight_time: float = 2.0
 @export var path_follow: PathFollow2D
-@export var sight_range: float = 200.0
-@export_range(10, 180) var sight_angle: float = 90.0
+@export var sight_range: float = 220.0
+@export_range(10, 180) var sight_angle: float = 100.0
 @export var debug_draw: bool = true
 
 @onready var sprite: Sprite2D = $Sprite2D
@@ -24,7 +24,6 @@ var last_seen_pos := Vector2.ZERO
 var lose_timer := 0.0
 
 func _ready() -> void:
-	# Automatically checks for either HitBox or Area2D collision nodes
 	if has_node("HitBox"):
 		$HitBox.body_entered.connect(_on_hitbox_body_entered)
 	elif has_node("Area2D"):
@@ -34,8 +33,9 @@ func _ready() -> void:
 		global_position = path_follow.global_position
 
 func _physics_process(delta: float) -> void:
-	if path_follow == null:
+	if has_caught:
 		return
+		
 	match state:
 		State.PATROL:
 			_patrol(delta)
@@ -45,40 +45,72 @@ func _physics_process(delta: float) -> void:
 			_return_to_path(delta)
 	_update_visual()
 
-# ---------- STATE: PATROL (Walk along Path2D) ----------
+# ---------- STATE: PATROL ----------
 func _patrol(delta: float) -> void:
+	if path_follow == null:
+		return
+
+	if can_see_player():
+		_change_state(State.CHASE)
+		return
+
 	var old_pos := global_position
 	path_follow.progress += speed * delta
 	global_position = path_follow.global_position
-	_face(global_position - old_pos)
 
-	if can_see_player():
-		_change_state(State.CHASE)
+	var move := global_position - old_pos
+	if move.length() > 0.01:
+		_face(move)
 
-# ---------- STATE: CHASE (Pursue Player) ----------
+# ---------- STATE: CHASE (พุ่งใส่ Player โดยใช้ Velocity ปลดล็อก Path2D) ----------
 func _chase(delta: float) -> void:
-	if can_see_player():
-		last_seen_pos = player.global_position   # Store last seen position
-		lose_timer = lose_sight_time
+	if player == null:
+		player = get_tree().get_first_node_in_group("player")
+
+	if player:
+		# อัปเดตพิกัดเป้าหมายตามตัว Player ตลอดเวลา
+		last_seen_pos = player.global_position
+		
+		# ถ้าเห็นตัว หรืออยู่ในระยะสายตา ให้เติมเวลาเต็มเสมอ
+		if can_see_player() or global_position.distance_to(player.global_position) <= sight_range:
+			lose_timer = lose_sight_time
+		else:
+			lose_timer -= delta
 	else:
 		lose_timer -= delta
-		if lose_timer <= 0.0:
-			_change_state(State.RETURN)
-			return
 
-	# Move towards the last known player position
+	# หลุดสายตาและหมดเวลาดมกลิ่นแล้วจริงๆ ถึงจะถอยกลับ
+	if lose_timer <= 0.0:
+		_change_state(State.RETURN)
+		return
+
+	# คำนวณทิศทางและสั่งเคลื่อนที่ด้วย velocity
 	var to_target := last_seen_pos - global_position
 	if to_target.length() > 4.0:
-		velocity = to_target.normalized() * speed * chase_multiplier
-		move_and_slide()   # Slide along walls without passing through
-		_face(velocity)
+		var target_dir := to_target.normalized()
+		var move_velocity := target_dir * (speed * chase_multiplier)
+		
+		# ไถลหลบขอบตู้หนังสือ/สิ่งกีดขวางกันติดมุม[cite: 5]
+		if is_on_wall():
+			var wall_n := get_wall_normal().normalized()
+			if wall_n.length() > 0.0:
+				move_velocity = move_velocity.slide(wall_n)
+				
+		velocity = move_velocity
+		move_and_slide()
+		
+		if velocity.length() > 5.0:
+			_face(velocity)
 	else:
-		velocity = Vector2.ZERO   # Reached last seen point, wait and observe
+		velocity = Vector2.ZERO
 
-# ---------- STATE: RETURN (Return to Patrol Path) ----------
+# ---------- STATE: RETURN ----------
 func _return_to_path(delta: float) -> void:
 	if can_see_player():
 		_change_state(State.CHASE)
+		return
+
+	if path_follow == null:
 		return
 
 	var target := path_follow.global_position
@@ -100,8 +132,12 @@ func _change_state(new_state: State) -> void:
 
 	match state:
 		State.CHASE:
+			if player == null:
+				player = get_tree().get_first_node_in_group("player")
 			if player:
 				last_seen_pos = player.global_position
+				var to_p := (player.global_position - global_position).normalized()
+				_face(to_p)
 			lose_timer = lose_sight_time
 		State.RETURN:
 			_snap_guide_to_nearest_point()
@@ -109,7 +145,6 @@ func _change_state(new_state: State) -> void:
 	print("Orca → ", State.keys()[state])
 	state_changed.emit(state)
 
-# Snap path_follow progress to the closest point on the curve relative to Orca
 func _snap_guide_to_nearest_point() -> void:
 	if path_follow and path_follow.get_parent() is Path2D:
 		var path := path_follow.get_parent() as Path2D
@@ -121,7 +156,7 @@ func _face(dir: Vector2) -> void:
 	if dir.length() > 0.01:
 		facing = dir.normalized()
 		if absf(dir.x) > 0.01:
-			sprite.flip_h = dir.x > 0  
+			sprite.flip_h = dir.x > 0
 
 func _update_visual() -> void:
 	match state:
@@ -141,19 +176,18 @@ func can_see_player() -> bool:
 
 	var to_player := player.global_position - global_position
 
-	# Condition 1: Within distance range?
 	if to_player.length() > sight_range:
 		return false
 
-	# Condition 2: Within vision cone angle?
 	var angle := absf(rad_to_deg(facing.angle_to(to_player)))
 	if angle > sight_angle / 2.0:
 		return false
 
-	# Condition 3: Line of sight blocked by wall?
 	vision.target_position = vision.to_local(player.global_position)
 	vision.force_raycast_update()
-	return vision.get_collider() == player
+	
+	var collider := vision.get_collider()
+	return collider == null or collider == player or collider.is_in_group("player")
 
 func _draw() -> void:
 	if not debug_draw:
