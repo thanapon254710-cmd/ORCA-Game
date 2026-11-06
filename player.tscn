@@ -1,33 +1,20 @@
 [gd_scene format=3 uid="uid://c7pwe2ghy86cb"]
 
 [ext_resource type="Texture2D" uid="uid://cqo4ryfwm6wpy" path="res://Front_Draft1 (1).png" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://bl6j5grfxd1h4" path="res://scripts/player/player.gd" id="1_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสง.jpg" id="2_onrkg"]
-
-[sub_resource type="GDScript" id="GDScript_4flbx"]
-resource_name = "player"
-script/source = "extends CharacterBody2D
-
-@export var speed: float = 200.0
-
-func _physics_process(_delta: float) -> void:
-	var direction := Input.get_vector(
-		\"move_left\",
-		\"move_right\",
-		\"move_up\",
-        \"move_down\"
-	)
-
-	velocity = direction * speed
-	move_and_slide()
-"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hq3ai"]
 radius = 13.0
 height = 44.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_b50fy"]
+radius = 40.0
+
 [node name="Player" type="CharacterBody2D" unique_id=472222300]
 position = Vector2(452, 247)
-script = SubResource("GDScript_4flbx")
+collision_layer = 2
+script = ExtResource("1_i3pqv")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=453819253]
 texture_filter = 1
@@ -44,8 +31,15 @@ position = Vector2(-21, -24)
 zoom = Vector2(1.5, 1.5)
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=225097483]
-position = Vector2(-19.999994, -21.000004)
-scale = Vector2(23.78453, 23.603525)
-color = Color(0.8392157, 0.8392157, 0.8392157, 0.8784314)
+position = Vector2(-18.999996, -20.000002)
+scale = Vector2(25.833122, 24.495941)
+color = Color(0.8392157, 0.8392157, 0.8392157, 0.7921569)
 texture = ExtResource("2_onrkg")
 texture_scale = 0.01
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=2075346170]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=726863881]
+position = Vector2(-21, -21)
+shape = SubResource("CircleShape2D_b50fy")
