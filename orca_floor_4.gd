@@ -39,14 +39,16 @@ func _ready() -> void:
 				orca.player_caught.connect(_on_player_caught)
 
 func _on_player_caught() -> void:
-	print("GAME OVER - FLOOR 5")
+	print("GAME OVER - FLOOR 4")
 	get_tree().paused = true
-	
+
 	await _trigger_screen_shake()
 	await get_tree().create_timer(0.8, true, false, true).timeout
-	
+
 	get_tree().paused = false
-	get_tree().reload_current_scene()
+
+	# Respawn at PlayerSpawn instead of the original Player position.
+	await TransitionManager.respawn_player()
 
 func _trigger_screen_shake() -> void:
 	var camera := get_viewport().get_camera_2d()

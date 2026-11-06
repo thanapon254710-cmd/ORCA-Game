@@ -46,7 +46,7 @@ func _on_player_caught() -> void:
 	await get_tree().create_timer(0.8, true, false, true).timeout
 	
 	get_tree().paused = false
-	get_tree().reload_current_scene()
+	await TransitionManager.respawn_player()
 
 func _trigger_screen_shake() -> void:
 	var camera := get_viewport().get_camera_2d()

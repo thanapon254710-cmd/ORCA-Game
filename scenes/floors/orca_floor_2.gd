@@ -52,7 +52,7 @@ func _on_player_caught() -> void:
 	
 	# 3. คืนค่า Pause แล้วเริ่มฉากใหม่
 	get_tree().paused = false
-	get_tree().reload_current_scene()
+	await TransitionManager.respawn_player()
 
 func _trigger_screen_shake() -> void:
 	var camera := get_viewport().get_camera_2d()
