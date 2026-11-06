@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ck0g8y6paqkj6"
-path="res://.godot/imported/แสง.jpg-23b9b1955db8732099ee08748758bcb1.ctex"
+uid="uid://ct1u8hkxdtq5l"
+path="res://.godot/imported/404.png-79fb5dccac3e208a3b5d53391afa640e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://แสง.jpg"
-dest_files=["res://.godot/imported/แสง.jpg-23b9b1955db8732099ee08748758bcb1.ctex"]
+source_file="res://assets/sprites/404.png"
+dest_files=["res://.godot/imported/404.png-79fb5dccac3e208a3b5d53391afa640e.ctex"]
 
 [params]
 

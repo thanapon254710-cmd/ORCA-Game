@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bl6j5grfxd1h4" path="res://scripts/player/player.gd" id="1_vop8p"]
 [ext_resource type="Texture2D" uid="uid://cx1ci1j61yedx" path="res://assets/sprites/Animation/Main_player/Front_Draft1.png" id="2_i62jw"]
-[ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสง.jpg" id="3_bhnal"]
+[ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสงวงกลม.jpg" id="3_bhnal"]
 [ext_resource type="Texture2D" uid="uid://dsucmcw6mv17f" path="res://assets/sprites/Animation/Main_player/Front_Draft1_เดิน1.png" id="3_ikxd4"]
 [ext_resource type="Texture2D" uid="uid://c1e747dhpvkia" path="res://assets/sprites/Animation/Main_player/Front_Draft1_เดิน2.png" id="4_r433l"]
 [ext_resource type="Texture2D" uid="uid://cho1ifqctylsi" path="res://assets/sprites/Animation/Main_player/Side_Draft1_ซ้าย.png" id="5_4w63e"]

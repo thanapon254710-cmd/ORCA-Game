@@ -19,7 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://cs65i4s65k46a" path="res://assets/sprites/prop.png" id="11_itsuw"]
 [ext_resource type="Texture2D" uid="uid://sxvkvddblwkp" path="res://assets/sprites/school-furniture-student-desks-horror.png" id="14_0fjm4"]
 [ext_resource type="Texture2D" uid="uid://eveg8hxu0w3u" path="res://assets/sprites/prop2.png" id="14_dqcpj"]
-[ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสง.jpg" id="20_grbpu"]
+[ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสงวงกลม.jpg" id="20_grbpu"]
 [ext_resource type="Script" uid="uid://cr7aguwcp27jo" path="res://scenes/room/RoomDoor.gd" id="21_0fjm4"]
 [ext_resource type="Script" uid="uid://bou64gtml2sc2" path="res://scenes/room/room408_fuse_box.gd" id="22_8fdfc"]
 [ext_resource type="Script" uid="uid://bm7ry8o2ahd1l" path="res://scenes/room/computer_hint.gd" id="23_pdrpk"]

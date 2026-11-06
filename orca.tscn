@@ -48,4 +48,5 @@ stream = ExtResource("4_083xy")
 [node name="SfxCaught" type="AudioStreamPlayer" parent="." unique_id=443495302]
 stream = ExtResource("5_hdrnb")
 
-[node name="GameOverPopup" parent="." unique_id=1025532891 instance=ExtResource("game_over_popup")]
+[node name="GameOverPopup" parent="." unique_id=1486938208 instance=ExtResource("game_over_popup")]
+visible = false
