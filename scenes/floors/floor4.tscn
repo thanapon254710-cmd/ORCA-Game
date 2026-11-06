@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://bbfedd2tvfhar" path="res://แสงสี่เหลี่ยม.jpg" id="28_ueo2k"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="29_ucpdf"]
 [ext_resource type="Script" uid="uid://clnxba2ia12mh" path="res://scenes/floors/orca_floor_4.gd" id="30_ucpdf"]
+[ext_resource type="PackedScene" path="res://scenes/inventory/items/key_yellow.tscn" id="31_e5plf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kxqf"]
 texture = ExtResource("1_hy4yd")
@@ -1328,7 +1329,7 @@ sources/22 = SubResource("TileSetAtlasSource_vyvwq")
 sources/23 = SubResource("TileSetAtlasSource_b8gyh")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b50fy"]
-size = Vector2(73.5, 94.5)
+size = Vector2(71, 81.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1drc"]
 size = Vector2(87, 54)
@@ -1372,7 +1373,7 @@ target_floor = 5
 destination_spawn_marker = "SpawnFromFloor4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs4to5" unique_id=106097877]
-position = Vector2(0, 0.25)
+position = Vector2(-4, 6)
 shape = SubResource("RectangleShape2D_b50fy")
 
 [node name="SpawnFromFloor5" type="Marker2D" parent="." unique_id=312168866]
@@ -1386,11 +1387,11 @@ target_floor = 3
 destination_spawn_marker = "SpawnFromFloor4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs4to3" unique_id=1519308949]
-position = Vector2(8.75, 0)
+position = Vector2(-1, 6)
 shape = SubResource("RectangleShape2D_b50fy")
 
 [node name="SpawnFromFloor3" type="Marker2D" parent="." unique_id=1258481884]
-position = Vector2(433, 573)
+position = Vector2(433, 574)
 
 [node name="Room407Door" type="Area2D" parent="." unique_id=1056625285]
 position = Vector2(81.7, 432)
@@ -1467,5 +1468,9 @@ curve = SubResource("Curve2D_ucpdf")
 position = Vector2(-659.4121, -311.97144)
 rotation = 2.4724972
 
-[node name="orca_floor_4" type="Node" parent="." unique_id=1798164486]
-script = ExtResource("30_ucpdf")
+[node name="orca_floor_4" type="Node" parent="." unique_id=1141609695]
+script = ExtResource("30_e5plf")
+
+[node name="key_yellow" parent="." unique_id=2096016983 instance=ExtResource("31_e5plf")]
+position = Vector2(990, 474)
+item_id = "Keywordft4"

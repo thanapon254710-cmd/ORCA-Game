@@ -1382,7 +1382,7 @@ sources/10 = SubResource("TileSetAtlasSource_oimqh")
 sources/11 = SubResource("TileSetAtlasSource_upcpg")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kipsh"]
-size = Vector2(88.5, 114)
+size = Vector2(88.5, 66)
 
 [sub_resource type="Curve2D" id="Curve2D_nbsd3"]
 _data = {
@@ -1428,6 +1428,7 @@ script = ExtResource("13_i23eo")
 destination_spawn_marker = "SpawnFromFloor3"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs3to4" unique_id=2017440712]
+position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_kipsh")
 
 [node name="FloorStairs3to2" type="Area2D" parent="." unique_id=1281134782]
@@ -1438,6 +1439,7 @@ target_floor = 2
 destination_spawn_marker = "SpawnFromFloor3"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs3to2" unique_id=1785667734]
+position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_kipsh")
 
 [node name="Path2D" type="Path2D" parent="." unique_id=517045263]
