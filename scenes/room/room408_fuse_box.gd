@@ -38,7 +38,6 @@ func interact(_player: Node):
 
 	wire_puzzle = WIRE_PUZZLE_SCENE.instantiate()
 	get_tree().root.add_child(wire_puzzle)
-
 	wire_puzzle.question_answered.connect(_on_puzzle_answered)
 
 
@@ -46,4 +45,6 @@ func _on_puzzle_answered(correct: bool):
 	if correct:
 		if not GameState.questions_answered.has(QUESTION_ID):
 			GameState.questions_answered.append(QUESTION_ID)
+
+		GameState.collect_passkey(4)
 		set_focused(false)

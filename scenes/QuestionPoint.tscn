@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bgrdfkn12tryh" path="res://scenes/question_point.gd" id="1_m3jwp"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_b50fy"]
-radius = 24.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m3jwp"]
+size = Vector2(60, 60)
 
 [node name="QuestionPoint" type="Area2D" unique_id=2029985172]
 collision_mask = 0
@@ -11,4 +11,4 @@ script = ExtResource("1_m3jwp")
 question_index = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=208865274]
-shape = SubResource("CircleShape2D_b50fy")
+shape = SubResource("RectangleShape2D_m3jwp")
