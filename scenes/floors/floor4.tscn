@@ -27,11 +27,11 @@
 [ext_resource type="Texture2D" uid="uid://ldohfvbq0jpa" path="res://assets/sprites/408.png" id="17_e5plf"]
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="20_h4yqk"]
 [ext_resource type="Script" uid="uid://cr7aguwcp27jo" path="res://scenes/room/RoomDoor.gd" id="21_77k8e"]
+[ext_resource type="PackedScene" uid="uid://bayn15qbyvf7a" path="res://stair_puzzle.tscn" id="27_y7s7m"]
 [ext_resource type="Texture2D" uid="uid://bbfedd2tvfhar" path="res://แสงสี่เหลี่ยม.jpg" id="28_ueo2k"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="29_ucpdf"]
 [ext_resource type="Script" uid="uid://dhqokselbjnyg" path="res://orca_floor_4.gd" id="30_e5plf"]
 [ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="31_e5plf"]
-[ext_resource type="Script" uid="uid://bjkfoptj0kjut" path="res://stair_puzzle.gd" id="32_l52j7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kxqf"]
 texture = ExtResource("1_hy4yd")
@@ -1389,6 +1389,7 @@ collision_mask = 0
 script = ExtResource("20_h4yqk")
 target_floor = 3
 destination_spawn_marker = "SpawnFromFloor4"
+stair_puzzle_scene = ExtResource("27_y7s7m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs4to3" unique_id=1519308949]
 position = Vector2(-1, 6)
@@ -1493,4 +1494,8 @@ shape = SubResource("RectangleShape2D_oqb0x")
 [node name="Question_PassKey" parent="." unique_id=2071297216 instance=ExtResource("31_e5plf")]
 position = Vector2(436.00003, 501)
 scale = Vector2(1.5, 0.5)
-script = ExtResource("32_l52j7")
+script = ExtResource("20_h4yqk")
+target_floor = 3
+destination_spawn_marker = "SpawnFromFloor4"
+prompt_text = "Press E to use stairs"
+stair_puzzle_scene = ExtResource("27_y7s7m")
