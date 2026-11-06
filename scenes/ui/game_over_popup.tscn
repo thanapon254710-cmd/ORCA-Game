@@ -6,7 +6,6 @@
 [node name="GameOverPopup" type="CanvasLayer" unique_id=1227558051]
 process_mode = 3
 layer = 200
-visible = false
 script = ExtResource("1")
 
 [node name="Backdrop" type="ColorRect" parent="." unique_id=1272024144]
