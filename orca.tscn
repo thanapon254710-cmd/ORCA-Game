@@ -1,4 +1,5 @@
 [gd_scene format=3 uid="uid://buys13wha88m7"]
+[ext_resource type="PackedScene" path="res://scenes/ui/game_over_popup.tscn" id="game_over_popup"]
 
 [ext_resource type="Texture2D" uid="uid://bb1f0up708ait" path="res://OrcaBloody.png" id="1_44a57"]
 [ext_resource type="Script" uid="uid://tyrj60b5uerr" path="res://orca.gd" id="1_yluti"]
@@ -46,3 +47,5 @@ stream = ExtResource("4_083xy")
 
 [node name="SfxCaught" type="AudioStreamPlayer" parent="." unique_id=443495302]
 stream = ExtResource("5_hdrnb")
+
+[node name="GameOverPopup" parent="." instance=ExtResource("game_over_popup")]

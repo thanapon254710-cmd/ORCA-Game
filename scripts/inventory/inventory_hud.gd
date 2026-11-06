@@ -6,6 +6,7 @@ extends CanvasLayer
 @onready var notice_timer: Timer = $NoticeTimer
 
 func _ready() -> void:
+    $Root/Panel.hide()
     inventory.changed.connect(_refresh)
     inventory.item_collected.connect(_on_collected)
     notice_timer.timeout.connect(notice.hide)
