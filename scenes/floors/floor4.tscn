@@ -1283,7 +1283,7 @@ sources/20 = SubResource("TileSetAtlasSource_mmbjh")
 sources/21 = SubResource("TileSetAtlasSource_lsugr")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b50fy"]
-size = Vector2(91, 105)
+size = Vector2(91, 94.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1drc"]
 size = Vector2(87, 54)
@@ -1321,6 +1321,7 @@ target_floor = 5
 destination_spawn_marker = "SpawnFromFloor4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs4to5" unique_id=106097877]
+position = Vector2(0, 0.25)
 shape = SubResource("RectangleShape2D_b50fy")
 
 [node name="SpawnFromFloor5" type="Marker2D" parent="." unique_id=312168866]
@@ -1350,4 +1351,17 @@ destination_spawn_marker = "PlayerSpawn"
 shape = SubResource("RectangleShape2D_v1drc")
 
 [node name="SpawnFrom407" type="Marker2D" parent="." unique_id=1171427419]
-position = Vector2(866, 1146)
+position = Vector2(141, 432)
+
+[node name="Room408Door" type="Area2D" parent="." unique_id=913874979]
+position = Vector2(82, 175)
+collision_mask = 0
+script = ExtResource("21_77k8e")
+destination_scene = "res://scenes/room/room408.tscn"
+destination_spawn_marker = "PlayerSpawn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room408Door" unique_id=441379801]
+shape = SubResource("RectangleShape2D_v1drc")
+
+[node name="SpawnFrom408" type="Marker2D" parent="." unique_id=850332194]
+position = Vector2(140, 175)

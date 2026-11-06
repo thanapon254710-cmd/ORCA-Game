@@ -631,7 +631,7 @@ position = Vector2(1151, 242)
 collision_mask = 0
 script = ExtResource("16_v1drc")
 destination_scene = "res://scenes/floors/floor4.tscn"
-destination_spawn_marker = "Room407Door"
+destination_spawn_marker = "SpawnFrom407"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room407Door" unique_id=2147042642]
 position = Vector2(0, -2.5)
