@@ -3,9 +3,11 @@ extends Area2D
 
 @export_range(0, 100, 1) var question_index: int = 0
 
+const QUESTION_BOX_SCENE = preload("res://question_box.tscn")
 const QUESTIONS_PATH = "res://questions.json"
 const TARGET_FLOOR = 5
 
+var question_box: CanvasLayer = null
 var question_id: String = ""
 var question_data: Dictionary = {}
 var question_ui: CanvasLayer = null
@@ -123,112 +125,22 @@ func interact(_player: Node) -> void:
 
 func _show_question() -> void:
 
-	if is_instance_valid(question_ui):
+	if is_instance_valid(question_box):
 		return
 
-	question_ui = CanvasLayer.new()
-	get_tree().root.add_child(question_ui)
+	# Create QuestionBox from the existing scene
+	question_box = QUESTION_BOX_SCENE.instantiate()
 
-	var panel = PanelContainer.new()
-	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.position = Vector2(-250, -170)
-	panel.size = Vector2(500, 340)
+	get_tree().root.add_child(question_box)
 
-	question_ui.add_child(panel)
-
-	var layout = VBoxContainer.new()
-	panel.add_child(layout)
-
-	# Question subject
-
-	var title = Label.new()
-	title.text = str(
-		question_data.get("subject", "Question")
-	)
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-
-	layout.add_child(title)
-
-	# Question description
-
-	var question_label = Label.new()
-	question_label.text = str(
-		question_data.get("question", "")
-	)
-	question_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-
-	layout.add_child(question_label)
-
-	# Determine question type
-
-	var question_type = str(
-		question_data.get("type", "")
+	# Connect answer signal
+	question_box.question_answered.connect(
+		_on_question_answered
 	)
 
-	# MULTIPLE CHOICE
-
-	if question_type == "multiple_choice":
-
-		for choice in question_data.get("choices", []):
-
-			var button = Button.new()
-			button.text = str(choice)
-
-			button.pressed.connect(
-				_submit_answer.bind(str(choice))
-			)
-
-			layout.add_child(button)
-
-	# SINGLE TEXT INPUT
-
-	elif question_type == "text_input":
-
-		var answer_input = LineEdit.new()
-		answer_input.placeholder_text = "Enter your answer"
-
-		layout.add_child(answer_input)
-
-		var submit_button = Button.new()
-		submit_button.text = "Submit"
-
-		submit_button.pressed.connect(
-			_submit_text.bind(answer_input)
-		)
-
-		layout.add_child(submit_button)
-
-	# DOUBLE TEXT INPUT
-
-	elif question_type == "text_input_double":
-
-		var answer_a = LineEdit.new()
-		answer_a.placeholder_text = "Enter A"
-
-		layout.add_child(answer_a)
-
-		var answer_b = LineEdit.new()
-		answer_b.placeholder_text = "Enter B"
-
-		layout.add_child(answer_b)
-
-		var submit_button = Button.new()
-		submit_button.text = "Submit"
-
-		submit_button.pressed.connect(
-			_submit_double.bind(answer_a, answer_b)
-		)
-
-		layout.add_child(submit_button)
-
-	# UNSUPPORTED QUESTION TYPE
-
-	else:
-
-		push_error(
-			"Unsupported question type: " + question_type
-		)
-
+	# Display the selected question
+	question_box.open_question(question_data)
+	question_box.question_closed.connect(_on_question_closed)
 
 # --------------------------------------------------
 # SUBMIT SINGLE TEXT ANSWER
@@ -294,9 +206,26 @@ func _submit_answer(answer: String) -> void:
 
 func close_question_ui() -> void:
 
-	if is_instance_valid(question_ui):
-		question_ui.free()
-		question_ui = null
+	if is_instance_valid(question_box):
+		question_box.queue_free()
+		question_box = null
 
 	if is_instance_valid(prompt):
 		prompt.visible = false
+
+func _on_question_answered(is_correct: bool) -> void:
+
+	GameState.mark_question_answered(
+		question_id,
+		is_correct
+	)
+
+	if is_correct:
+		print("Correct! ", question_id)
+		set_focused(false)
+	else:
+		print("Incorrect! Try again.")
+
+func _on_question_closed() -> void:
+	question_box = null
+	

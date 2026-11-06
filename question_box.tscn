@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://x6vdm4wml6sa"]
 
-[ext_resource type="Script" uid="uid://vovt2php6igy" path="res://scenes/quiz/question_box.gd" id="1_jnr7e"]
+[ext_resource type="Script" uid="uid://vovt2php6igy" path="res://question_box.gd" id="1_jnr7e"]
 
 [node name="QuestionBox" type="CanvasLayer" unique_id=759334856]
 script = ExtResource("1_jnr7e")
