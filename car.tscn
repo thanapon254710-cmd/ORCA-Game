@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://d3rmp7rvg68aw"]
+
+[ext_resource type="Texture2D" uid="uid://du77o7313cn35" path="res://assets/sprites/car.png" id="1_a80cf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(94, 175)
+
+[node name="CarRed" type="Area2D" unique_id=284613950]
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1404148665]
+texture = ExtResource("1_a80cf")
+region_enabled = true
+region_rect = Rect2(84.767944, 93.14099, 101.640015, 184.88806)
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1746608493]
+position = Vector2(1, -1.5)
+shape = SubResource("RectangleShape2D_xrivr")
