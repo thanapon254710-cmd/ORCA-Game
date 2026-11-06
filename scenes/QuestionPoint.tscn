@@ -11,4 +11,3 @@ script = ExtResource("1_m3jwp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=208865274]
 shape = SubResource("CircleShape2D_b50fy")
-disabled = true

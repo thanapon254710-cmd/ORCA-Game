@@ -1,23 +1,25 @@
 
 extends Area2D
 
-@export var question_id: String
+@export_range(0, 100, 1) var question_index: int = 0
 
+const QUESTIONS_PATH = "res://questions.json"
+const TARGET_FLOOR = 5
+
+var question_id: String = ""
 var question_data: Dictionary = {}
 var question_ui: CanvasLayer
 var prompt: Label
 
 
 func _ready() -> void:
-	collision_layer = 0
+	collision_layer = 1
 	collision_mask = 0
-
-	# Detect the player's interaction area.
-	collision_mask = 2
+	monitoring = true
+	monitorable = true
 
 	_load_question()
 
-	# Interaction prompt.
 	prompt = Label.new()
 	prompt.text = "E - Interact"
 	prompt.position = Vector2(-35, -45)
@@ -26,23 +28,45 @@ func _ready() -> void:
 
 
 func _load_question() -> void:
+	if not FileAccess.file_exists(QUESTIONS_PATH):
+		push_error("questions.json not found!")
+		return
+
 	var file = FileAccess.open(
-		"res://data/questions.json",
+		QUESTIONS_PATH,
 		FileAccess.READ
 	)
 
 	if file == null:
-		push_error("Cannot load questions.json")
+		push_error("Cannot open questions.json!")
 		return
 
-	var data = JSON.parse_string(file.get_as_text())
+	var parsed = JSON.parse_string(file.get_as_text())
 
-	for question in data.get("questions", []):
-		if question.get("id") == question_id:
-			question_data = question
-			return
+	if not parsed is Dictionary:
+		push_error("Invalid questions.json structure!")
+		return
 
-	push_error("Question not found: " + question_id)
+	var floor_questions: Array = []
+
+	for question in parsed.get("questions", []):
+		if question.get("floor", -1) == TARGET_FLOOR:
+			floor_questions.append(question)
+
+	if question_index >= floor_questions.size():
+		push_error(
+            "Question index %d does not exist on Floor %d. Found %d questions."
+			% [question_index, TARGET_FLOOR, floor_questions.size()]
+		)
+		return
+
+	question_data = floor_questions[question_index]
+	question_id = str(question_data.get("id", ""))
+
+	print(
+        "Loaded question: %s (ID: %s)"
+		% [question_data.get("subject", ""), question_id]
+	)
 
 
 func can_interact() -> bool:
@@ -65,7 +89,7 @@ func interact(_player: Node) -> void:
 
 
 func _show_question() -> void:
-	if question_ui:
+	if is_instance_valid(question_ui):
 		return
 
 	question_ui = CanvasLayer.new()
@@ -81,12 +105,12 @@ func _show_question() -> void:
 	panel.add_child(layout)
 
 	var title = Label.new()
-	title.text = question_data.get("subject", "Question")
+	title.text = str(question_data.get("subject", "Question"))
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	layout.add_child(title)
 
 	var question_label = Label.new()
-	question_label.text = question_data.get("question", "")
+	question_label.text = str(question_data.get("question", ""))
 	question_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	layout.add_child(question_label)
 
@@ -111,6 +135,9 @@ func _show_question() -> void:
 		)
 		layout.add_child(submit_button)
 
+	else:
+		push_error("Unsupported question type: " + str(question_data.get("type")))
+
 
 func _submit_text(answer_input: LineEdit) -> void:
 	_submit_answer(answer_input.text)
@@ -133,8 +160,10 @@ func _submit_answer(answer: String) -> void:
 
 	if is_correct:
 		print("Correct! ", question_id)
+
 		question_ui.queue_free()
 		question_ui = null
+
 		set_focused(false)
 	else:
 		print("Incorrect! Try again.")

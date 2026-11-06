@@ -15,7 +15,8 @@ extends Node2D
 
 func _ready() -> void:
 	# call function remove fences
-	remove_fences()
+	# remove_fences()
+	pass
 
 func remove_fences() -> void:
 	if target_tilemap:
