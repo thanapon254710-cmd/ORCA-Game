@@ -8,6 +8,8 @@ func _ready() -> void:
         orca.player_caught.connect(show_game_over)
 
 func show_game_over() -> void:
+    $Backdrop.show()
+    $GameOverImage.show()
     show()
 
 func _input(_event: InputEvent) -> void:

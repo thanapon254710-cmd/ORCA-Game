@@ -1,0 +1,148 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/start_menu.gd" id="script"]
+[ext_resource type="Texture2D" path="res://assets/ui/start_menu/StartSceneNoButton.png" id="background"]
+[ext_resource type="Texture2D" path="res://assets/ui/start_menu/Button.png" id="normal"]
+[ext_resource type="Texture2D" path="res://assets/ui/start_menu/Button_Hover.png" id="hover"]
+[ext_resource type="Shader" path="res://assets/ui/start_menu/blood_glow.gdshader" id="glow"]
+
+[sub_resource type="AtlasTexture" id="StartNormal"]
+atlas = ExtResource("normal")
+region = Rect2(54, 28, 268, 94)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ExitNormal"]
+atlas = ExtResource("normal")
+region = Rect2(54, 153, 268, 95)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="StartHover"]
+atlas = ExtResource("hover")
+region = Rect2(54, 28, 268, 94)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ExitHover"]
+atlas = ExtResource("hover")
+region = Rect2(54, 153, 268, 95)
+filter_clip = true
+
+[sub_resource type="ShaderMaterial" id="GlowMaterial"]
+shader = ExtResource("glow")
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("script")
+
+[node name="Letterbox" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Artwork" type="Control" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="Artwork"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+texture = ExtResource("background")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="StartGlow" type="TextureRect" parent="Artwork"]
+visible = false
+material = SubResource("GlowMaterial")
+layout_mode = 0
+offset_left = 56.0
+offset_top = 319.0
+offset_right = 340.0
+offset_bottom = 421.0
+mouse_filter = 2
+texture = SubResource("StartHover")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="StartButton" type="TextureButton" parent="Artwork"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 323.0
+offset_right = 332.0
+offset_bottom = 417.0
+mouse_default_cursor_shape = 2
+texture_normal = SubResource("StartNormal")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="StartBlood" type="TextureRect" parent="Artwork"]
+visible = false
+layout_mode = 0
+offset_left = 64.0
+offset_top = 323.0
+offset_right = 332.0
+offset_bottom = 417.0
+mouse_filter = 2
+texture = SubResource("StartHover")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="ExitGlow" type="TextureRect" parent="Artwork"]
+visible = false
+material = SubResource("GlowMaterial")
+layout_mode = 0
+offset_left = 56.0
+offset_top = 444.0
+offset_right = 340.0
+offset_bottom = 547.0
+mouse_filter = 2
+texture = SubResource("ExitHover")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="ExitButton" type="TextureButton" parent="Artwork"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 448.0
+offset_right = 332.0
+offset_bottom = 543.0
+mouse_default_cursor_shape = 2
+texture_normal = SubResource("ExitNormal")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ExitBlood" type="TextureRect" parent="Artwork"]
+visible = false
+layout_mode = 0
+offset_left = 64.0
+offset_top = 448.0
+offset_right = 332.0
+offset_bottom = 543.0
+mouse_filter = 2
+texture = SubResource("ExitHover")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="ErrorMessage" type="Label" parent="Artwork"]
+visible = false
+layout_mode = 0
+offset_left = 64.0
+offset_top = 562.0
+offset_right = 480.0
+offset_bottom = 620.0
+theme_override_colors/font_color = Color(1, 0.8, 0.8, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+autowrap_mode = 3
