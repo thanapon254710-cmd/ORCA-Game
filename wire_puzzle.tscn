@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://cnnlfijvmylmd"]
+
+[ext_resource type="Script" uid="uid://6bj4nebf6eyg" path="res://scenes/quiz/wire_puzzle.gd" id="1_pvtyj"]
+
+[node name="WirePuzzle" type="CanvasLayer" unique_id=2118015818]
+script = ExtResource("1_pvtyj")
+
+[node name="Panel" type="Panel" parent="." unique_id=1403164607]
+custom_minimum_size = Vector2(700, 450)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="Panel" unique_id=330725185]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.072000004
+offset_right = -15.0
+offset_bottom = -0.18400192
+
+[node name="WiresLayer" type="Control" parent="Panel" unique_id=835351545]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.99600005
+offset_right = -3.0
+offset_bottom = -0.21203613
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel" unique_id=950128635]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftContainer" type="VBoxContainer" parent="Panel/HBoxContainer" unique_id=466618240]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="LeftBtn0" type="Button" parent="Panel/HBoxContainer/LeftContainer" unique_id=1454596599]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+
+[node name="LeftBtn1" type="Button" parent="Panel/HBoxContainer/LeftContainer" unique_id=417984091]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+
+[node name="LeftBtn2" type="Button" parent="Panel/HBoxContainer/LeftContainer" unique_id=1091784630]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+
+[node name="LeftBtn3" type="Button" parent="Panel/HBoxContainer/LeftContainer" unique_id=1292482670]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="Panel/HBoxContainer" unique_id=1033732664]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+
+[node name="RightContainer" type="VBoxContainer" parent="Panel/HBoxContainer" unique_id=1993059226]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="RightBtn0" type="Button" parent="Panel/HBoxContainer/RightContainer" unique_id=1342154727]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+
+[node name="RightBtn1" type="Button" parent="Panel/HBoxContainer/RightContainer" unique_id=1463308967]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+
+[node name="RightBtn2" type="Button" parent="Panel/HBoxContainer/RightContainer" unique_id=2143541090]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+
+[node name="RightBtn3" type="Button" parent="Panel/HBoxContainer/RightContainer" unique_id=1358355325]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+
+[node name="ResetButton" type="Button" parent="Panel" unique_id=2052546822]
+layout_mode = 0
+offset_left = 399.0
+offset_top = 227.0
+offset_right = 636.0
+offset_bottom = 258.0
+text = "reset"
+
+[node name="FeedbackLabel" type="Label" parent="Panel" unique_id=1439767589]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 266.0
+offset_right = 811.0
+offset_bottom = 289.0
