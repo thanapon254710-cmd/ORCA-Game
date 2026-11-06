@@ -30,8 +30,8 @@
 [ext_resource type="PackedScene" uid="uid://bayn15qbyvf7a" path="res://stair_puzzle.tscn" id="27_y7s7m"]
 [ext_resource type="Texture2D" uid="uid://bbfedd2tvfhar" path="res://แสงสี่เหลี่ยม.jpg" id="28_ueo2k"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="29_ucpdf"]
-[ext_resource type="Script" uid="uid://dhqokselbjnyg" path="res://orca_floor_4.gd" id="30_e5plf"]
 [ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="31_e5plf"]
+[ext_resource type="Script" uid="uid://clnxba2ia12mh" path="res://scenes/floors/orca_floor_4.gd" id="31_l52j7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kxqf"]
 texture = ExtResource("1_hy4yd")
@@ -1474,7 +1474,7 @@ position = Vector2(-409.47363, -260.92163)
 rotation = 2.9111025
 
 [node name="orca_floor_4" type="Node" parent="." unique_id=1141609695]
-script = ExtResource("30_e5plf")
+script = ExtResource("31_l52j7")
 
 [node name="Question_PK1" parent="." unique_id=2029985172 instance=ExtResource("31_e5plf")]
 position = Vector2(1059, 82)
