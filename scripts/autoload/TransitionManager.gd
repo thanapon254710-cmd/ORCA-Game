@@ -62,6 +62,54 @@ func change_floor(
 		false
 	)
 
+func change_scene_to_room(
+	scene_path: String,
+	spawn_marker_name: String
+) -> void:
+
+	if is_transitioning:
+		return
+
+	if GameState.game_is_over:
+		return
+
+	var packed_scene: PackedScene = load(scene_path) as PackedScene
+
+	if packed_scene == null:
+		push_error("Could not load room: " + scene_path)
+		return
+
+	is_transitioning = true
+
+	await _fade_to(1.0)
+
+	var error = get_tree().change_scene_to_packed(packed_scene)
+
+	if error != OK:
+		push_error("Failed to enter room.")
+		await _fade_to(0.0)
+		is_transitioning = false
+		return
+
+	await get_tree().scene_changed
+
+	var new_scene = get_tree().current_scene
+
+	var player = new_scene.find_child("Player", true, false)
+	var spawn = new_scene.find_child(
+		spawn_marker_name,
+		true,
+		false
+	)
+
+	if player is Node2D and spawn is Marker2D:
+		player.global_position = spawn.global_position
+	else:
+		push_error("Player or room spawn marker not found.")
+
+	await _fade_to(0.0)
+
+	is_transitioning = false
 
 # Respawn after the Player dies.
 func respawn_player() -> void:
