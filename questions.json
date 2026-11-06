@@ -32,6 +32,134 @@
         "jujutsu person"
 	  ],
 	  "correct_answer": "legal person"
+	},
+	{
+	  "id": "q_3_1",
+	  "floor": 3,
+	  "subject": "Digital Logic",
+	  "type": "text_input_quad",
+	  "question": "3.1 Using the XOR table, fill in the correct result for each pair.",
+	  "image_path": "res://data/picture/xor_table.png",
+	  "choices": [],
+	  "correct_answer": "0, 1, 1, 0"
+	},
+	{
+	  "id": "q_3_2",
+	  "floor": 3,
+	  "subject": "Database",
+	  "type": "multiple_choice",
+	  "question": "3.2 What is Derived Attribute?",
+	  "choices": [
+		"res://data/picture/composite_attribute.png",
+		"res://data/picture/derived_attribute.png",
+		"res://data/picture/multivalued_attribute.png",
+        "res://data/picture/simple_attribute.png"
+	  ],
+	  "correct_answer": "res://assets/sprites/questions/derived_attribute.png"
+	},
+	{
+	  "id": "q_3_3",
+	  "floor": 3,
+	  "subject": "Accounting",
+	  "type": "multiple_choice",
+	  "question": "3.3 What is the accounting formula for a balance sheet?",
+	  "choices": [
+		"LIABILITIES = ASSETS - OWNER'S EQUITY",
+		"ASSETS = LIABILITIES - OWNER'S EQUITY",
+		"OWNER'S EQUITY = LIABILITIES + ASSETS",
+        "ASSETS = LIABILITIES * OWNER'S EQUITY"
+	  ],
+	  "correct_answer": "LIABILITIES = ASSETS - OWNER'S EQUITY"
+	},
+	{
+	  "id": "q_1_1",
+	  "floor": 1,
+	  "subject": "Forensic",
+	  "type": "multiple_choice",
+	  "question": "1.1 What is Image file in forensic crime?",
+	  "choices": [
+		"a. PNG",
+		"b. JPEG",
+		"c. Duplicate",
+		"d. Copy",
+        "e. Paste"
+	  ],
+	  "correct_answer": "c. Duplicate"
+	},
+	{
+	  "id": "q_1_2",
+	  "floor": 1,
+	  "subject": "General",
+	  "type": "multiple_choice",
+	  "question": "1.2 What is the capital city of South Korea?",
+	  "choices": [
+		"a. Bangkok",
+		"b. Tokyo",
+		"c. Seoul",
+		"d. Dubai",
+        "e. Paris"
+	  ],
+	  "correct_answer": "c. Seoul"
+	},
+	{
+	  "id": "q_1_3",
+	  "floor": 1,
+	  "subject": "General",
+	  "type": "multiple_choice",
+	  "question": "1.3 What is the smallest country in the world?",
+	  "choices": [
+		"a. Bangkadi",
+		"b. Vatican",
+		"c. Madagascar",
+		"d. Singapore",
+        "e. Rangsit"
+	  ],
+	  "correct_answer": "b. Vatican"
+	},
+	{
+	  "id": "q_1_4",
+	  "floor": 1,
+	  "subject": "General",
+	  "type": "multiple_choice",
+	  "question": "1.4 Whose house is located at House No. 99999, Korvatunturi, Finland?",
+	  "choices": [
+		"a. Santa Claus",
+		"b. Jesus Christ",
+		"c. Little Red Riding Hood",
+		"d. The Easter Bunny",
+        "e. Jack Frost"
+	  ],
+	  "correct_answer": "a. Santa Claus"
+	},
+	{
+	  "id": "q_1_5",
+	  "floor": 1,
+	  "subject": "General",
+	  "type": "multiple_choice",
+	  "question": "1.5 Which animal has three hearts?",
+	  "choices": [
+		"a. October",
+		"b. Octagon",
+		"c. Occupation",
+		"d. Octopus",
+        "e. Ox"
+	  ],
+	  "correct_answer": "d. Octopus"
+	},
+	{
+	  "id": "q_1_6",
+	  "floor": 1,
+	  "subject": "General",
+	  "type": "multiple_choice",
+	  "question": "1.6 What is the only letter that does not appear in the name of any U.S. state?",
+	  "choices": [
+		"a. Q",
+		"b. X",
+		"c. Z",
+		"d. J",
+        "e. V"
+	  ],
+	  "correct_answer": "a. Q"
 	}
   ]
 }
