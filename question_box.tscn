@@ -54,46 +54,23 @@ layout_mode = 2
 [node name="AnswerInput" type="LineEdit" parent="Panel/VBoxContainer/InputContainer" unique_id=442360187]
 layout_mode = 2
 
+[node name="DoubleInputContainer" type="HBoxContainer" parent="Panel/VBoxContainer/InputContainer" unique_id=358592838]
+layout_mode = 2
+
+[node name="LabelA" type="Label" parent="Panel/VBoxContainer/InputContainer/DoubleInputContainer" unique_id=364597142]
+layout_mode = 2
+
+[node name="AnswerInputA" type="LineEdit" parent="Panel/VBoxContainer/InputContainer/DoubleInputContainer" unique_id=1221954361]
+layout_mode = 2
+
+[node name="LabelB" type="Label" parent="Panel/VBoxContainer/InputContainer/DoubleInputContainer" unique_id=2039027895]
+layout_mode = 2
+
+[node name="AnswerInputB" type="LineEdit" parent="Panel/VBoxContainer/InputContainer/DoubleInputContainer" unique_id=1860500600]
+layout_mode = 2
+
 [node name="SubmitButton" type="Button" parent="Panel/VBoxContainer/InputContainer" unique_id=810363060]
 layout_mode = 2
 
 [node name="FeedbackLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1588737483]
-layout_mode = 2
-
-[node name="OsiPuzzle" type="CanvasLayer" parent="." unique_id=357793314]
-
-[node name="Panel" type="Panel" parent="OsiPuzzle" unique_id=397045062]
-anchors_preset = -1
-anchor_right = 0.64100003
-anchor_bottom = 0.57900006
-offset_left = 14.0
-offset_top = 392.0
-offset_right = 13.567993
-offset_bottom = 391.80795
-
-[node name="VBoxContainer" type="VBoxContainer" parent="OsiPuzzle/Panel" unique_id=135830309]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 1.0
-offset_right = 738.0
-offset_bottom = 380.0
-
-[node name="TitleLabel" type="Label" parent="OsiPuzzle/Panel/VBoxContainer" unique_id=1610166270]
-layout_mode = 2
-text = "order"
-
-[node name="OsiList" type="ItemList" parent="OsiPuzzle/Panel/VBoxContainer" unique_id=1902090202]
-layout_mode = 2
-auto_height = true
-
-[node name="ButtonGroup" type="HBoxContainer" parent="OsiPuzzle/Panel/VBoxContainer" unique_id=619858294]
-layout_mode = 2
-
-[node name="CheckButton" type="Button" parent="OsiPuzzle/Panel/VBoxContainer/ButtonGroup" unique_id=272301348]
-layout_mode = 2
-
-[node name="ResetButton" type="Button" parent="OsiPuzzle/Panel/VBoxContainer/ButtonGroup" unique_id=2034255698]
-layout_mode = 2
-
-[node name="FeedbackLabel" type="Label" parent="OsiPuzzle/Panel/VBoxContainer" unique_id=381944370]
 layout_mode = 2

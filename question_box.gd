@@ -1,12 +1,13 @@
 extends CanvasLayer
 
 signal question_answered(correct: bool)
-var file_path = "res://data/questions.json"
-@onready var question_label = $Panel/VBoxContainer/QuestionLabel
-@onready var feedback_label = $Panel/VBoxContainer/FeedbackLabel
 
-# ชุดตัวเลือก
-@onready var choices_container = $Panel/VBoxContainer/ChoicesContainer
+@onready var question_label: Label = $Panel/VBoxContainer/QuestionLabel
+@onready var question_image: TextureRect = $Panel/VBoxContainer/QuestionImage
+@onready var feedback_label: Label = $Panel/VBoxContainer/FeedbackLabel
+
+# กลุ่มตัวเลือก (Multiple Choice)
+@onready var choices_container: VBoxContainer = $Panel/VBoxContainer/ChoicesContainer
 @onready var choice_buttons = [
 	$Panel/VBoxContainer/ChoicesContainer/Choice1,
 	$Panel/VBoxContainer/ChoicesContainer/Choice2,
@@ -15,25 +16,37 @@ var file_path = "res://data/questions.json"
 	$Panel/VBoxContainer/ChoicesContainer/Choice5
 ]
 
-# ชุดเติมคำ
-@onready var input_container = $Panel/VBoxContainer/InputContainer
-@onready var answer_input = $Panel/VBoxContainer/InputContainer/AnswerInput
-@onready var submit_button = $Panel/VBoxContainer/InputContainer/SubmitButton
+# กลุ่มช่องกรอก (Input)
+@onready var input_container: VBoxContainer = $Panel/VBoxContainer/InputContainer
+@onready var single_input: LineEdit = $Panel/VBoxContainer/InputContainer/AnswerInput
+@onready var double_input_container: HBoxContainer = $Panel/VBoxContainer/InputContainer/DoubleInputContainer
+@onready var input_a: LineEdit = $Panel/VBoxContainer/InputContainer/DoubleInputContainer/AnswerInputA
+@onready var input_b: LineEdit = $Panel/VBoxContainer/InputContainer/DoubleInputContainer/AnswerInputB
+@onready var submit_button: Button = $Panel/VBoxContainer/InputContainer/SubmitButton
 
 var current_question_data = {}
 var current_question_id: String = ""
 var questions_list: Array = []
+var current_question_index: int = 0
 
 func _ready():
-	for i in range(choice_buttons.size()):
-		var button = choice_buttons[i]
-		button.pressed.connect(func(): _on_choice_selected(button.text if button.text != "" else button.icon.resource_path))
+	# ผูกการคลิกช้อยส์
+	for btn in choice_buttons:
+		btn.pressed.connect(func(): _on_choice_selected(btn.text if btn.text != "" else (btn.icon.resource_path if btn.icon else "")))
 	
+	# ผูกปุ่มกดยืนยัน
 	submit_button.pressed.connect(_on_submit_input)
-	answer_input.text_submitted.connect(func(_text): _on_submit_input())
+	single_input.text_submitted.connect(func(_t): _on_submit_input())
+	input_a.text_submitted.connect(func(_t): input_b.grab_focus()) # กด Enter ที่ช่อง A ให้เด้งไปช่อง B ทันที
+	input_b.text_submitted.connect(func(_t): _on_submit_input())   # กด Enter ที่ช่อง B ให้ส่งคำตอบเลย
 	
 	load_questions_from_json()
-	load_question_by_id("q_5_1")
+	
+	# เริ่มที่ข้อแรกสุดใน JSON
+	if questions_list.size() > 0:
+		current_question_index = 0
+		display_question(questions_list[current_question_index])
+		
 
 func load_questions_from_json():
 	var file_path = "res://data/questions.json"
@@ -62,19 +75,53 @@ func display_question(data: Dictionary):
 	feedback_label.text = ""
 	question_label.text = data.get("question", "")
 	
+	# 1. จัดการรูปภาพประกอบโจทย์
+	var img_path = data.get("image_path", "")
+	if img_path != "" and ResourceLoader.exists(img_path):
+		question_image.texture = load(img_path)
+		question_image.visible = true
+		question_image.custom_minimum_size = Vector2(0, 150) # ปรับความสูงรูปตามความเหมาะสม
+	else:
+		question_image.texture = null
+		question_image.visible = false
+	
 	var q_type = data.get("type", "multiple_choice")
 	
-	if q_type == "text_input":
+	# 2. กรณีช่องกรอกคู่ (ข้อ 5.2)
+	if q_type == "text_input_double":
 		choices_container.visible = false
 		input_container.visible = true
-		answer_input.text = ""
-		answer_input.editable = true
+		single_input.visible = false
+		double_input_container.visible = true
+		
+		input_a.text = ""
+		input_b.text = ""
+		
+		# เพิ่ม 2 บรรทัดนี้เพื่อใส่ข้อความนำทางในช่อง:
+		input_a.placeholder_text = "A ="
+		input_b.placeholder_text = "B ="
+		
+		input_a.editable = true
+		input_b.editable = true
 		submit_button.disabled = false
-		answer_input.grab_focus()
+		input_a.grab_focus()
+		
+	# 3. กรณีช่องกรอกเดี่ยว (ข้อ 5.1)
+	elif q_type == "text_input":
+		choices_container.visible = false
+		input_container.visible = true
+		single_input.visible = true
+		double_input_container.visible = false
+		
+		single_input.text = ""
+		single_input.editable = true
+		submit_button.disabled = false
+		single_input.grab_focus()
+		
+	# 4. กรณีตัวเลือก (Multiple Choice)
 	else:
 		input_container.visible = false
 		choices_container.visible = true
-		
 		var choices = data.get("choices", [])
 		for i in range(choice_buttons.size()):
 			var btn = choice_buttons[i]
@@ -83,7 +130,6 @@ func display_question(data: Dictionary):
 				btn.disabled = false
 				var choice_val: String = choices[i]
 				
-				# ตรวจสอบว่าเป็น Path รูปภาพหรือไม่
 				if choice_val.begins_with("res://") and ResourceLoader.exists(choice_val):
 					btn.icon = load(choice_val)
 					btn.text = ""
@@ -101,35 +147,52 @@ func _on_choice_selected(selected_value: String):
 	for btn in choice_buttons:
 		btn.disabled = true
 	var correct_val = str(current_question_data.get("correct_answer", ""))
-	var is_correct = (selected_value == correct_val)
-	_finish_answering(is_correct)
+	_finish_answering(selected_value.strip_edges() == correct_val.strip_edges())
 
 func _on_submit_input():
-	var user_text = answer_input.text.strip_edges()
-	if user_text == "":
-		return
-	answer_input.editable = false
-	submit_button.disabled = true
+	var q_type = current_question_data.get("type", "")
+	var correct_val = str(current_question_data.get("correct_answer", ""))
+	var is_correct = false
 	
-	var correct_val = str(current_question_data.get("correct_answer", "")).strip_edges()
-	var is_correct = (user_text.to_lower() == correct_val.to_lower())
+	if q_type == "text_input_double":
+		var val_a = input_a.text.strip_edges().replace(" ", "").to_lower()
+		var val_b = input_b.text.strip_edges().replace(" ", "").to_lower()
+		
+		# เฉลยรูปแบบ "n, n+1"
+		var parts = correct_val.split(",")
+		if parts.size() >= 2:
+			var ans_a = parts[0].strip_edges().replace(" ", "").to_lower()
+			var ans_b = parts[1].strip_edges().replace(" ", "").to_lower()
+			is_correct = (val_a == ans_a and val_b == ans_b)
+			
+		input_a.editable = false
+		input_b.editable = false
+	else:
+		var user_text = single_input.text.strip_edges().to_lower()
+		is_correct = (user_text == correct_val.strip_edges().to_lower())
+		single_input.editable = false
+		
+	submit_button.disabled = true
 	_finish_answering(is_correct)
 
 func _finish_answering(is_correct: bool):
 	if is_correct:
-		feedback_label.text = "✓ ตอบถูกต้อง!"
+		feedback_label.text = "✓ correct!"
 		feedback_label.modulate = Color.GREEN
 	else:
-		feedback_label.text = "✗ ตอบผิด!"
+		feedback_label.text = "✗ wrong!"
 		feedback_label.modulate = Color.RED
-		
+
 	question_answered.emit(is_correct)
-	
-	# อัปเดตเข้า GameState
-	if GameState.has_signal("question_answered"):
-		GameState.question_answered.emit(current_question_id, is_correct)
-	if is_correct and not GameState.questions_answered.has(current_question_id):
-		GameState.questions_answered.append(current_question_id)
-		
+
 	await get_tree().create_timer(1.2).timeout
-	hide()
+
+	# ขยับไปข้อถัดไป
+	current_question_index += 1
+	if current_question_index < questions_list.size():
+		display_question(questions_list[current_question_index])
+	else:
+		feedback_label.text = "ทดสอบครบทุกข้อแล้ว!"
+		feedback_label.modulate = Color.YELLOW
+		await get_tree().create_timer(1.5).timeout
+		hide()

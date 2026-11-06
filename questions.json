@@ -4,44 +4,34 @@
 	  "id": "q_5_1",
 	  "floor": 5,
 	  "subject": "SDG",
-	  "type": "multiple_choice",
-	  "question": "5.1 SDG มีกี่ข้อ?",
-	  "choices": [
-		"15 ข้อ",
-		"16 ข้อ",
-		"17 ข้อ",
-        "18 ข้อ"
-	  ],
-	  "correct_answer": "17 ข้อ"
+	  "type": "text_input",
+	  "question": "5.1 How many Sustainable Development Goals are there?",
+	  "choices": [],
+	  "correct_answer": "17"
 	},
 	{
-	  "id": "q_4_1",
-	  "floor": 4,
+	  "id": "q_5_2",
+	  "floor": 5,
+	  "subject": "Python",
+	  "type": "text_input_double",
+	  "question": "5.2 Based on the Python code in the image, determine the correct values ​​for A and B.",
+	  "image_path": "res://data/picture/python_tree.png",
+	  "choices": [],
+	  "correct_answer": "n, n+1"
+	},
+	{
+	  "id": "q_5_3",
+	  "floor": 5,
 	  "subject": "Law",
 	  "type": "multiple_choice",
-	  "question": "4.1 Juristic person คือใคร?",
+	  "question": "5.3 Who is a Juristic Person?",
 	  "choices": [
-		"a. legal person",
-		"b. illegal person",
-		"c. jurassic person",
-        "d. jujutsu person"
+		"legal person",
+		"illegal person",
+		"jurassic person",
+        "jujutsu person"
 	  ],
-	  "correct_answer": "a. legal person"
-	},
-	{
-	  "id": "q_1_2",
-	  "floor": 1,
-	  "subject": "General",
-	  "type": "multiple_choice",
-	  "question": "1.2 What is the capital city of South Korea?",
-	  "choices": [
-		"a. Bangkok",
-		"b. Tokyo",
-		"c. Seoul",
-		"d. Dubai",
-        "e. Paris"
-	  ],
-	  "correct_answer": "c. Seoul"
+	  "correct_answer": "legal person"
 	}
   ]
 }
