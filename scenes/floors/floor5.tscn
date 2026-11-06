@@ -1321,10 +1321,15 @@ script = ExtResource("22_ty1mm")
 
 [node name="Question_SDG" parent="." unique_id=1777840857 instance=ExtResource("23_8rjlg")]
 position = Vector2(915, 215)
+question_index = 0
 
 [node name="Question_Python" parent="." unique_id=2029985172 instance=ExtResource("23_8rjlg")]
 position = Vector2(927, 504)
 question_index = 1
+
+[node name="Question_Law" parent="." unique_id=312159243 instance=ExtResource("23_8rjlg")]
+position = Vector2(139, 545)
+question_index = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=497302199]
 
@@ -1340,7 +1345,3 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Question_Law" parent="." unique_id=312159243 instance=ExtResource("23_8rjlg")]
-position = Vector2(139, 545)
-question_index = 2

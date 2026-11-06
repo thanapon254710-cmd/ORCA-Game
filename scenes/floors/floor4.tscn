@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://eveg8hxu0w3u" path="res://assets/sprites/prop2.png" id="11_b1tob"]
 [ext_resource type="Texture2D" uid="uid://b40ctsx5opw33" path="res://assets/sprites/prop3.png" id="12_2aqni"]
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="20_h4yqk"]
+[ext_resource type="Script" uid="uid://cr7aguwcp27jo" path="res://scenes/room/RoomDoor.gd" id="21_77k8e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kxqf"]
 texture = ExtResource("1_hy4yd")
@@ -1284,6 +1285,9 @@ sources/21 = SubResource("TileSetAtlasSource_lsugr")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b50fy"]
 size = Vector2(91, 105)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1drc"]
+size = Vector2(87, 54)
+
 [node name="floor4" type="Node2D" unique_id=1963433244]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=227891699]
@@ -1309,12 +1313,6 @@ color = Color(0.2789908, 0.27899083, 0.27899083, 1)
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1515179127]
 position = Vector2(953, 33)
 
-[node name="SpawnFromFloor5" type="Marker2D" parent="." unique_id=312168866]
-position = Vector2(336, 573)
-
-[node name="SpawnFromFloor3" type="Marker2D" parent="." unique_id=1258481884]
-position = Vector2(433, 573)
-
 [node name="FloorStairs4to5" type="Area2D" parent="." unique_id=1942002682]
 position = Vector2(336, 573)
 collision_mask = 0
@@ -1325,6 +1323,9 @@ destination_spawn_marker = "SpawnFromFloor4"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs4to5" unique_id=106097877]
 shape = SubResource("RectangleShape2D_b50fy")
 
+[node name="SpawnFromFloor5" type="Marker2D" parent="." unique_id=312168866]
+position = Vector2(336, 573)
+
 [node name="FloorStairs4to3" type="Area2D" parent="." unique_id=371450711]
 position = Vector2(433, 573)
 collision_mask = 0
@@ -1334,3 +1335,19 @@ destination_spawn_marker = "SpawnFromFloor4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs4to3" unique_id=1519308949]
 shape = SubResource("RectangleShape2D_b50fy")
+
+[node name="SpawnFromFloor3" type="Marker2D" parent="." unique_id=1258481884]
+position = Vector2(433, 573)
+
+[node name="Room407Door" type="Area2D" parent="." unique_id=1056625285]
+position = Vector2(81.7, 432)
+collision_mask = 0
+script = ExtResource("21_77k8e")
+destination_scene = "res://scenes/room/room407.tscn"
+destination_spawn_marker = "PlayerSpawn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room407Door" unique_id=380931620]
+shape = SubResource("RectangleShape2D_v1drc")
+
+[node name="SpawnFrom407" type="Marker2D" parent="." unique_id=1171427419]
+position = Vector2(866, 1146)

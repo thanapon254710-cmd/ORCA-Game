@@ -15,7 +15,7 @@
 	  "subject": "Python",
 	  "type": "text_input_double",
 	  "question": "5.2 Based on the Python code in the image, determine the correct values ​​for A and B.",
-	  "image_path": "res://python_tree.png",
+	  "image_path": "res://data/picture/python_tree.png",
 	  "choices": [],
 	  "correct_answer": "n, n+1"
 	},
@@ -32,6 +32,40 @@
         "jujutsu person"
 	  ],
 	  "correct_answer": "legal person"
+	},{
+	  "id": "q_4_403",
+	  "floor": 4,
+	  "subject": "Puzzle",
+	  "type": "text_input",
+	  "question": "Please fill in 4 digits password.",
+	  "image_path": "res://data/picture/403_board.png",
+	  "choices": [],
+	  "correct_answer": "5213",
+	  "reward_symbol": "⇑"
+	},
+	{
+	  "id": "q_4_404",
+	  "floor": 4,
+	  "subject": "Puzzle",
+	  "type": "multiple_choice",
+	  "question": "Do you wonder what's here?",
+	  "choices": [
+		"Yes",
+        "No"
+	  ],
+	  "correct_answer": "*",
+	  "reward_symbol": "⊡"
+	},
+	{
+	  "id": "q_4_407",
+	  "floor": 4,
+	  "subject": "Puzzle",
+	  "type": "text_input",
+	  "question": "Hint: Examine the bloodstains on the desk. Please fill in 4 digits password.",
+	  "image_path": "res://data/picture/407_room.png17",
+	  "choices": [],
+	  "correct_answer": "3435",
+	  "reward_symbol": "✧"
 	},
 	{
 	  "id": "q_3_1",
