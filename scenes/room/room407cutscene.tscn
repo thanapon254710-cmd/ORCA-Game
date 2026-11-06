@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://tw4qq5bn0tkg" path="res://assets/sprites/school-furniture-teacher-desks-clean.png" id="8_40ld1"]
 [ext_resource type="Texture2D" uid="uid://eveg8hxu0w3u" path="res://assets/sprites/prop2.png" id="9_okme5"]
 [ext_resource type="Texture2D" uid="uid://bkfuab3fou8l0" path="res://assets/sprites/school-furniture-school-chairs-clean.png" id="10_tia58"]
-[ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสง.jpg" id="15_owlvu"]
+[ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสงวงกลม.jpg" id="15_owlvu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_10xoj"]
 texture = ExtResource("1_3sskx")
