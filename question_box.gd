@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal question_answered(correct: bool)
+signal question_closed
 
 @onready var question_label: Label = $Panel/VBoxContainer/QuestionLabel
 @onready var question_image: TextureRect = $Panel/VBoxContainer/QuestionImage
@@ -62,10 +63,9 @@ func _ready():
 	
 	load_questions_from_json()
 	
-	# เริ่มที่ข้อแรกสุดใน JSON
-	if questions_list.size() > 0:
-		current_question_index = 0
-		display_question(questions_list[current_question_index])
+func open_question(data: Dictionary) -> void:
+	current_question_index = 0
+	display_question(data)
 
 func load_questions_from_json():
 	var file_path = "res://data/questions.json"
@@ -236,6 +236,7 @@ func _on_submit_input():
 	_finish_answering(is_correct)
 
 func _finish_answering(is_correct: bool):
+
 	if is_correct:
 		feedback_label.text = "✓ correct!"
 		feedback_label.modulate = Color.GREEN
@@ -247,12 +248,5 @@ func _finish_answering(is_correct: bool):
 
 	await get_tree().create_timer(1.2).timeout
 
-	# ขยับไปข้อถัดไป
-	current_question_index += 1
-	if current_question_index < questions_list.size():
-		display_question(questions_list[current_question_index])
-	else:
-		feedback_label.text = "ทดสอบครบทุกข้อแล้ว!"
-		feedback_label.modulate = Color.YELLOW
-		await get_tree().create_timer(1.5).timeout
-		hide()
+	hide()
+	question_closed.emit()
