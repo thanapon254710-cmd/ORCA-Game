@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjjv3pgb1puj"
-path="res://.godot/imported/python_tree.png-ca2b2b373b31964585453e6a2ab70f67.ctex"
+uid="uid://c3xvuprqmdfvn"
+path="res://.godot/imported/xor_table.png-43c81908454640b4a4e7c94718c61414.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://python_tree.png"
-dest_files=["res://.godot/imported/python_tree.png-ca2b2b373b31964585453e6a2ab70f67.ctex"]
+source_file="res://data/picture/xor_table.png"
+dest_files=["res://.godot/imported/xor_table.png-43c81908454640b4a4e7c94718c61414.ctex"]
 
 [params]
 

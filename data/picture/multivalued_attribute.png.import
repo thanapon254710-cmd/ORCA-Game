@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3xvuprqmdfvn"
-path="res://.godot/imported/xor_table.png-d182324127fcac53859d8e67429cef0c.ctex"
+uid="uid://042fcqe2kjxo"
+path="res://.godot/imported/multivalued_attribute.png-a481de1187b26de01b7d87dd94b5d393.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://xor_table.png"
-dest_files=["res://.godot/imported/xor_table.png-d182324127fcac53859d8e67429cef0c.ctex"]
+source_file="res://data/picture/multivalued_attribute.png"
+dest_files=["res://.godot/imported/multivalued_attribute.png-a481de1187b26de01b7d87dd94b5d393.ctex"]
 
 [params]
 

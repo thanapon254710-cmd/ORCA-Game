@@ -6,6 +6,7 @@ extends Area2D
 const QUESTION_BOX_SCENE = preload("res://question_box.tscn")
 const QUESTIONS_PATH = "res://questions.json"
 @export_range(1, 5, 1) var TARGET_FLOOR: int = 5
+@export var is_pk2_pickup: bool = false
 
 var question_box: CanvasLayer = null
 var question_id: String = ""
@@ -97,12 +98,13 @@ func _load_question() -> void:
 # --------------------------------------------------
 
 func can_interact() -> bool:
+	if is_pk2_pickup:
+		return not GameState.pk2_collected
 
 	return (
 		not question_data.is_empty()
 		and not GameState.questions_answered.has(question_id)
 	)
-
 
 func set_focused(value: bool) -> void:
 
@@ -111,8 +113,12 @@ func set_focused(value: bool) -> void:
 
 
 func interact(_player: Node) -> void:
-
 	if not can_interact():
+		return
+
+	if is_pk2_pickup:
+		GameState.collect_passkey(2)
+		queue_free()
 		return
 
 	_show_question()
@@ -216,6 +222,14 @@ func _on_question_answered(is_correct: bool) -> void:
 
 	if is_correct:
 		print("Correct! ", question_id)
+
+		match question_id:
+			"q_4_403":
+				GameState.collect_passkey(1)
+				
+			"q_4_407":
+				GameState.collect_passkey(3)
+
 		set_focused(false)
 	else:
 		print("Incorrect! Try again.")

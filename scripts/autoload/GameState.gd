@@ -14,6 +14,12 @@ var questions_answered: Array[String] = []
 var game_is_over: bool = false
 var room408_powered: bool = false
 
+# Floor 4 passkey progress
+var pk1_collected: bool = false
+var pk2_collected: bool = false
+var pk3_collected: bool = false
+var pk4_collected: bool = false
+
 
 func change_floor(new_floor: int) -> void:
 	if game_is_over:
@@ -53,10 +59,64 @@ func end_game(reason: String) -> void:
 	game_is_over = true
 	game_over.emit(reason)
 
-
 func reset_game() -> void:
 	Inventory.reset_inventory()
 	current_floor = 5
 	questions_answered.clear()
 	game_is_over = false
 	room408_powered = false
+	pk1_collected = false
+	pk2_collected = false
+	pk3_collected = false
+	pk4_collected = false
+
+func has_all_passkeys() -> bool:
+	return (
+		pk1_collected
+		and pk2_collected
+		and pk3_collected
+		and pk4_collected
+	)
+
+func collect_passkey(number: int) -> void:
+	var symbol := ""
+	var message := ""
+
+	match number:
+		1:
+			if pk1_collected:
+				return
+			pk1_collected = true
+			symbol = "⇑"
+
+		2:
+			if pk2_collected:
+				return
+			pk2_collected = true
+			symbol = "⊡"
+
+		3:
+			if pk3_collected:
+				return
+			pk3_collected = true
+			symbol = "✧"
+
+		4:
+			if pk4_collected:
+				return
+			pk4_collected = true
+			symbol = "☾"
+
+		_:
+			push_warning("Invalid passkey number!")
+			return
+
+	message = "Passkey No.%d Acquired! %s" % [number, symbol]
+
+	var popup := AcceptDialog.new()
+	popup.title = "Passkey Acquired"
+	popup.dialog_text = message
+	get_tree().root.add_child(popup)
+	popup.confirmed.connect(func(): popup.queue_free())
+	popup.canceled.connect(func(): popup.queue_free())
+	popup.popup_centered()

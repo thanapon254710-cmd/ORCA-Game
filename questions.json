@@ -15,7 +15,7 @@
 	  "subject": "Python",
 	  "type": "text_input_double",
 	  "question": "5.2 Based on the Python code in the image, determine the correct values ​​for A and B.",
-	  "image_path": "res://python_tree.png",
+	  "image_path": "res://data/picture/python_tree.png",
 	  "choices": [],
 	  "correct_answer": "n, n+1"
 	},

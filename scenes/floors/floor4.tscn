@@ -30,7 +30,8 @@
 [ext_resource type="Texture2D" uid="uid://bbfedd2tvfhar" path="res://แสงสี่เหลี่ยม.jpg" id="28_ueo2k"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="29_ucpdf"]
 [ext_resource type="Script" uid="uid://dhqokselbjnyg" path="res://orca_floor_4.gd" id="30_e5plf"]
-[ext_resource type="PackedScene" path="res://scenes/inventory/items/key_yellow.tscn" id="31_e5plf"]
+[ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="31_e5plf"]
+[ext_resource type="Script" uid="uid://bjkfoptj0kjut" path="res://stair_puzzle.gd" id="32_l52j7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kxqf"]
 texture = ExtResource("1_hy4yd")
@@ -1340,6 +1341,9 @@ _data = {
 }
 point_count = 29
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqb0x"]
+size = Vector2(59.5, 60)
+
 [node name="floor4" type="Node2D" unique_id=1963433244]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=227891699]
@@ -1471,6 +1475,22 @@ rotation = 2.9111025
 [node name="orca_floor_4" type="Node" parent="." unique_id=1141609695]
 script = ExtResource("30_e5plf")
 
-[node name="key_yellow" parent="." unique_id=2096016983 instance=ExtResource("31_e5plf")]
-position = Vector2(990, 474)
-item_id = "Keywordft4"
+[node name="Question_PK1" parent="." unique_id=2029985172 instance=ExtResource("31_e5plf")]
+position = Vector2(1059, 82)
+question_index = 0
+TARGET_FLOOR = 4
+
+[node name="Question_PK2" parent="." unique_id=1625652753 instance=ExtResource("31_e5plf")]
+position = Vector2(991, 475)
+question_index = 1
+TARGET_FLOOR = 4
+is_pk2_pickup = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Question_PK2" unique_id=1572414215]
+position = Vector2(0.25, 0)
+shape = SubResource("RectangleShape2D_oqb0x")
+
+[node name="Question_PassKey" parent="." unique_id=2071297216 instance=ExtResource("31_e5plf")]
+position = Vector2(436.00003, 501)
+scale = Vector2(1.5, 0.5)
+script = ExtResource("32_l52j7")
