@@ -1,17 +1,9 @@
+
 extends CharacterBody2D
 
 const SPEED = 200.0
 
-# ---------- HEARTBEAT PROXIMITY SETTINGS ----------
-@export var max_hear_distance: float = 600.0 # ระยะห่างเริ่มได้ยินเสียงหัวใจเต้น (ยิ่งใกล้ยิ่งดัง)
-@export var min_db: float = -15.0            # ความดังต่ำสุดเมื่ออยู่ขอบระยะ (dB)
-@export var max_db: float = 6.0              # ความดังสูงสุดเมื่อ Orca ประชิดตัว (dB)
-
-@onready var heartbeat_stream: AudioStreamPlayer = $HeartbeatStream if has_node("HeartbeatStream") else null
-
-var orca: Node2D
-
-# ---------- INTERACTION SYSTEM ----------
+# Interaction system
 var nearby_interactables: Array[Node] = []
 var focused_interactable: Node = null
 
@@ -21,31 +13,24 @@ var focused_interactable: Node = null
 func _ready() -> void:
 	add_to_group("player")
 
-	if interact_area:
-		interact_area.area_entered.connect(_on_area_entered)
-		interact_area.area_exited.connect(_on_area_exited)
-
-	# ค้นหา Orca ตัวแรกในฉาก
-	orca = get_tree().get_first_node_in_group("orca")
+	interact_area.area_entered.connect(_on_area_entered)
+	interact_area.area_exited.connect(_on_area_exited)
 
 
 func _physics_process(_delta: float) -> void:
-	# 1. Player movement
+	# Existing player movement
 	var direction = Input.get_vector(
 		"move_left",
 		"move_right",
 		"move_up",
-		"move_down"
+        "move_down"
 	)
 
 	velocity = direction * SPEED
 	move_and_slide()
 
-	# 2. Update interaction focus
+	# Update interaction focus
 	_update_focus()
-
-	# 3. Update Heartbeat sound dynamics
-	_update_heartbeat_sound()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -56,36 +41,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 
 
-# ---------- HEARTBEAT SYSTEM LOGIC ----------
-func _update_heartbeat_sound() -> void:
-	if heartbeat_stream == null:
-		return
-
-	# เช็กว่ามีโหนด Orca อยู่ในฉากหรือไม่
-	if not is_instance_valid(orca):
-		orca = get_tree().get_first_node_in_group("orca")
-		if not is_instance_valid(orca):
-			if heartbeat_stream.playing:
-				heartbeat_stream.stop()
-			return
-
-	var dist := global_position.distance_to(orca.global_position)
-
-	if dist <= max_hear_distance:
-		if not heartbeat_stream.playing:
-			heartbeat_stream.play()
-
-		var factor := 1.0 - (dist / max_hear_distance)
-		factor = clampf(factor, 0.0, 1.0)
-		
-		heartbeat_stream.volume_db = lerpf(min_db, max_db, factor)
-		heartbeat_stream.pitch_scale = lerpf(0.75, 1.5, factor)
-	else:
-		if heartbeat_stream.playing:
-			heartbeat_stream.stop()
-
-
-# ---------- INTERACTION SYSTEM LOGIC ----------
+# Find the interactable object
 func _get_interactable(area: Area2D) -> Node:
 	if area.has_method("interact"):
 		return area
@@ -98,6 +54,7 @@ func _get_interactable(area: Area2D) -> Node:
 	return null
 
 
+# Detect nearby interactables
 func _on_area_entered(area: Area2D) -> void:
 	var obj = _get_interactable(area)
 
@@ -105,6 +62,7 @@ func _on_area_entered(area: Area2D) -> void:
 		nearby_interactables.append(obj)
 
 
+# Stop detecting when leaving the interaction area
 func _on_area_exited(area: Area2D) -> void:
 	var obj = _get_interactable(area)
 
@@ -115,6 +73,7 @@ func _on_area_exited(area: Area2D) -> void:
 			_set_focus(null)
 
 
+# Find the closest usable object
 func _update_focus() -> void:
 	var best: Node = null
 	var best_distance = INF
@@ -142,6 +101,7 @@ func _update_focus() -> void:
 		_set_focus(best)
 
 
+# Change focused object
 func _set_focus(obj: Node) -> void:
 	if is_instance_valid(focused_interactable):
 		if focused_interactable.has_method("set_focused"):
