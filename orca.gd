@@ -24,13 +24,19 @@ var has_caught := false
 var facing := Vector2.RIGHT
 var player: Node2D
 var last_seen_pos := Vector2.ZERO
-var return_stuck_timer := 0.0 # ตัวแปรกัน Orca ติดค้างในสถานะ RETURN
+var return_stuck_timer := 0.0
+var state_timer := 0.0 # ตัวแปรหน่วงเวลาป้องกัน State สลับรัวๆ
 
 func _ready() -> void:
-	
 	has_caught = false
 	state = State.PATROL
 	
+	if path_follow == null:
+		if get_parent() is PathFollow2D:
+			path_follow = get_parent() as PathFollow2D
+		elif has_node("../PathFollow2D"):
+			path_follow = get_node("../PathFollow2D") as PathFollow2D
+
 	if has_node("HitBox"):
 		$HitBox.body_entered.connect(_on_hitbox_body_entered)
 	elif has_node("Area2D"):
@@ -43,6 +49,8 @@ func _physics_process(delta: float) -> void:
 	if has_caught:
 		return
 		
+	state_timer += delta
+
 	match state:
 		State.PATROL:
 			_patrol(delta)
@@ -57,7 +65,8 @@ func _patrol(delta: float) -> void:
 	if path_follow == null:
 		return
 
-	if can_see_player():
+	# ต้องอยู่ใน PATROL อย่างน้อย 0.15 วินาที ก่อนจะเริ่มไล่ใหม่ เพื่อตัดลูปสลับรัว
+	if state_timer >= 0.15 and can_see_player():
 		_change_state(State.CHASE)
 		return
 
@@ -74,15 +83,17 @@ func _chase(delta: float) -> void:
 	if player == null:
 		player = get_tree().get_first_node_in_group("player")
 
-	# หากมองไม่เห็น Player หรือ Player แอบในซอก ให้เปลี่ยนเป็น RETURN ทันที
+	# หากมองไม่เห็น Player หรือ Player ซ่อนตัว ให้ถอยกลับ (หน่วง 0.2 วิ ตัดอาการสั่น)
 	if player == null or not can_see_player():
-		_change_state(State.RETURN)
-		return
+		if state_timer >= 0.2:
+			_change_state(State.RETURN)
+			return
 
-	last_seen_pos = player.global_position
+	if can_see_player():
+		last_seen_pos = player.global_position
 
 	var to_target := last_seen_pos - global_position
-	if to_target.length() > 2.0:
+	if to_target.length() > 5.0:
 		var target_dir := to_target.normalized()
 		var move_velocity := target_dir * (speed * chase_multiplier)
 		
@@ -101,7 +112,8 @@ func _chase(delta: float) -> void:
 
 # ---------- STATE: RETURN ----------
 func _return_to_path(delta: float) -> void:
-	if can_see_player():
+	# ถ้าอยู่ใน RETURN เกิน 0.2 วินาทีแล้วมองเห็น Player ชัดเจน จึงสลับกลับ CHASE
+	if state_timer >= 0.2 and can_see_player():
 		_change_state(State.CHASE)
 		return
 
@@ -109,15 +121,14 @@ func _return_to_path(delta: float) -> void:
 		_change_state(State.PATROL)
 		return
 
-	# ให้จุดเดินบน Path2D เดินหน้าไปเรื่อยๆ
 	path_follow.progress += speed * delta
 	return_stuck_timer += delta
 
 	var target := path_follow.global_position
 	var to_target := target - global_position
 	
-	# Failsafe: ถ้าระยะห่าง <= 24px หรือเดินติดค้างเกิน 1.5 วินาที ให้ Snap วาร์ปกลับเข้าเส้น Path2D ทันที
-	if to_target.length() <= 24.0 or return_stuck_timer >= 1.5:
+	# ปรับเงื่อนไขให้เข้าใกล้และต้องอยู่สถานะ RETURN มาแล้วอย่างน้อย 0.2 วินาที
+	if (to_target.length() <= 16.0 and state_timer >= 0.2) or return_stuck_timer >= 1.5:
 		global_position = target
 		_change_state(State.PATROL)
 		return
@@ -141,6 +152,7 @@ func _change_state(new_state: State) -> void:
 	if new_state == state:
 		return
 	state = new_state
+	state_timer = 0.0 # รีเซ็ตเวลาสะสมทุกครั้งที่เปลี่ยนสถานะ
 
 	match state:
 		State.PATROL:
@@ -156,7 +168,7 @@ func _change_state(new_state: State) -> void:
 				sfx_detect.play()
 				
 		State.RETURN:
-			return_stuck_timer = 0.0 # รีเซ็ตเวลาเช็กการติดค้าง
+			return_stuck_timer = 0.0
 			_snap_guide_to_nearest_point()
 
 	print("Orca → ", State.keys()[state])
@@ -205,6 +217,10 @@ func can_see_player() -> bool:
 
 	vision.target_position = vision.to_local(player.global_position)
 	vision.add_exception(self)
+	
+	# ปิดการชน Area2D อื่นๆ ชนเฉพาะ Physics Body (ผู้เล่น/กำแพง)
+	vision.collide_with_areas = false
+	vision.collide_with_bodies = true
 	vision.force_raycast_update()
 	
 	var collider := vision.get_collider()

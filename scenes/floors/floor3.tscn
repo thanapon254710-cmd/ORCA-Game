@@ -1385,11 +1385,11 @@ sources/11 = SubResource("TileSetAtlasSource_upcpg")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kipsh"]
 size = Vector2(88.5, 66)
 
-[sub_resource type="Curve2D" id="Curve2D_nbsd3"]
+[sub_resource type="Curve2D" id="Curve2D_l52j7"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 42.542725, 136.13293, 0, 0, 0, 0, 4381.8994, 90.75525, 0, 0, 0, 0, 4552.0703, 1179.8184, 0, 0, 0, 0, 4041.5574, 1633.5947, 0, 0, 0, 0, -85.08539, 1588.217, 0, 0, 0, 0, 42.542725, 136.13293)
+"points": PackedVector2Array(0, 0, 0, 0, 4424.442, 1406.7065, 0, 0, 0, 0, 4424.442, 136.13293, 0, 0, 0, 0, -255.25629, 136.13293, 0, 0, 0, 0, -255.25629, -589.9092, 0, 0, 0, 0, -723.2261, -589.9092, 0, 0, 0, 0, -723.2261, 1588.217, 0, 0, 0, 0, 510.5125, 1588.217, -605.91125, -20.626194, 605.91125, 20.626194, 1148.6531, 1905.8604, 0, 0, 0, 0, 1871.8792, 1588.217, 0, 0, 0, 0, 2552.5625, 1588.217, -331.96204, -10.313097, 331.96204, 10.313097, 2807.8188, 1406.7065, 0, 0, 0, 0, 3063.075, 1588.217, 0, 0, 0, 0, 4169.1855, 1588.217, 0, 0, 0, 0, 4424.442, 1406.7065)
 }
-point_count = 6
+point_count = 14
 
 [node name="floor3" type="Node2D" unique_id=1008020499]
 
@@ -1446,11 +1446,11 @@ shape = SubResource("RectangleShape2D_kipsh")
 [node name="Path2D" type="Path2D" parent="." unique_id=517045263]
 position = Vector2(160, 168)
 scale = Vector2(0.18804632, 0.17629834)
-curve = SubResource("Curve2D_nbsd3")
+curve = SubResource("Curve2D_l52j7")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=2075185475]
-position = Vector2(42.542725, 136.13293)
-rotation = -0.010456856
+position = Vector2(4424.442, 1406.7065)
+rotation = -1.5707964
 
 [node name="Orca" parent="." unique_id=2000482544 node_paths=PackedStringArray("path_follow") groups=["orca"] instance=ExtResource("14_kipsh")]
 position = Vector2(160, 168)
