@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="13_i23eo"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="14_kipsh"]
 [ext_resource type="Script" uid="uid://bmwkp27ef6iug" path="res://scenes/floors/orca_floor_3.gd" id="15_nbsd3"]
+[ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="16_upcpg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hkwmq"]
 texture = ExtResource("1_qn337")
@@ -1458,3 +1459,18 @@ sight_range = 300.0
 
 [node name="orca_floor_3" type="Node" parent="." unique_id=1355635366]
 script = ExtResource("15_nbsd3")
+
+[node name="Question_XOR" parent="." unique_id=2029985172 instance=ExtResource("16_upcpg")]
+position = Vector2(304, 127)
+question_index = 0
+TARGET_FLOOR = 3
+
+[node name="Question_DB" parent="." unique_id=1778368801 instance=ExtResource("16_upcpg")]
+position = Vector2(625, 127)
+question_index = 1
+TARGET_FLOOR = 3
+
+[node name="Question_Account" parent="." unique_id=1616492645 instance=ExtResource("16_upcpg")]
+position = Vector2(945, 127)
+question_index = 2
+TARGET_FLOOR = 3

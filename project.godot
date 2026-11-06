@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ORCA-Game"
-run/main_scene="uid://djtx14u2o4nne"
+run/main_scene="res://scenes/ui/start_menu.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
