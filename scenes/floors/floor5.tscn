@@ -1270,7 +1270,6 @@ point_count = 11
 script = ExtResource("1_8rjlg")
 
 [node name="TileMap" type="TileMap" parent="." unique_id=844832280]
-visible = false
 tile_set = SubResource("TileSet_4kxuq")
 format = 2
 layer_0/name = "BaseGround"
