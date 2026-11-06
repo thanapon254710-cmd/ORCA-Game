@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://djtx14u2o4nne"]
 
+[ext_resource type="Script" uid="uid://d1teyoqsucv8f" path="res://scenes/floors/floor_5.gd" id="1_8rjlg"]
 [ext_resource type="Texture2D" uid="uid://c28dax7ycc2ai" path="res://assets/sprites/tile_floor_hallway_concrete.png" id="1_t6y78"]
 [ext_resource type="Texture2D" uid="uid://d1b75a46i6dw1" path="res://assets/sprites/corridor school.png" id="2_gllm2"]
 [ext_resource type="Texture2D" uid="uid://b85y2tkh3jsej" path="res://assets/sprites/TX Tileset Stone Ground.png" id="2_l0oo5"]
@@ -22,6 +23,7 @@
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="20_e3i4a"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="21_c5wpi"]
 [ext_resource type="Script" uid="uid://cdehyfvl6fmae" path="res://scenes/floors/orca_floor_5.gd" id="22_ty1mm"]
+[ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="23_8rjlg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ea2ge"]
 texture = ExtResource("1_t6y78")
@@ -1261,6 +1263,8 @@ _data = {
 point_count = 11
 
 [node name="floor5" type="Node2D" unique_id=1642363128]
+script = ExtResource("1_8rjlg")
+fence_coords = null
 
 [node name="TileMap" type="TileMap" parent="." unique_id=844832280]
 tile_set = SubResource("TileSet_4kxuq")
@@ -1283,7 +1287,7 @@ position = Vector2(753, 108)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=727667385]
 position = Vector2(-1, -1)
-color = Color(0.22745098, 0.22745098, 0.22745098, 1)
+color = Color(0.31135654, 0.31135657, 0.31135654, 1)
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1442653289]
 position = Vector2(729, 33)
@@ -1314,3 +1318,28 @@ path_follow = NodePath("../PatrolPath/PathFollow2D")
 
 [node name="Orca_floor5" type="Node" parent="." unique_id=976407266]
 script = ExtResource("22_ty1mm")
+
+[node name="Question_SDG" parent="." unique_id=1777840857 instance=ExtResource("23_8rjlg")]
+position = Vector2(915, 215)
+
+[node name="Question_Python" parent="." unique_id=2029985172 instance=ExtResource("23_8rjlg")]
+position = Vector2(927, 504)
+question_index = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=497302199]
+
+[node name="PopupText" type="Label" parent="CanvasLayer" unique_id=348554362]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+[node name="Question_Law" parent="." unique_id=312159243 instance=ExtResource("23_8rjlg")]
+position = Vector2(139, 545)
+question_index = 2
