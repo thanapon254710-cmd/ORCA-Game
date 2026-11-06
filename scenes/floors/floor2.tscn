@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://c8x3mfy3f8ilv" path="res://assets/sprites/room-builder-stairs-school 48.png" id="1_qoq52"]
 [ext_resource type="Texture2D" uid="uid://dk2lnropnq7pg" path="res://assets/sprites/stylish_room_door_tiles.png" id="2_312yu"]
-[ext_resource type="PackedScene" uid="uid://c7pwe2ghy86cb" path="res://player.tscn" id="2_dnpkr"]
 [ext_resource type="Texture2D" uid="uid://sxvkvddblwkp" path="res://assets/sprites/school-furniture-student-desks-horror.png" id="3_f78ap"]
 [ext_resource type="Texture2D" uid="uid://b85y2tkh3jsej" path="res://assets/sprites/TX Tileset Stone Ground.png" id="3_s7h2i"]
 [ext_resource type="Texture2D" uid="uid://bkfuab3fou8l0" path="res://assets/sprites/school-furniture-school-chairs-clean.png" id="4_aa06a"]
@@ -13,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dxs07k7566a32" path="res://assets/sprites/Classrooms.png" id="9_i6siy"]
 [ext_resource type="Texture2D" uid="uid://bul8a3uklbk33" path="res://assets/sprites/school-floor-overlays-horror48.png" id="10_5twv8"]
 [ext_resource type="Texture2D" uid="uid://clj4n5xgb46fk" path="res://assets/sprites/school-furniture-lockers-horror.png" id="11_ukwv0"]
+[ext_resource type="PackedScene" uid="uid://b1nmaupvdtlum" path="res://player2.tscn" id="14_i6siy"]
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="14_o81gl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_312yu"]
@@ -1710,8 +1710,8 @@ layer_3/tile_data = PackedInt32Array(1048582, 0, 0, 1114118, 0, 1, 1179654, 0, 1
 layer_4/name = "Prop"
 layer_4/tile_data = PackedInt32Array(9, 196613, 11, 65545, 196613, 12, 10, 262149, 11, 65546, 262149, 12, 196642, 131077, 14, 262178, 131077, 15, 327714, 131077, 16, 196643, 196613, 14, 262179, 196613, 15, 327715, 196613, 16, 393250, 131077, 14, 393251, 196613, 14, 393240, 196613, 8, 458776, 196613, 9, 393241, 262149, 8, 458777, 262149, 9, 65552, 1835013, 19, 131088, 1835013, 20, 65553, 262149, 8, 131089, 262149, 9, 65548, 1572869, 19, 131084, 1572869, 20, 196620, 1572869, 21, 65549, 1638405, 19, 131085, 1638405, 20, 196621, 1638405, 21, 65550, 1703941, 19, 131086, 1703941, 20, 196622, 1703941, 21, 65551, 1769477, 19, 131087, 1769477, 20, 196623, 1769477, 21, 196624, 1835013, 21, 655366, 655372, 15, 655367, 720908, 15, 1048593, 851980, 15, 655381, 983052, 15, 1048600, 983052, 15, 1048601, 1048588, 15, 589853, 1114124, 15, 589854, 1179660, 15, 655389, 1245196, 15, 655390, 1310732, 15, 655388, 851980, 15, 327683, 851980, 15, 327696, 655372, 15, 327697, 720908, 15, 327706, 983052, 15, 196617, 1114124, 15, 196618, 1179660, 15, 1114136, 1245196, 15, 1114137, 1310732, 15, 589826, 524300, 15)
 
-[node name="Player" parent="." unique_id=472222300 instance=ExtResource("2_dnpkr")]
-position = Vector2(259, 505)
+[node name="Player2" parent="." unique_id=2022886588 instance=ExtResource("14_i6siy")]
+position = Vector2(261, 503)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=373061406]
 visible = false

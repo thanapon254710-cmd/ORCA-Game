@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://b1nmaupvdtlum"]
+
+[ext_resource type="Script" uid="uid://bl6j5grfxd1h4" path="res://scripts/player/player.gd" id="1_vop8p"]
+[ext_resource type="Texture2D" uid="uid://cqo4ryfwm6wpy" path="res://Front_Draft1 (1).png" id="2_tj0vx"]
+[ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสง.jpg" id="3_bhnal"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hq3ai"]
+radius = 13.0
+height = 44.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b50fy"]
+radius = 40.0
+
+[node name="Playerปิดไฟ" type="CharacterBody2D" unique_id=472222300]
+position = Vector2(452, 247)
+collision_layer = 2
+script = ExtResource("1_vop8p")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=453819253]
+texture_filter = 1
+position = Vector2(-20.625008, -23.625008)
+scale = Vector2(1.601563, 1.601563)
+texture = ExtResource("2_tj0vx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2041220931]
+position = Vector2(-21, -20)
+shape = SubResource("CapsuleShape2D_hq3ai")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=632584784]
+position = Vector2(-21, -24)
+zoom = Vector2(1.5, 1.5)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=225097483]
+visible = false
+position = Vector2(-18.999996, -20.000002)
+scale = Vector2(25.833122, 24.495941)
+color = Color(0.8392157, 0.8392157, 0.8392157, 0.7921569)
+texture = ExtResource("3_bhnal")
+texture_scale = 0.01
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=2075346170]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=726863881]
+position = Vector2(-21, -21)
+shape = SubResource("CircleShape2D_b50fy")
