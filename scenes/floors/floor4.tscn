@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://bbfedd2tvfhar" path="res://แสงสี่เหลี่ยม.jpg" id="28_ueo2k"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="29_ucpdf"]
 [ext_resource type="Script" uid="uid://dhqokselbjnyg" path="res://orca_floor_4.gd" id="30_e5plf"]
+[ext_resource type="PackedScene" path="res://scenes/inventory/items/key_yellow.tscn" id="31_e5plf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kxqf"]
 texture = ExtResource("1_hy4yd")
@@ -1469,3 +1470,7 @@ rotation = -1.5355656
 
 [node name="orca_floor_4" type="Node" parent="." unique_id=1141609695]
 script = ExtResource("30_e5plf")
+
+[node name="key_yellow" parent="." unique_id=2096016983 instance=ExtResource("31_e5plf")]
+position = Vector2(990, 474)
+item_id = "Keywordft4"
