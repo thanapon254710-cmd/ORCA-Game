@@ -28,6 +28,9 @@
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="20_h4yqk"]
 [ext_resource type="Script" uid="uid://cr7aguwcp27jo" path="res://scenes/room/RoomDoor.gd" id="21_77k8e"]
 [ext_resource type="Texture2D" uid="uid://bbfedd2tvfhar" path="res://แสงสี่เหลี่ยม.jpg" id="28_ueo2k"]
+[ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="29_ucpdf"]
+[ext_resource type="Script" uid="uid://dhqokselbjnyg" path="res://orca_floor_4.gd" id="30_e5plf"]
+[ext_resource type="PackedScene" path="res://scenes/inventory/items/key_yellow.tscn" id="31_e5plf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kxqf"]
 texture = ExtResource("1_hy4yd")
@@ -1331,6 +1334,12 @@ size = Vector2(71, 81.25)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1drc"]
 size = Vector2(87, 54)
 
+[sub_resource type="Curve2D" id="Curve2D_l52j7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -101.03906, -34.033447, 0, 0, 0, 0, -21.271484, -2297.2427, 0, 0, 0, 0, -265.8921, -2319.9316, 0, 0, 0, 0, -276.52783, -1582.545, 0, 0, 0, 0, -4100.0537, -1667.628, 0, 0, 0, 0, -4147.914, -232.56055, 0, 0, 0, 0, -409.47363, -141.80542, 0, 0, 0, 0, -101.03906, -34.033447)
+}
+point_count = 8
+
 [node name="floor4" type="Node2D" unique_id=1963433244]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=227891699]
@@ -1347,7 +1356,7 @@ layer_3/tile_data = PackedInt32Array(1048585, 589825, 0, 1114121, 589825, 1, 104
 layer_4/name = "Prop"
 layer_4/tile_data = PackedInt32Array(524300, 131093, 14, 589836, 131093, 15, 655372, 131093, 16, 524301, 196629, 14, 589837, 196629, 15, 655373, 196629, 16, 524302, 262165, 14, 589838, 262165, 15, 655374, 262165, 16, 655376, 524309, 15)
 
-[node name="Player" parent="." unique_id=472222300 instance=ExtResource("1_5vcy3")]
+[node name="Player" parent="." unique_id=472222300 groups=["player"] instance=ExtResource("1_5vcy3")]
 position = Vector2(353, 505)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=893730580]
@@ -1445,3 +1454,23 @@ position = Vector2(16, 173.99998)
 rotation = 1.5707964
 scale = Vector2(0.3478151, 0.29694417)
 texture = ExtResource("28_ueo2k")
+
+[node name="Orca" parent="." unique_id=2000482544 node_paths=PackedStringArray("path_follow") groups=["orca"] instance=ExtResource("29_ucpdf")]
+position = Vector2(994, 480.00003)
+path_follow = NodePath("../Path2D/PathFollow2D")
+
+[node name="Path2D" type="Path2D" parent="." unique_id=145487918]
+position = Vector2(994, 480.00003)
+scale = Vector2(0.18804632, 0.17629834)
+curve = SubResource("Curve2D_l52j7")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=1407725072]
+position = Vector2(-101.03906, -34.033447)
+rotation = -1.5355656
+
+[node name="orca_floor_4" type="Node" parent="." unique_id=1141609695]
+script = ExtResource("30_e5plf")
+
+[node name="key_yellow" parent="." unique_id=2096016983 instance=ExtResource("31_e5plf")]
+position = Vector2(990, 474)
+item_id = "Keywordft4"

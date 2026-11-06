@@ -43,42 +43,31 @@ var questions_list: Array = []
 var current_question_index: int = 0
 
 func _ready():
-	# Create the close button
+	# สร้างปุ่มปิดกล่อง (X)
 	var close_button = Button.new()
-
 	close_button.name = "CloseButton"
 	close_button.text = "×"
 	close_button.tooltip_text = "Close (ESC)"
-
 	close_button.custom_minimum_size = Vector2(35, 35)
 	close_button.focus_mode = Control.FOCUS_NONE
-
-	# Position at the top-right corner of the panel
 	close_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-
 	close_button.offset_left = -43
 	close_button.offset_top = 8
 	close_button.offset_right = -8
 	close_button.offset_bottom = 43
-
-	# Connect button
 	close_button.pressed.connect(close_question)
-
 	$Panel.add_child(close_button)
 	
-	# ผูกการคลิกช้อยส์
+	# ผูกปุ่มคำตอบ
 	for btn in choice_buttons:
 		btn.pressed.connect(func(): _on_choice_selected(btn.text if btn.text != "" else (btn.icon.resource_path if btn.icon else "")))
 	
-	# ผูกปุ่มกดยืนยัน
 	submit_button.pressed.connect(_on_submit_input)
 	single_input.text_submitted.connect(func(_t): _on_submit_input())
 	
-	# กด Enter ข้ามช่องสำหรับ Double Input (A -> B -> ส่งคำตอบ)
 	input_a.text_submitted.connect(func(_t): input_b.grab_focus())
 	input_b.text_submitted.connect(func(_t): _on_submit_input())
 	
-	# กด Enter ข้ามช่องสำหรับ Quad Input (1 -> 2 -> 3 -> 4 -> ส่งคำตอบ)
 	input_1.text_submitted.connect(func(_t): input_2.grab_focus())
 	input_2.text_submitted.connect(func(_t): input_3.grab_focus())
 	input_3.text_submitted.connect(func(_t): input_4.grab_focus())
@@ -86,21 +75,36 @@ func _ready():
 	
 	load_questions_from_json()
 	
+	# จำลองให้กุญแจสีเหลืองตั้งต้นสำหรับการทดสอบ
+	if not Inventory.has_item("key_yellow"):
+		Inventory.collect("key_yellow", "start_key_yellow")
+		
+	# เปิดทดสอบข้อ 3.1
+	load_question_by_id("q_3_1")
+
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not visible:
-		return
-	if event is InputEventKey:
-		if event.pressed and not event.echo:
-			if event.keycode == KEY_ESCAPE:
-				close_question()
-				get_viewport().set_input_as_handled()
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_ESCAPE and visible:
+			close_question()
+			get_viewport().set_input_as_handled()
+			
+		# ปุ่มลัดทดสอบ (Debug)
+		elif event.keycode == KEY_1:
+			load_question_by_id("q_3_1")
+		elif event.keycode == KEY_2:
+			load_question_by_id("q_3_2")
+		elif event.keycode == KEY_3:
+			load_question_by_id("q_3_3")
+		elif event.keycode == KEY_K:
+			Inventory.collect("key_yellow", "debug_key_" + str(Time.get_ticks_msec()))
+			print("เพิ่มกุญแจสีเหลืองแล้ว! ปัจจุบันมี:", Inventory.get_count("key_yellow"))
 
 func open_question(data: Dictionary) -> void:
 	current_question_index = 0
 	display_question(data)
 
 func load_questions_from_json():
-	var file_path = "res://questions.json"
+	var file_path = "res://data/questions.json"
 	if not FileAccess.file_exists(file_path):
 		push_error("ไม่พบไฟล์: " + file_path)
 		return
@@ -126,7 +130,20 @@ func display_question(data: Dictionary):
 	feedback_label.text = ""
 	question_label.text = data.get("question", "")
 	
-	# 1. จัดการรูปภาพประกอบโจทย์
+	# ตรวจสอบกุญแจในกระเป๋า (Inventory Check)
+	var req_key = data.get("required_key", "")
+	if req_key != "" and not Inventory.has_item(req_key):
+		var key_display = str(Inventory.ITEM_NAMES.get(req_key, req_key))
+		feedback_label.text = "🔒 Locked! Requires " + key_display + " to unlock."
+		feedback_label.modulate = Color.ORANGE
+		
+		choices_container.visible = false
+		input_container.visible = false
+		question_image.visible = false
+		show()
+		return
+	
+	# รูปภาพประกอบโจทย์
 	var img_path = data.get("image_path", "")
 	if img_path != "" and ResourceLoader.exists(img_path):
 		question_image.texture = load(img_path)
@@ -138,7 +155,7 @@ func display_question(data: Dictionary):
 	
 	var q_type = data.get("type", "multiple_choice")
 	
-	# 2. กรณีช่องกรอก 4 ช่อง (ข้อ 3.1 XOR)
+	# ช่องกรอก 4 ช่อง (ข้อ 3.1 XOR)
 	if q_type == "text_input_quad":
 		choices_container.visible = false
 		input_container.visible = true
@@ -146,13 +163,11 @@ func display_question(data: Dictionary):
 		double_input_container.visible = false
 		quad_input_container.visible = true
 		
-		# กำหนด Label ข้อความ XOR ในโค้ดโดยตรง
 		label_1.text = "0 XOR 0 = "
 		label_2.text = "0 XOR 1 = "
 		label_3.text = "1 XOR 0 = "
 		label_4.text = "1 XOR 1 = "
 		
-		# ล้างค่าช่องพิมพ์และเปิดให้แก้ไข
 		for inp in [input_1, input_2, input_3, input_4]:
 			inp.text = ""
 			inp.editable = true
@@ -161,7 +176,7 @@ func display_question(data: Dictionary):
 		submit_button.disabled = false
 		input_1.grab_focus()
 		
-	# 3. กรณีช่องกรอกคู่ (ข้อ 5.2)
+	# ช่องกรอกคู่ (ข้อ 5.2)
 	elif q_type == "text_input_double":
 		choices_container.visible = false
 		input_container.visible = true
@@ -179,7 +194,7 @@ func display_question(data: Dictionary):
 		submit_button.disabled = false
 		input_a.grab_focus()
 		
-	# 4. กรณีช่องกรอกเดี่ยว (ข้อ 5.1)
+	# ช่องกรอกเดี่ยว (ข้อ 5.1)
 	elif q_type == "text_input":
 		choices_container.visible = false
 		input_container.visible = true
@@ -192,10 +207,13 @@ func display_question(data: Dictionary):
 		submit_button.disabled = false
 		single_input.grab_focus()
 		
-	# 5. กรณีตัวเลือก (Multiple Choice)
+	# ตัวเลือก (Multiple Choice)
 	else:
 		input_container.visible = false
 		choices_container.visible = true
+		quad_input_container.visible = false
+		double_input_container.visible = false
+		
 		var choices = data.get("choices", [])
 		for i in range(choice_buttons.size()):
 			var btn = choice_buttons[i]
@@ -221,7 +239,8 @@ func _on_choice_selected(selected_value: String):
 	for btn in choice_buttons:
 		btn.disabled = true
 	var correct_val = str(current_question_data.get("correct_answer", ""))
-	_finish_answering(selected_value.strip_edges() == correct_val.strip_edges())
+	var is_correct = (correct_val == "*" or selected_value.strip_edges() == correct_val.strip_edges())
+	_finish_answering(is_correct)
 
 func _on_submit_input():
 	var q_type = current_question_data.get("type", "")
@@ -234,7 +253,6 @@ func _on_submit_input():
 		var u3 = input_3.text.strip_edges()
 		var u4 = input_4.text.strip_edges()
 		
-		# เฉลยรูปแบบ "0, 1, 1, 0"
 		var parts = correct_val.split(",")
 		if parts.size() >= 4:
 			is_correct = (
@@ -268,20 +286,66 @@ func _on_submit_input():
 	_finish_answering(is_correct)
 
 func _finish_answering(is_correct: bool):
-
 	if is_correct:
 		feedback_label.text = "✓ correct!"
 		feedback_label.modulate = Color.GREEN
+		
+		var reward_k = current_question_data.get("reward_key", "")
+		if reward_k != "":
+			var unique_pickup_id = "reward_" + current_question_id + "_" + str(Time.get_ticks_msec())
+			Inventory.collect(reward_k, unique_pickup_id)
+			var key_name = str(Inventory.ITEM_NAMES.get(reward_k, reward_k))
+			feedback_label.text += " Received " + key_name + "!"
+			
+		question_answered.emit(is_correct)
+		
+		if GameState.has_signal("question_answered"):
+			GameState.question_answered.emit(current_question_id, is_correct)
+		if not GameState.questions_answered.has(current_question_id):
+			GameState.questions_answered.append(current_question_id)
+			
+		await get_tree().create_timer(1.5).timeout
+		
+		# --- ตรวจสอบลำดับเพื่อเปิดข้อถัดไปของชั้น 3 อัตโนมัติ ---
+		if current_question_id == "q_3_1":
+			load_question_by_id("q_3_2")
+		elif current_question_id == "q_3_2":
+			load_question_by_id("q_3_3")
+		elif current_question_id == "q_3_3":
+			feedback_label.text = "เคลียร์ปริศนาชั้น 3 ครบแล้ว!"
+			await get_tree().create_timer(1.2).timeout
+			hide()
+			question_closed.emit()
+		else:
+			hide()
+			question_closed.emit()
 	else:
-		feedback_label.text = "✗ wrong!"
+		feedback_label.text = "try again"
 		feedback_label.modulate = Color.RED
-
-	question_answered.emit(is_correct)
-
-	await get_tree().create_timer(1.2).timeout
-
-	hide()
-	question_closed.emit()
+		
+		var q_type = current_question_data.get("type", "multiple_choice")
+		if q_type == "text_input":
+			single_input.editable = true
+			single_input.text = ""
+			submit_button.disabled = false
+			single_input.grab_focus()
+		elif q_type == "text_input_double":
+			input_a.editable = true
+			input_b.editable = true
+			input_a.text = ""
+			input_b.text = ""
+			submit_button.disabled = false
+			input_a.grab_focus()
+		elif q_type == "text_input_quad":
+			for inp in [input_1, input_2, input_3, input_4]:
+				inp.editable = true
+				inp.text = ""
+			submit_button.disabled = false
+			input_1.grab_focus()
+		else:
+			for btn in choice_buttons:
+				btn.disabled = false
+	
 
 func close_question() -> void:
 	if not visible:

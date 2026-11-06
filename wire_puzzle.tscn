@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cnnlfijvmylmd"]
 
-[ext_resource type="Script" uid="uid://6bj4nebf6eyg" path="res://scenes/quiz/wire_puzzle.gd" id="1_pvtyj"]
+[ext_resource type="Script" uid="uid://6bj4nebf6eyg" path="res://wire_puzzle.gd" id="1_pvtyj"]
 
 [node name="WirePuzzle" type="CanvasLayer" unique_id=2118015818]
 script = ExtResource("1_pvtyj")
@@ -30,15 +30,23 @@ offset_bottom = -0.21203613
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel" unique_id=950128635]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -504.0
+offset_top = -106.0
+offset_right = 504.0
+offset_bottom = 106.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="LeftContainer" type="VBoxContainer" parent="Panel/HBoxContainer" unique_id=466618240]
 custom_minimum_size = Vector2(200, 0)
+propagate_maximum_size = false
 layout_mode = 2
+size_flags_vertical = 4
 
 [node name="LeftBtn0" type="Button" parent="Panel/HBoxContainer/LeftContainer" unique_id=1454596599]
 custom_minimum_size = Vector2(120, 50)
@@ -63,6 +71,7 @@ layout_mode = 2
 [node name="RightContainer" type="VBoxContainer" parent="Panel/HBoxContainer" unique_id=1993059226]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="RightBtn0" type="Button" parent="Panel/HBoxContainer/RightContainer" unique_id=1342154727]
 custom_minimum_size = Vector2(120, 50)
@@ -81,16 +90,20 @@ custom_minimum_size = Vector2(120, 50)
 layout_mode = 2
 
 [node name="ResetButton" type="Button" parent="Panel" unique_id=2052546822]
-layout_mode = 0
-offset_left = 399.0
-offset_top = 227.0
-offset_right = 636.0
-offset_bottom = 258.0
+layout_mode = 1
+offset_left = 471.0
+offset_top = 520.0
+offset_right = 708.0
+offset_bottom = 551.0
 text = "reset"
 
 [node name="FeedbackLabel" type="Label" parent="Panel" unique_id=1439767589]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 266.0
-offset_right = 811.0
-offset_bottom = 289.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -188.0
+offset_top = 125.0
+offset_right = 192.0
+offset_bottom = 148.0
+grow_horizontal = 2
