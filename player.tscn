@@ -1,8 +1,119 @@
 [gd_scene format=3 uid="uid://c7pwe2ghy86cb"]
 
-[ext_resource type="Texture2D" uid="uid://cqo4ryfwm6wpy" path="res://Front_Draft1 (1).png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bl6j5grfxd1h4" path="res://scripts/player/player.gd" id="1_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://cx1ci1j61yedx" path="res://assets/sprites/Animation/Main_player/Front_Draft1.png" id="2_606se"]
 [ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสง.jpg" id="2_onrkg"]
+[ext_resource type="Texture2D" uid="uid://dsucmcw6mv17f" path="res://assets/sprites/Animation/Main_player/Front_Draft1_เดิน1.png" id="3_u1c27"]
+[ext_resource type="Texture2D" uid="uid://c1e747dhpvkia" path="res://assets/sprites/Animation/Main_player/Front_Draft1_เดิน2.png" id="4_op7ga"]
+[ext_resource type="Texture2D" uid="uid://cho1ifqctylsi" path="res://assets/sprites/Animation/Main_player/Side_Draft1_ซ้าย.png" id="5_q13i1"]
+[ext_resource type="Texture2D" uid="uid://c7xvpgmi7ix7g" path="res://assets/sprites/Animation/Main_player/Side_Draft1_ซ้ายเดิน2.png" id="6_pylmc"]
+[ext_resource type="Texture2D" uid="uid://77fj0wtr17de" path="res://assets/sprites/Animation/Main_player/Side_Draft1_ซ้ายเดิน.png" id="7_pbfsw"]
+[ext_resource type="Texture2D" uid="uid://dsbjyj806lg6d" path="res://assets/sprites/Animation/Main_player/Side_Draft1_ขวา.png" id="8_5tmop"]
+[ext_resource type="Texture2D" uid="uid://livdrhuh7jh0" path="res://assets/sprites/Animation/Main_player/Side_Draft1_ขวาเดิน2.png" id="9_7ahtn"]
+[ext_resource type="Texture2D" uid="uid://dvei3o4kwlqac" path="res://assets/sprites/Animation/Main_player/Side_Draft1_ขวาเดิน.png" id="10_7lmhl"]
+[ext_resource type="Texture2D" uid="uid://ck5yk5bj007nn" path="res://assets/sprites/Animation/Main_player/Back_Draft1.png" id="11_dx0e4"]
+[ext_resource type="Texture2D" uid="uid://cbumuptxe0bob" path="res://assets/sprites/Animation/Main_player/Back_Draft1_เดิน1.png" id="12_jm5j8"]
+[ext_resource type="Texture2D" uid="uid://cttrt6fsfcket" path="res://assets/sprites/Animation/Main_player/Back_Draft1_เดิน2.png" id="13_7hik5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5h11f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_606se")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_u1c27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_op7ga")
+}],
+"loop": 1,
+"name": &"Walk_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_q13i1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_pylmc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_pbfsw")
+}],
+"loop": 1,
+"name": &"Walk_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_5tmop")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_7ahtn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_7lmhl")
+}],
+"loop": 1,
+"name": &"Walk_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_dx0e4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_jm5j8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_7hik5")
+}],
+"loop": 1,
+"name": &"Walk_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_dx0e4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_jm5j8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_7hik5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_606se")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_u1c27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_op7ga")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5tmop")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_7ahtn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_7lmhl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_q13i1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_pylmc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_pbfsw")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hq3ai"]
 radius = 13.0
@@ -16,14 +127,14 @@ position = Vector2(452, 247)
 collision_layer = 2
 script = ExtResource("1_i3pqv")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=453819253]
-texture_filter = 1
-position = Vector2(-20.625008, -23.625008)
-scale = Vector2(1.601563, 1.601563)
-texture = ExtResource("1_4flbx")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=639495596]
+position = Vector2(54, 0)
+scale = Vector2(1.602, 1.602)
+sprite_frames = SubResource("SpriteFrames_5h11f")
+frame_progress = 0.7318238
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2041220931]
-position = Vector2(-21, -20)
+position = Vector2(54, 0)
 shape = SubResource("CapsuleShape2D_hq3ai")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=632584784]
@@ -31,7 +142,7 @@ position = Vector2(-21, -24)
 zoom = Vector2(1.5, 1.5)
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=225097483]
-position = Vector2(-18.999996, -20.000002)
+position = Vector2(54, 0)
 scale = Vector2(25.833122, 24.495941)
 color = Color(0.8392157, 0.8392157, 0.8392157, 0.7921569)
 texture = ExtResource("2_onrkg")
@@ -41,5 +152,5 @@ texture_scale = 0.01
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=726863881]
-position = Vector2(-21, -21)
+position = Vector2(54, 0)
 shape = SubResource("CircleShape2D_b50fy")
