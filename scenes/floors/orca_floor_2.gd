@@ -32,10 +32,16 @@ func _ready() -> void:
 				orca.player_caught.connect(_on_player_caught)
 
 func _on_player_caught() -> void:
-	print("GAME OVER - FLOOR 2")
+	print("GAME OVER - FLOOR 5")
 	
+	# 1. ทำหน้าจอสั่น (ปล่อยให้เสียง Jumpscare เล่นขนานกันไป)
 	await _trigger_screen_shake()
-	await get_tree().create_timer(0.3).timeout
+	
+	# 2. รอเวลา 0.8 วินาที เพื่อให้เสียง Jumpscare (SfxCaught) เล่นจนจบ
+	# (ตั้งค่า ignore_paused = true เพื่อไม่ให้ Timer ค้างแม้ฉากหยุด)
+	await get_tree().create_timer(0.8, true, false, true).timeout
+	
+	# 3. โหลดด่านใหม่หลังจากเสียงเล่นจบแล้ว
 	get_tree().reload_current_scene()
 
 func _trigger_screen_shake() -> void:
