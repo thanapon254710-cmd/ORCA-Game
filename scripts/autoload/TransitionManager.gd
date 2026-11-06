@@ -15,6 +15,7 @@ const RESPAWN_FLOORS_BY_SCENE: Dictionary = {
 	"res://scenes/floors/floor4.tscn": 4,
 	"res://scenes/room/room407.tscn": 4,
 	"res://scenes/room/room408.tscn": 4,
+	"res://scenes/room/room408เปิดไฟ.tscn": 4,
 	"res://scenes/floors/floor3.tscn": 3,
 	"res://scenes/floors/floor2.tscn": 2
 }
