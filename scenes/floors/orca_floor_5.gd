@@ -1,14 +1,13 @@
 extends Node
+@export var shake_duration: float = 0.25  # ลดเวลาสั่นเมื่อโดนจับ
+@export var shake_intensity: float = 5.0  # ลดความแรงสั่นหน้าจอลง
 
-@export var shake_duration: float = 0.4   # ลดเวลาสั่นให้น้อยลงนิดหน่อย
-@export var shake_intensity: float = 10.0 # ลดความแรงสั่นหน้าจอลง
-
-# ---------- ปรับค่าสมดุลสำหรับชั้นแรก (เริ่มต้นง่ายขึ้น) ----------
-@export var floor5_speed: float = 85.0           # ความเร็วเดินปรกติ (ช้าลง)
-@export var floor5_chase_mult: float = 1.4       # ตัวคูณความเร็วไล่ล่า (ไล่ไม่กระชาก)
-@export var floor5_sight_range: float = 180.0    # ระยะสายตา (มองเห็นได้สั้นลง)
-@export var floor5_sight_angle: float = 75.0     # กรวยสายตา (แคบลง แอบซอกง่ายขึ้น)
-@export var floor5_lose_sight_time: float = 1.5  # เวลาติดตามดมกลิ่น (หลบพ้นแล้วถอยกลับไวขึ้น)
+# ---------- ปรับค่าสมดุลโหมดง่ายสุดๆ (เทียบกับ Player SPEED = 200.0) ----------
+@export var floor5_speed: float = 50.0           # ความเร็วเดินตรวจ (Player วิ่งเร็วกว่า 4 เท่า)
+@export var floor5_chase_mult: float = 1.15      # ตัวคูณไล่ล่า (วิ่งไล่แค่ 57.5 px/s วิ่งทิ้งห่างได้สบาย)
+@export var floor5_sight_range: float = 100.0    # ระยะสายตา (สั้นมาก ต้องยืนใกล้ประมาณ 1-2 ช่องกระเบื้อง)
+@export var floor5_sight_angle: float = 40.0     # กรวยสายตา (มุมมองแคบมาก ยืนเฉียงข้างนิดเดียวก็มองไม่เห็น)
+@export var floor5_lose_sight_time: float = 0.3  # เวลาดมกลิ่น (หลบหลังสิ่งกั้น 0.3 วินาที ถอดใจเลิกไล่ทันที)
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS

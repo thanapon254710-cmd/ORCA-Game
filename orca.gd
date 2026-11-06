@@ -24,9 +24,10 @@ var has_caught := false
 var facing := Vector2.RIGHT
 var player: Node2D
 var last_seen_pos := Vector2.ZERO
-var lose_timer := 0.0
+var return_stuck_timer := 0.0 # ตัวแปรกัน Orca ติดค้างในสถานะ RETURN
 
 func _ready() -> void:
+	
 	has_caught = false
 	state = State.PATROL
 	
@@ -73,24 +74,13 @@ func _chase(delta: float) -> void:
 	if player == null:
 		player = get_tree().get_first_node_in_group("player")
 
-	if player:
-		var dist := global_position.distance_to(player.global_position)
-		
-		# เมื่อส่องเจอแล้ว ให้ดมกลิ่นตามล่าตราบใดที่ยังอยู่ใน sight_range + 50.0 พิกเซล
-		if can_see_player() or dist <= (sight_range + 50.0):
-			last_seen_pos = player.global_position
-			lose_timer = lose_sight_time
-		else:
-			lose_timer -= delta
-	else:
-		lose_timer -= delta
-
-	# เมื่อหมดเวลาดมกลิ่นจริงๆ ถึงเปลี่ยนเป็น RETURN
-	if lose_timer <= 0.0:
+	# หากมองไม่เห็น Player หรือ Player แอบในซอก ให้เปลี่ยนเป็น RETURN ทันที
+	if player == null or not can_see_player():
 		_change_state(State.RETURN)
 		return
 
-	# สั่งวิ่งพุ่งเข้าหาตำแหน่งล่าสุดของผู้เล่น
+	last_seen_pos = player.global_position
+
 	var to_target := last_seen_pos - global_position
 	if to_target.length() > 2.0:
 		var target_dir := to_target.normalized()
@@ -116,18 +106,35 @@ func _return_to_path(delta: float) -> void:
 		return
 
 	if path_follow == null:
+		_change_state(State.PATROL)
 		return
+
+	# ให้จุดเดินบน Path2D เดินหน้าไปเรื่อยๆ
+	path_follow.progress += speed * delta
+	return_stuck_timer += delta
 
 	var target := path_follow.global_position
 	var to_target := target - global_position
-	if to_target.length() <= speed * delta:
+	
+	# Failsafe: ถ้าระยะห่าง <= 24px หรือเดินติดค้างเกิน 1.5 วินาที ให้ Snap วาร์ปกลับเข้าเส้น Path2D ทันที
+	if to_target.length() <= 24.0 or return_stuck_timer >= 1.5:
 		global_position = target
 		_change_state(State.PATROL)
 		return
 
-	velocity = to_target.normalized() * speed
+	var target_dir := to_target.normalized()
+	var move_velocity := target_dir * speed
+	
+	if is_on_wall():
+		var wall_n := get_wall_normal().normalized()
+		if wall_n.length() > 0.0:
+			move_velocity = move_velocity.slide(wall_n)
+			
+	velocity = move_velocity
 	move_and_slide()
-	_face(velocity)
+	
+	if velocity.length() > 5.0:
+		_face(velocity)
 
 # ---------- State Machine Handling ----------
 func _change_state(new_state: State) -> void:
@@ -141,7 +148,6 @@ func _change_state(new_state: State) -> void:
 		State.CHASE:
 			if player == null:
 				player = get_tree().get_first_node_in_group("player")
-			lose_timer = lose_sight_time
 			if player:
 				last_seen_pos = player.global_position
 				_face((player.global_position - global_position).normalized())
@@ -150,6 +156,7 @@ func _change_state(new_state: State) -> void:
 				sfx_detect.play()
 				
 		State.RETURN:
+			return_stuck_timer = 0.0 # รีเซ็ตเวลาเช็กการติดค้าง
 			_snap_guide_to_nearest_point()
 
 	print("Orca → ", State.keys()[state])
@@ -183,6 +190,9 @@ func can_see_player() -> bool:
 		player = get_tree().get_first_node_in_group("player")
 		if player == null:
 			return false
+
+	if "is_hiding" in player and player.is_hiding:
+		return false
 
 	var to_player := player.global_position - global_position
 
