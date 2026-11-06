@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/inventory/item_pickup.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/inventory/key_gold.svg" id="2"]
+[sub_resource type="CircleShape2D" id="Shape"]
+radius = 18.0
+
+[node name="key_gold" type="Area2D"]
+collision_layer = 1
+collision_mask = 0
+monitoring = false
+script = ExtResource("1")
+item_id = "key_gold"
+
+[node name="Visual" type="Sprite2D" parent="."]
+texture = ExtResource("2")
+scale = Vector2(0.75, 0.75)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Shape")
+
+[node name="Prompt" type="Label" parent="."]
+visible = false
+offset_left = -115.0
+offset_top = -52.0
+offset_right = 115.0
+offset_bottom = -28.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "E - Pick up Gold key"
+horizontal_alignment = 1
