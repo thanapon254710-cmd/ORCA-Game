@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://1rtjyvtk6rqf"]
+
+[ext_resource type="Script" uid="uid://lxvouaghrmoy" path="res://scenes/puzzle/car.gd" id="1_0xkrh"]
+[ext_resource type="Texture2D" uid="uid://du77o7313cn35" path="res://assets/sprites/car.png" id="1_hsc4m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tiifm"]
+size = Vector2(86, 174)
+
+[node name="CarBlue" type="Area2D" unique_id=284613950]
+script = ExtResource("1_0xkrh")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1404148665]
+texture = ExtResource("1_hsc4m")
+region_enabled = true
+region_rect = Rect2(302.22354, 101.4147, 90.40616, 174.3547)
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1746608493]
+shape = SubResource("RectangleShape2D_tiifm")
