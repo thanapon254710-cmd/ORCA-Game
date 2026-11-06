@@ -1318,9 +1318,13 @@ path_follow = NodePath("../PatrolPath/PathFollow2D")
 [node name="Orca_floor5" type="Node" parent="." unique_id=976407266]
 script = ExtResource("22_ty1mm")
 
-[node name="Question_Python" parent="." unique_id=2029985172 instance=ExtResource("23_8rjlg")]
-position = Vector2(927, 208)
-
 [node name="Question_SDG" parent="." unique_id=1777840857 instance=ExtResource("23_8rjlg")]
-position = Vector2(927, 497)
+position = Vector2(915, 215)
+
+[node name="Question_Python" parent="." unique_id=2029985172 instance=ExtResource("23_8rjlg")]
+position = Vector2(927, 504)
 question_index = 1
+
+[node name="Question_Law" parent="." unique_id=312159243 instance=ExtResource("23_8rjlg")]
+position = Vector2(139, 545)
+question_index = 2
