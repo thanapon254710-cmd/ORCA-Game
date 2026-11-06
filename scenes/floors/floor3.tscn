@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://b40ctsx5opw33" path="res://assets/sprites/prop3.png" id="9_4dxh7"]
 [ext_resource type="Texture2D" uid="uid://c0rdh1n84esx7" path="res://assets/sprites/prop4.png" id="10_oimqh"]
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="13_i23eo"]
+[ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="14_kipsh"]
+[ext_resource type="Script" uid="uid://bmwkp27ef6iug" path="res://scenes/floors/orca_floor_3.gd" id="15_nbsd3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hkwmq"]
 texture = ExtResource("1_qn337")
@@ -1382,6 +1384,12 @@ sources/11 = SubResource("TileSetAtlasSource_upcpg")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kipsh"]
 size = Vector2(88.5, 114)
 
+[sub_resource type="Curve2D" id="Curve2D_nbsd3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 42.542725, 136.13293, 0, 0, 0, 0, 4381.8994, 90.75525, 0, 0, 0, 0, 4552.0703, 1179.8184, 0, 0, 0, 0, 4041.5574, 1633.5947, 0, 0, 0, 0, -85.08539, 1588.217, 0, 0, 0, 0, 42.542725, 136.13293)
+}
+point_count = 6
+
 [node name="floor3" type="Node2D" unique_id=1008020499]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=531926006]
@@ -1398,7 +1406,7 @@ layer_3/tile_data = PackedInt32Array(1048606, 393218, 0, 1114142, 393218, 1, 117
 layer_4/name = "Prop"
 layer_4/tile_data = PackedInt32Array(852000, 3, 13, 917536, 3, 14, 852001, 65539, 13, 917537, 65539, 14, 917533, 3, 15, 917534, 3, 13, 917535, 65539, 13, 852002, 65539, 15, 852003, 131075, 15, 983070, 3, 14, 983071, 65539, 14, 917538, 3, 13, 983074, 3, 14, 917539, 65539, 13, 983075, 65539, 14, 786462, 196617, 8, 851998, 196617, 9, 786463, 262153, 8, 851999, 262153, 9, 327684, 11, 0, 393220, 11, 1, 327685, 65547, 0, 393221, 65547, 1)
 
-[node name="Player" parent="." unique_id=472222300 instance=ExtResource("5_e4m50")]
+[node name="Player" parent="." unique_id=472222300 groups=["player"] instance=ExtResource("5_e4m50")]
 position = Vector2(67, 508)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1264508418]
@@ -1431,3 +1439,20 @@ destination_spawn_marker = "SpawnFromFloor3"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs3to2" unique_id=1785667734]
 shape = SubResource("RectangleShape2D_kipsh")
+
+[node name="Path2D" type="Path2D" parent="." unique_id=517045263]
+position = Vector2(160, 168)
+scale = Vector2(0.18804632, 0.17629834)
+curve = SubResource("Curve2D_nbsd3")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=2075185475]
+position = Vector2(42.542725, 136.13293)
+rotation = -0.010456856
+
+[node name="Orca" parent="." unique_id=2000482544 node_paths=PackedStringArray("path_follow") groups=["orca"] instance=ExtResource("14_kipsh")]
+position = Vector2(160, 168)
+path_follow = NodePath("../Path2D/PathFollow2D")
+sight_range = 300.0
+
+[node name="orca_floor_3" type="Node" parent="." unique_id=1355635366]
+script = ExtResource("15_nbsd3")

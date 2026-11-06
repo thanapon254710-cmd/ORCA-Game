@@ -4,11 +4,11 @@
 [ext_resource type="Script" uid="uid://tyrj60b5uerr" path="res://orca.gd" id="1_yluti"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p376d"]
-radius = 244.0
-height = 596.0
+radius = 226.8883
+height = 453.7766
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p376d"]
-radius = 315.96994
+radius = 265.89185
 
 [node name="Orca" type="CharacterBody2D" unique_id=2000482544]
 position = Vector2(598, 335.99997)

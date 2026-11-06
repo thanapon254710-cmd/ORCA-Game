@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://clj4n5xgb46fk" path="res://assets/sprites/school-furniture-lockers-horror.png" id="11_ukwv0"]
 [ext_resource type="PackedScene" uid="uid://b1nmaupvdtlum" path="res://player2.tscn" id="14_i6siy"]
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="14_o81gl"]
+[ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="15_i6siy"]
+[ext_resource type="Script" uid="uid://duiupm8gbt4qy" path="res://scenes/floors/orca_floor_2.gd" id="16_5twv8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_312yu"]
 texture = ExtResource("1_qoq52")
@@ -1694,6 +1696,12 @@ sources/12 = SubResource("TileSetAtlasSource_o81gl")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i6siy"]
 size = Vector2(88.5, 114)
 
+[sub_resource type="Curve2D" id="Curve2D_5twv8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1160, 208, 0, 0, 0, 0, 648, 208, 0, 0, 0, 0, 640, 296, -55.096416, 1.1019284, 55.096416, -1.1019284, 672, 360, 0, 0, 0, 0, 736, 384, 0, 0, 0, 0, 1144, 384, 0, 0, 0, 0, 1136, 488, 0, 0, 0, 0, 1104, 536, 0, 0, 0, 0, 1056, 576, 0, 0, 0, 0, 688, 576, 0, 0, 0, 0, 584, 520, 0, 0, 0, 0, 552, 464, 0, 0, 0, 0, 488, 448, 0, 0, 0, 0, 480, 272, 0, 0, 0, 0, 488, 184, 0, 0, 0, 0, 1160, 208)
+}
+point_count = 16
+
 [node name="floor2" type="Node2D" unique_id=2030209140]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=837420413]
@@ -1745,3 +1753,18 @@ destination_spawn_marker = "SpawnFromFloor2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs2to1" unique_id=145436873]
 shape = SubResource("RectangleShape2D_i6siy")
+
+[node name="Path2D" type="Path2D" parent="." unique_id=1608165156]
+position = Vector2(-160, -40)
+curve = SubResource("Curve2D_5twv8")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=346658742]
+position = Vector2(1160, 208)
+rotation = 3.1415927
+
+[node name="Orca" parent="." unique_id=2000482544 node_paths=PackedStringArray("path_follow") groups=["orca"] instance=ExtResource("15_i6siy")]
+position = Vector2(1048, 176.00003)
+path_follow = NodePath("../Path2D/PathFollow2D")
+
+[node name="orca_floor_2" type="Node" parent="." unique_id=1698608641]
+script = ExtResource("16_5twv8")

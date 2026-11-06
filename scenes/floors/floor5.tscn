@@ -1282,7 +1282,7 @@ layer_3/tile_data = PackedInt32Array(1048588, 196620, 0, 1114124, 589836, 1, 117
 layer_4/name = "Prop"
 layer_4/tile_data = PackedInt32Array(458763, 524306, 15, 589836, 524306, 15, 458765, 262162, 8, 458764, 196626, 8, 524300, 196626, 9, 524301, 262162, 9)
 
-[node name="Player" parent="." unique_id=472222300 instance=ExtResource("7_hq3ai")]
+[node name="Player" parent="." unique_id=472222300 groups=["player"] instance=ExtResource("7_hq3ai")]
 position = Vector2(753, 108)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=727667385]
@@ -1312,7 +1312,7 @@ position = Vector2(165, 553)
 rotation = -1.5971061
 rotates = false
 
-[node name="Orca" parent="." unique_id=2000482544 node_paths=PackedStringArray("path_follow") instance=ExtResource("21_c5wpi")]
+[node name="Orca" parent="." unique_id=2000482544 node_paths=PackedStringArray("path_follow") groups=["orca"] instance=ExtResource("21_c5wpi")]
 position = Vector2(160, 545)
 path_follow = NodePath("../PatrolPath/PathFollow2D")
 
