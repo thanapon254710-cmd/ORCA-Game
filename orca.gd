@@ -83,7 +83,12 @@ func _chase(delta: float) -> void:
 	if player == null:
 		player = get_tree().get_first_node_in_group("player")
 
-	# หากมองไม่เห็น Player หรือ Player ซ่อนตัว ให้ถอยกลับ (หน่วง 0.2 วิ ตัดอาการสั่น)
+	# 1. หาก Player เข้า Safe Zone (is_hiding = true) ให้ยกเลิกการไล่ล่าและถอยกลับทันที (ไม่รอ 0.2 วิ)
+	if player and "is_hiding" in player and player.is_hiding:
+		_change_state(State.RETURN)
+		return
+
+	# 2. หากคลาดสายตาทั่วไป (เช่น หลบหลังกำแพง) ให้หน่วง 0.2 วิ ตัดอาการสั่นรัว
 	if player == null or not can_see_player():
 		if state_timer >= 0.2:
 			_change_state(State.RETURN)
@@ -243,6 +248,10 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	if has_caught:
 		return
 	if body.is_in_group("player"):
+		# 3. หากผู้เล่นกำลังซ่อนตัวอยู่ ห้ามจับเด็ดขาด!
+		if "is_hiding" in body and body.is_hiding:
+			return
+			
 		has_caught = true
 		print("Player caught!")
 		player_caught.emit()
