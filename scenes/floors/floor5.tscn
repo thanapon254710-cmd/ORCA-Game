@@ -1268,9 +1268,9 @@ point_count = 11
 
 [node name="floor5" type="Node2D" unique_id=1642363128]
 script = ExtResource("1_8rjlg")
-fence_coords = null
 
 [node name="TileMap" type="TileMap" parent="." unique_id=844832280]
+visible = false
 tile_set = SubResource("TileSet_4kxuq")
 format = 2
 layer_0/name = "BaseGround"

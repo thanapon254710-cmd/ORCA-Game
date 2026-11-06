@@ -16,7 +16,6 @@ var popup_time_left: float = 0.0
 
 func _ready() -> void:
 	popup_text.hide()
-	show_popup("Correct!")
 	# call function remove fences
 	GameState.question_answered.connect(_on_question_answered)
 	
