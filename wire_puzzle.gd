@@ -118,31 +118,47 @@ func _on_right_button_clicked(right_idx: int):
 	if connections.size() == 4:
 		_check_wires()
 
+
 func _check_wires():
 	var all_correct = true
-	
+
 	for l_idx in connections.keys():
 		var r_idx = connections[l_idx]["right_index"]
 		if left_color_keys[l_idx] != right_color_keys[r_idx]:
 			all_correct = false
 			break
-			
+
 	if all_correct:
 		feedback_label.text = "you got ☾ "
 		feedback_label.modulate = Color.GREEN
+
+		# Notify the fuse box
 		question_answered.emit(true)
+
+		# Notify GameState
 		if GameState.has_signal("question_answered"):
 			GameState.question_answered.emit("q_4_408", true)
+
+		# Mark question as completed
 		if not GameState.questions_answered.has("q_4_408"):
 			GameState.questions_answered.append("q_4_408")
-			
+
+		# Wait before changing the room
 		await get_tree().create_timer(1.5).timeout
-		hide()
+
+		# Remove puzzle and change to the powered-on room
+		queue_free()
+		get_tree().change_scene_to_file.call_deferred(
+			"res://scenes/room/room408เปิดไฟ.tscn"
+		)
+
 	else:
 		feedback_label.text = "try again"
 		feedback_label.modulate = Color.RED
+
 		await get_tree().create_timer(1.0).timeout
 		reset_puzzle()
+
 
 func reset_puzzle():
 	selected_left_index = -1
