@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://sxvkvddblwkp" path="res://assets/sprites/school-furniture-student-desks-horror.png" id="14_0fjm4"]
 [ext_resource type="Texture2D" uid="uid://eveg8hxu0w3u" path="res://assets/sprites/prop2.png" id="14_dqcpj"]
 [ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสง.jpg" id="20_grbpu"]
+[ext_resource type="Script" uid="uid://cr7aguwcp27jo" path="res://scenes/room/RoomDoor.gd" id="21_0fjm4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vjbbv"]
 texture = ExtResource("1_b56mw")
@@ -1447,6 +1448,9 @@ sources/17 = SubResource("TileSetAtlasSource_itsuw")
 sources/2 = SubResource("TileSetAtlasSource_dqcpj")
 sources/5 = SubResource("TileSetAtlasSource_grbpu")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fdfc"]
+size = Vector2(20, 91)
+
 [node name="room408" type="Node2D" unique_id=1896896712]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=1538778828]
@@ -1464,6 +1468,9 @@ layer_3/tile_data = PackedInt32Array(458756, 11, 0, 524292, 13, 0, 458757, 65547
 [node name="Player" parent="." unique_id=472222300 instance=ExtResource("3_jmg5k")]
 position = Vector2(1120, 254)
 
+[node name="PlayerSpawn" type="Marker2D" parent="." unique_id=868616964]
+position = Vector2(1120, 248)
+
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1043296580]
 color = Color(0.22745098, 0.22745098, 0.22745098, 1)
 
@@ -1472,3 +1479,13 @@ position = Vector2(91.75, 533.8226)
 scale = Vector2(0.7126359, 0.6544092)
 color = Color(1, 1, 1, 0.75686276)
 texture = ExtResource("20_grbpu")
+
+[node name="Room408Door" type="Area2D" parent="." unique_id=674977328]
+position = Vector2(1155, 240)
+collision_mask = 0
+script = ExtResource("21_0fjm4")
+destination_scene = "res://scenes/floors/floor4.tscn"
+destination_spawn_marker = "SpawnFrom407"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room408Door" unique_id=386267267]
+shape = SubResource("RectangleShape2D_8fdfc")
