@@ -43,6 +43,29 @@ var questions_list: Array = []
 var current_question_index: int = 0
 
 func _ready():
+	# Create the close button
+	var close_button = Button.new()
+
+	close_button.name = "CloseButton"
+	close_button.text = "×"
+	close_button.tooltip_text = "Close (ESC)"
+
+	close_button.custom_minimum_size = Vector2(35, 35)
+	close_button.focus_mode = Control.FOCUS_NONE
+
+	# Position at the top-right corner of the panel
+	close_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+
+	close_button.offset_left = -43
+	close_button.offset_top = 8
+	close_button.offset_right = -8
+	close_button.offset_bottom = 43
+
+	# Connect button
+	close_button.pressed.connect(close_question)
+
+	$Panel.add_child(close_button)
+	
 	# ผูกการคลิกช้อยส์
 	for btn in choice_buttons:
 		btn.pressed.connect(func(): _on_choice_selected(btn.text if btn.text != "" else (btn.icon.resource_path if btn.icon else "")))
@@ -63,6 +86,15 @@ func _ready():
 	
 	load_questions_from_json()
 	
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not visible:
+		return
+	if event is InputEventKey:
+		if event.pressed and not event.echo:
+			if event.keycode == KEY_ESCAPE:
+				close_question()
+				get_viewport().set_input_as_handled()
+
 func open_question(data: Dictionary) -> void:
 	current_question_index = 0
 	display_question(data)
@@ -248,5 +280,11 @@ func _finish_answering(is_correct: bool):
 
 	await get_tree().create_timer(1.2).timeout
 
+	hide()
+	question_closed.emit()
+
+func close_question() -> void:
+	if not visible:
+		return
 	hide()
 	question_closed.emit()

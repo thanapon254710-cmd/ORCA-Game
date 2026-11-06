@@ -62,7 +62,6 @@
 	  "subject": "Puzzle",
 	  "type": "text_input",
 	  "question": "Hint: Examine the bloodstains on the desk. Please fill in 4 digits password.",
-	  "image_path": "res://data/picture/407_room.png17",
 	  "choices": [],
 	  "correct_answer": "3435",
 	  "reward_symbol": "✧"
