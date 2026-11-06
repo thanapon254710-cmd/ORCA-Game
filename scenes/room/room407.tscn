@@ -639,4 +639,5 @@ shape = SubResource("RectangleShape2D_v1drc")
 
 [node name="Question_407" parent="." unique_id=2029985172 instance=ExtResource("17_262wr")]
 position = Vector2(1045, 164)
-question_index = 0
+question_index = 2
+TARGET_FLOOR = 4

@@ -5,12 +5,11 @@ extends Area2D
 
 const QUESTION_BOX_SCENE = preload("res://question_box.tscn")
 const QUESTIONS_PATH = "res://questions.json"
-const TARGET_FLOOR = 5
+@export_range(1, 5, 1) var TARGET_FLOOR: int = 5
 
 var question_box: CanvasLayer = null
 var question_id: String = ""
 var question_data: Dictionary = {}
-var question_ui: CanvasLayer = null
 var prompt: Label = null
 
 
@@ -128,19 +127,22 @@ func _show_question() -> void:
 	if is_instance_valid(question_box):
 		return
 
-	# Create QuestionBox from the existing scene
+	# Create QuestionBox
 	question_box = QUESTION_BOX_SCENE.instantiate()
 
 	get_tree().root.add_child(question_box)
 
-	# Connect answer signal
+	# Connect signals
 	question_box.question_answered.connect(
 		_on_question_answered
 	)
 
-	# Display the selected question
+	question_box.question_closed.connect(
+		_on_question_closed
+	)
+
+	# Display question
 	question_box.open_question(question_data)
-	question_box.question_closed.connect(_on_question_closed)
 
 # --------------------------------------------------
 # SUBMIT SINGLE TEXT ANSWER
@@ -190,25 +192,17 @@ func _submit_answer(answer: String) -> void:
 	)
 
 	if is_correct:
-
 		print("Correct! ", question_id)
-
-		if is_instance_valid(question_ui):
-			question_ui.queue_free()
-
-		question_ui = null
-
 		set_focused(false)
-
 	else:
-
 		print("Incorrect! Try again.")
 
 func close_question_ui() -> void:
 
 	if is_instance_valid(question_box):
 		question_box.queue_free()
-		question_box = null
+
+	question_box = null
 
 	if is_instance_valid(prompt):
 		prompt.visible = false
@@ -227,5 +221,8 @@ func _on_question_answered(is_correct: bool) -> void:
 		print("Incorrect! Try again.")
 
 func _on_question_closed() -> void:
+
+	if is_instance_valid(question_box):
+		question_box.queue_free()
+
 	question_box = null
-	
