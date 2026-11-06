@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://djtx14u2o4nne"]
 
+[ext_resource type="Script" uid="uid://d1teyoqsucv8f" path="res://scenes/floors/floor_5.gd" id="1_8rjlg"]
 [ext_resource type="Texture2D" uid="uid://c28dax7ycc2ai" path="res://assets/sprites/tile_floor_hallway_concrete.png" id="1_t6y78"]
 [ext_resource type="Texture2D" uid="uid://d1b75a46i6dw1" path="res://assets/sprites/corridor school.png" id="2_gllm2"]
 [ext_resource type="Texture2D" uid="uid://b85y2tkh3jsej" path="res://assets/sprites/TX Tileset Stone Ground.png" id="2_l0oo5"]
@@ -1262,6 +1263,7 @@ _data = {
 point_count = 11
 
 [node name="floor5" type="Node2D" unique_id=1642363128]
+script = ExtResource("1_8rjlg")
 
 [node name="TileMap" type="TileMap" parent="." unique_id=844832280]
 tile_set = SubResource("TileSet_4kxuq")
@@ -1284,7 +1286,7 @@ position = Vector2(753, 108)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=727667385]
 position = Vector2(-1, -1)
-color = Color(0.22745098, 0.22745098, 0.22745098, 1)
+color = Color(0.31135654, 0.31135657, 0.31135654, 1)
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1442653289]
 position = Vector2(729, 33)
