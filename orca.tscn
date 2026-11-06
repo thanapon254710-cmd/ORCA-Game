@@ -2,6 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://bb1f0up708ait" path="res://OrcaBloody.png" id="1_44a57"]
 [ext_resource type="Script" uid="uid://tyrj60b5uerr" path="res://orca.gd" id="1_yluti"]
+[ext_resource type="AudioStream" uid="uid://bra0piebw0xy8" path="res://dragon-studio-deepsea-sonar-386156.mp3" id="3_gkwf8"]
+[ext_resource type="AudioStream" uid="uid://c4d7skx4ejl3i" path="res://tomas_herudek-cinematic-horror-music-ident-2-256204.mp3" id="4_083xy"]
+[ext_resource type="AudioStream" uid="uid://btmnbymq1bp7r" path="res://freesound_community-jumpscare-94984.mp3" id="5_hdrnb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p376d"]
 radius = 226.8883
@@ -26,7 +29,7 @@ position = Vector2(-6, 0)
 shape = SubResource("CapsuleShape2D_p376d")
 
 [node name="HitBox" type="Area2D" parent="." unique_id=327751792]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1671433477]
@@ -34,3 +37,12 @@ shape = SubResource("CircleShape2D_p376d")
 
 [node name="Vision" type="RayCast2D" parent="." unique_id=1804388924]
 collision_mask = 3
+
+[node name="SfxDetect" type="AudioStreamPlayer2D" parent="." unique_id=911676495]
+stream = ExtResource("3_gkwf8")
+
+[node name="SfxChaseLoop" type="AudioStreamPlayer2D" parent="." unique_id=1767472018]
+stream = ExtResource("4_083xy")
+
+[node name="SfxCaught" type="AudioStreamPlayer" parent="." unique_id=443495302]
+stream = ExtResource("5_hdrnb")

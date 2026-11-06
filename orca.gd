@@ -16,6 +16,9 @@ enum State { PATROL, CHASE, RETURN }
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var vision: RayCast2D = $Vision
 
+# ---------- Audio Nodes ----------
+@onready var sfx_detect: AudioStreamPlayer2D = $SfxDetect if has_node("SfxDetect") else null
+
 var state: State = State.PATROL
 var has_caught := false
 var facing := Vector2.RIGHT
@@ -24,6 +27,9 @@ var last_seen_pos := Vector2.ZERO
 var lose_timer := 0.0
 
 func _ready() -> void:
+	has_caught = false
+	state = State.PATROL
+	
 	if has_node("HitBox"):
 		$HitBox.body_entered.connect(_on_hitbox_body_entered)
 	elif has_node("Area2D"):
@@ -62,35 +68,34 @@ func _patrol(delta: float) -> void:
 	if move.length() > 0.01:
 		_face(move)
 
-# ---------- STATE: CHASE (พุ่งใส่ Player โดยใช้ Velocity ปลดล็อก Path2D) ----------
+# ---------- STATE: CHASE ----------
 func _chase(delta: float) -> void:
 	if player == null:
 		player = get_tree().get_first_node_in_group("player")
 
 	if player:
-		# อัปเดตพิกัดเป้าหมายตามตัว Player ตลอดเวลา
-		last_seen_pos = player.global_position
+		var dist := global_position.distance_to(player.global_position)
 		
-		# ถ้าเห็นตัว หรืออยู่ในระยะสายตา ให้เติมเวลาเต็มเสมอ
-		if can_see_player() or global_position.distance_to(player.global_position) <= sight_range:
+		# เมื่อส่องเจอแล้ว ให้ดมกลิ่นตามล่าตราบใดที่ยังอยู่ใน sight_range + 50.0 พิกเซล
+		if can_see_player() or dist <= (sight_range + 50.0):
+			last_seen_pos = player.global_position
 			lose_timer = lose_sight_time
 		else:
 			lose_timer -= delta
 	else:
 		lose_timer -= delta
 
-	# หลุดสายตาและหมดเวลาดมกลิ่นแล้วจริงๆ ถึงจะถอยกลับ
+	# เมื่อหมดเวลาดมกลิ่นจริงๆ ถึงเปลี่ยนเป็น RETURN
 	if lose_timer <= 0.0:
 		_change_state(State.RETURN)
 		return
 
-	# คำนวณทิศทางและสั่งเคลื่อนที่ด้วย velocity
+	# สั่งวิ่งพุ่งเข้าหาตำแหน่งล่าสุดของผู้เล่น
 	var to_target := last_seen_pos - global_position
-	if to_target.length() > 4.0:
+	if to_target.length() > 2.0:
 		var target_dir := to_target.normalized()
 		var move_velocity := target_dir * (speed * chase_multiplier)
 		
-		# ไถลหลบขอบตู้หนังสือ/สิ่งกีดขวางกันติดมุม[cite: 5]
 		if is_on_wall():
 			var wall_n := get_wall_normal().normalized()
 			if wall_n.length() > 0.0:
@@ -131,14 +136,19 @@ func _change_state(new_state: State) -> void:
 	state = new_state
 
 	match state:
+		State.PATROL:
+			pass
 		State.CHASE:
 			if player == null:
 				player = get_tree().get_first_node_in_group("player")
+			lose_timer = lose_sight_time
 			if player:
 				last_seen_pos = player.global_position
-				var to_p := (player.global_position - global_position).normalized()
-				_face(to_p)
-			lose_timer = lose_sight_time
+				_face((player.global_position - global_position).normalized())
+			
+			if sfx_detect and sfx_detect.has_method("play"):
+				sfx_detect.play()
+				
 		State.RETURN:
 			_snap_guide_to_nearest_point()
 
@@ -184,6 +194,7 @@ func can_see_player() -> bool:
 		return false
 
 	vision.target_position = vision.to_local(player.global_position)
+	vision.add_exception(self)
 	vision.force_raycast_update()
 	
 	var collider := vision.get_collider()
@@ -201,6 +212,7 @@ func _draw() -> void:
 	var cone_color := Color(1, 0, 0, 0.25) if state == State.CHASE else Color(1, 1, 0, 0.25)
 	draw_colored_polygon(points, cone_color)
 
+# ---------- HitBox Trigger ----------
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if has_caught:
 		return

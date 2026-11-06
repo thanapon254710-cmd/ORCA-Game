@@ -1,20 +1,28 @@
 extends Node
 
-@export var shake_duration: float = 0.6
-@export var shake_intensity: float = 16.0
+@export var shake_duration: float = 0.6   # ระยะเวลาสั่น (วินาที)
+@export var shake_intensity: float = 15.0 # ความแรงของการสั่น (พิกเซล)
 
-# ปรับค่าพลัง Floor 2 ให้สมดุลกับซอกตู้หนังสือ
-@export var floor2_speed: float = 140.0
-@export var floor2_chase_mult: float = 2.0
-@export var floor2_sight_range: float = 220.0     # ปรับสั้นลงเป็น 220 เพื่อไม่ให้มองเห็นทะลุข้ามห้องเกินไป
-@export var floor2_sight_angle: float = 90.0      # ปรับเหลือ 90 องศา เพื่อให้มองลอดช่องตู้หนังสือพอดี[cite: 5]
-@export var floor2_lose_sight_time: float = 3.0   # ให้เวลาดมกลิ่นตามไล่หลังหลุดสายตา 3 วินาที
+# ค่าพารามิเตอร์ของ Orca ประจำ Floor 2
+@export var floor2_speed: float = 130.0
+@export var floor2_chase_mult: float = 1.8
+@export var floor2_sight_range: float = 200.0
+@export var floor2_sight_angle: float = 90.0
+@export var floor2_lose_sight_time: float = 2.5
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
-	# ค้นหา Orca ในกลุ่ม "orca" เหมือน Floor 3
+	# ค้นหา Orca ในกลุ่ม "orca"
 	var orcas := get_tree().get_nodes_in_group("orca")
+	if orcas.is_empty():
+		var parent := get_parent()
+		var single_orca := parent.get_node_or_null("Orca1")
+		if single_orca == null:
+			single_orca = parent.get_node_or_null("Orca")
+		if single_orca:
+			orcas.append(single_orca)
+
 	for orca in orcas:
 		if "speed" in orca:
 			orca.speed = floor2_speed
@@ -26,16 +34,24 @@ func _ready() -> void:
 			orca.sight_angle = floor2_sight_angle
 		if "lose_sight_time" in orca:
 			orca.lose_sight_time = floor2_lose_sight_time
-			
+
 		if orca.has_signal("player_caught"):
 			if not orca.player_caught.is_connected(_on_player_caught):
 				orca.player_caught.connect(_on_player_caught)
 
 func _on_player_caught() -> void:
 	print("GAME OVER - FLOOR 2")
+	get_tree().paused = true
 	
+	# 1. ทำหน้าจอสั่น (ปล่อยให้เสียง Jumpscare เล่นขนานกันไป)
 	await _trigger_screen_shake()
-	await get_tree().create_timer(0.3).timeout
+	
+	# 2. รอเวลา 0.8 วินาที เพื่อให้เสียง Jumpscare (SfxCaught) เล่นจนจบ
+	# (ใส่ ignore_paused = true เพื่อไม่ให้ Timer ค้างแม้ฉากหยุด)
+	await get_tree().create_timer(0.8, true, false, true).timeout
+	
+	# 3. คืนค่า Pause แล้วเริ่มฉากใหม่
+	get_tree().paused = false
 	get_tree().reload_current_scene()
 
 func _trigger_screen_shake() -> void:
