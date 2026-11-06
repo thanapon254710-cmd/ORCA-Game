@@ -6,13 +6,15 @@ const SPEED = 200.0
 # Interaction system
 var nearby_interactables: Array[Node] = []
 var focused_interactable: Node = null
+var facing_direction: String = "down"
 
 @onready var interact_area: Area2D = $InteractArea
 
 
 func _ready() -> void:
 	add_to_group("player")
-
+	facing_direction = "down"
+	$AnimatedSprite2D.play("Idle_down")
 	interact_area.area_entered.connect(_on_area_entered)
 	interact_area.area_exited.connect(_on_area_exited)
 
@@ -117,16 +119,18 @@ func update_animation(direction: Vector2) -> void:
 	var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 	if direction == Vector2.ZERO:
-		sprite.stop()
+		sprite.play("Idle_" + facing_direction)
 		return
 
 	if absf(direction.x) > absf(direction.y):
 		if direction.x > 0:
-			sprite.play("Walk_right")
+			facing_direction = "right"
 		else:
-			sprite.play("Walk_left")
+			facing_direction = "left"
 	else:
 		if direction.y > 0:
-			sprite.play("Walk_down")
+			facing_direction = "down"
 		else:
-			sprite.play("Walk_up")
+			facing_direction = "up"
+
+	sprite.play("Walk_" + facing_direction)

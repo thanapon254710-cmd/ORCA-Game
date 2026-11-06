@@ -15,8 +15,40 @@
 [ext_resource type="Texture2D" uid="uid://cbumuptxe0bob" path="res://assets/sprites/Animation/Main_player/Back_Draft1_เดิน1.png" id="12_rnc2c"]
 [ext_resource type="Texture2D" uid="uid://cttrt6fsfcket" path="res://assets/sprites/Animation/Main_player/Back_Draft1_เดิน2.png" id="13_fv66c"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_66ff5"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_i62jw"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i62jw")
+}],
+"loop": 1,
+"name": &"Idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_4w63e")
+}],
+"loop": 1,
+"name": &"Idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_2q2f1")
+}],
+"loop": 1,
+"name": &"Idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_k1i82")
+}],
+"loop": 1,
+"name": &"Idle_up",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_i62jw")
@@ -127,13 +159,12 @@ position = Vector2(452, 247)
 collision_layer = 2
 script = ExtResource("1_vop8p")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1367008299]
-position = Vector2(-21, -21)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=321949179]
 scale = Vector2(1.602, 1.602)
-sprite_frames = SubResource("SpriteFrames_66ff5")
+sprite_frames = SubResource("SpriteFrames_i62jw")
+animation = &"Idle_up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2041220931]
-position = Vector2(-21, -20)
 shape = SubResource("CapsuleShape2D_hq3ai")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=632584784]
@@ -142,7 +173,6 @@ zoom = Vector2(1.5, 1.5)
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=225097483]
 visible = false
-position = Vector2(-18.999996, -20.000002)
 scale = Vector2(25.833122, 24.495941)
 color = Color(0.8392157, 0.8392157, 0.8392157, 0.7921569)
 texture = ExtResource("3_bhnal")
@@ -152,5 +182,4 @@ texture_scale = 0.01
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=726863881]
-position = Vector2(-21, -18)
 shape = SubResource("CircleShape2D_b50fy")
