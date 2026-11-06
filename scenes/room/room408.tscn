@@ -1456,7 +1456,7 @@ size = Vector2(20, 91)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g6g7o"]
 size = Vector2(27, 28)
 
-[node name="room408" type="Node2D" unique_id=1896896712]
+[node name="room409" type="Node2D" unique_id=1896896712]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=1538778828]
 tile_set = SubResource("TileSet_ems7j")
@@ -1491,6 +1491,7 @@ collision_mask = 0
 script = ExtResource("21_0fjm4")
 destination_scene = "res://scenes/floors/floor4.tscn"
 destination_spawn_marker = "SpawnFrom408"
+prompt_text = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room408Door" unique_id=386267267]
 shape = SubResource("RectangleShape2D_8fdfc")

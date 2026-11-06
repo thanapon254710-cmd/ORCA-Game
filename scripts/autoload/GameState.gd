@@ -12,6 +12,7 @@ signal game_over(reason: String)
 var current_floor: int = 5
 var questions_answered: Array[String] = []
 var game_is_over: bool = false
+var room408_powered: bool = false
 
 
 func change_floor(new_floor: int) -> void:
@@ -58,3 +59,4 @@ func reset_game() -> void:
 	current_floor = 5
 	questions_answered.clear()
 	game_is_over = false
+	room408_powered = false
