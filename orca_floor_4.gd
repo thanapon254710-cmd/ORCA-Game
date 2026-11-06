@@ -4,11 +4,11 @@ extends Node
 @export var shake_intensity: float = 12.0 # ลดความแรงสั่นหน้าจอลง
 
 # ---------- ปรับค่าสมดุลสำหรับชั้นแรก (เริ่มต้นง่ายขึ้น) ----------
-@export var floor4_speed: float = 100.0           # ความเร็วเดินปรกติ (ช้าลง)
-@export var floor4_chase_mult: float = 2.0       # ตัวคูณความเร็วไล่ล่า (ไล่ไม่กระชาก)
-@export var floor4_sight_range: float = 200.0    # ระยะสายตา (มองเห็นได้สั้นลง)
-@export var floor4_sight_angle: float = 80.0     # กรวยสายตา (แคบลง แอบซอกง่ายขึ้น)
-@export var floor4_lose_sight_time: float = 2.0  # เวลาติดตามดมกลิ่น (หลบพ้นแล้วถอยกลับไวขึ้น)
+@export var floor5_speed: float = 100.0           # ความเร็วเดินปรกติ (ช้าลง)
+@export var floor5_chase_mult: float = 2.0       # ตัวคูณความเร็วไล่ล่า (ไล่ไม่กระชาก)
+@export var floor5_sight_range: float = 200.0    # ระยะสายตา (มองเห็นได้สั้นลง)
+@export var floor5_sight_angle: float = 80.0     # กรวยสายตา (แคบลง แอบซอกง่ายขึ้น)
+@export var floor5_lose_sight_time: float = 2.0  # เวลาติดตามดมกลิ่น (หลบพ้นแล้วถอยกลับไวขึ้น)
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -24,15 +24,15 @@ func _ready() -> void:
 
 	for orca in orcas:
 		if "speed" in orca:
-			orca.speed = floor4_speed
+			orca.speed = floor5_speed
 		if "chase_multiplier" in orca:
-			orca.chase_multiplier = floor4_chase_mult
+			orca.chase_multiplier = floor5_chase_mult
 		if "sight_range" in orca:
-			orca.sight_range = floor4_sight_range
+			orca.sight_range = floor5_sight_range
 		if "sight_angle" in orca:
-			orca.sight_angle = floor4_sight_angle
+			orca.sight_angle = floor5_sight_angle
 		if "lose_sight_time" in orca:
-			orca.lose_sight_time = floor4_lose_sight_time
+			orca.lose_sight_time = floor5_lose_sight_time
 
 		if orca.has_signal("player_caught"):
 			if not orca.player_caught.is_connected(_on_player_caught):
