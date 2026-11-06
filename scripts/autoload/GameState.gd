@@ -54,6 +54,7 @@ func end_game(reason: String) -> void:
 
 
 func reset_game() -> void:
+	Inventory.reset_inventory()
 	current_floor = 5
 	questions_answered.clear()
 	game_is_over = false

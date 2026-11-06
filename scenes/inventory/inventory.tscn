@@ -1,0 +1,313 @@
+[gd_scene format=3 uid="uid://brhhw2uxng5xw"]
+
+[ext_resource type="Texture2D" uid="uid://ba2hkrelg1vd2" path="res://assets/inventory/book_blue.svg" id="book_blue"]
+[ext_resource type="Texture2D" uid="uid://dwq71dpj5dyfu" path="res://assets/inventory/book_orange.svg" id="book_orange"]
+[ext_resource type="Texture2D" uid="uid://4onhivww3e7p" path="res://assets/inventory/book_white.svg" id="book_white"]
+[ext_resource type="Script" uid="uid://k0nqyxma1xtf" path="res://scripts/inventory/inventory_hud.gd" id="hud"]
+[ext_resource type="Script" uid="uid://dogbmaojbeb48" path="res://scripts/inventory/inventory.gd" id="inventory"]
+[ext_resource type="Texture2D" uid="uid://dr063brs5hutr" path="res://assets/inventory/key_blue.svg" id="key_blue"]
+[ext_resource type="Texture2D" uid="uid://chynk4l6wfn8h" path="res://assets/inventory/key_gold.svg" id="key_gold"]
+[ext_resource type="Texture2D" uid="uid://8mkb3qc86vc8" path="res://assets/inventory/key_purple.svg" id="key_purple"]
+[ext_resource type="Texture2D" uid="uid://dkl0oxta5wvg5" path="res://assets/inventory/key_yellow.svg" id="key_yellow"]
+
+[sub_resource type="StyleBoxFlat" id="PanelStyle"]
+bg_color = Color(0.045, 0.06, 0.09, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.44, 0.52, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Inventory" type="Node" unique_id=1755485219]
+script = ExtResource("inventory")
+
+[node name="InventoryHUD" type="CanvasLayer" parent="." unique_id=535755339]
+layer = 5
+script = ExtResource("hud")
+
+[node name="Root" type="Control" parent="InventoryHUD" unique_id=1120986630]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="InventoryHUD/Root" unique_id=1622746862]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -305.0
+offset_top = -152.0
+offset_right = 305.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PanelStyle")
+
+[node name="Margin" type="MarginContainer" parent="InventoryHUD/Root/Panel" unique_id=392302195]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="Content" type="VBoxContainer" parent="InventoryHUD/Root/Panel/Margin" unique_id=1772302687]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Heading" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content" unique_id=932224783]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "INVENTORY                         E  Pick up     /     I  Show or hide"
+
+[node name="Slots" type="HBoxContainer" parent="InventoryHUD/Root/Panel/Margin/Content" unique_id=283200562]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 7
+
+[node name="key_yellow" type="PanelContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots" unique_id=398739383]
+custom_minimum_size = Vector2(76, 92)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Content" type="VBoxContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_yellow" unique_id=458397509]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Icon" type="TextureRect" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_yellow/Content" unique_id=445810338]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("key_yellow")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_yellow/Content" unique_id=523064085]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Yellow key"
+horizontal_alignment = 1
+
+[node name="Count" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_yellow/Content" unique_id=1592515579]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "x0"
+horizontal_alignment = 1
+
+[node name="key_blue" type="PanelContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots" unique_id=157550649]
+custom_minimum_size = Vector2(76, 92)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Content" type="VBoxContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_blue" unique_id=937569263]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Icon" type="TextureRect" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_blue/Content" unique_id=27588247]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("key_blue")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_blue/Content" unique_id=2071767068]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Blue key"
+horizontal_alignment = 1
+
+[node name="Count" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_blue/Content" unique_id=1031886271]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "x0"
+horizontal_alignment = 1
+
+[node name="key_purple" type="PanelContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots" unique_id=1159701799]
+custom_minimum_size = Vector2(76, 92)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Content" type="VBoxContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_purple" unique_id=543799904]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Icon" type="TextureRect" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_purple/Content" unique_id=2147467525]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("key_purple")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_purple/Content" unique_id=478485119]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Purple key"
+horizontal_alignment = 1
+
+[node name="Count" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_purple/Content" unique_id=44802808]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "x0"
+horizontal_alignment = 1
+
+[node name="key_gold" type="PanelContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots" unique_id=1353059110]
+custom_minimum_size = Vector2(76, 92)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Content" type="VBoxContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_gold" unique_id=1182967885]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Icon" type="TextureRect" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_gold/Content" unique_id=1120375691]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("key_gold")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_gold/Content" unique_id=1393601151]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Gold key"
+horizontal_alignment = 1
+
+[node name="Count" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/key_gold/Content" unique_id=2099113364]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "x0"
+horizontal_alignment = 1
+
+[node name="book_blue" type="PanelContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots" unique_id=2016248748]
+custom_minimum_size = Vector2(76, 92)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Content" type="VBoxContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/book_blue" unique_id=1706052047]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Icon" type="TextureRect" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/book_blue/Content" unique_id=947708166]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("book_blue")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/book_blue/Content" unique_id=712615322]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Blue book"
+horizontal_alignment = 1
+
+[node name="Count" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/book_blue/Content" unique_id=501709489]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "x0"
+horizontal_alignment = 1
+
+[node name="book_white" type="PanelContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots" unique_id=1469163715]
+custom_minimum_size = Vector2(76, 92)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Content" type="VBoxContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/book_white" unique_id=567185852]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Icon" type="TextureRect" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/book_white/Content" unique_id=1659070412]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("book_white")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/book_white/Content" unique_id=1661219316]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "White book"
+horizontal_alignment = 1
+
+[node name="Count" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/book_white/Content" unique_id=1415538279]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "x0"
+horizontal_alignment = 1
+
+[node name="book_orange" type="PanelContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots" unique_id=1028262774]
+custom_minimum_size = Vector2(76, 92)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Content" type="VBoxContainer" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/book_orange" unique_id=1557771064]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Icon" type="TextureRect" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/book_orange/Content" unique_id=40274365]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("book_orange")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/book_orange/Content" unique_id=408777453]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Orange book"
+horizontal_alignment = 1
+
+[node name="Count" type="Label" parent="InventoryHUD/Root/Panel/Margin/Content/Slots/book_orange/Content" unique_id=853403414]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "x0"
+horizontal_alignment = 1
+
+[node name="Notice" type="Label" parent="InventoryHUD/Root" unique_id=1472045637]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -192.0
+offset_right = 300.0
+offset_bottom = -160.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 20
+text = "Collected: Yellow key"
+horizontal_alignment = 1
+
+[node name="NoticeTimer" type="Timer" parent="InventoryHUD" unique_id=791024881]
+wait_time = 2.0
+one_shot = true

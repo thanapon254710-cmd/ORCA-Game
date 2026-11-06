@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Inventory="*res://scenes/inventory/inventory.tscn"
 GameState="*uid://n64r777n0u6t"
 TransitionManager="*uid://cp11wy35hwv4s"
 

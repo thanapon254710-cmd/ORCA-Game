@@ -1,0 +1,56 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/inventory/items/key_yellow.tscn" id="key_yellow"]
+[ext_resource type="PackedScene" path="res://scenes/inventory/items/key_blue.tscn" id="key_blue"]
+[ext_resource type="PackedScene" path="res://scenes/inventory/items/key_purple.tscn" id="key_purple"]
+[ext_resource type="PackedScene" path="res://scenes/inventory/items/key_gold.tscn" id="key_gold"]
+[ext_resource type="PackedScene" path="res://scenes/inventory/items/book_blue.tscn" id="book_blue"]
+[ext_resource type="PackedScene" path="res://scenes/inventory/items/book_white.tscn" id="book_white"]
+[ext_resource type="PackedScene" path="res://scenes/inventory/items/book_orange.tscn" id="book_orange"]
+
+[node name="InventoryDemo" type="Node2D"]
+
+[node name="Floor" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-500, -400, 1400, -400, 1400, 1100, -500, 1100)
+color = Color(0.1, 0.14, 0.19, 1)
+
+[node name="Instructions" type="Label" parent="."]
+offset_left = 200.0
+offset_top = 100.0
+offset_right = 950.0
+offset_bottom = 140.0
+text = "INVENTORY TEST ROOM
+WASD / arrows: move   E: pick up   I: inventory"
+
+[node name="Player" parent="." instance=ExtResource("player")]
+position = Vector2(400, 280)
+
+[node name="Pickups" type="Node2D" parent="."]
+
+[node name="key_yellow" parent="Pickups" instance=ExtResource("key_yellow")]
+position = Vector2(260, 220)
+pickup_id = "inventory_demo/key_yellow"
+
+[node name="key_blue" parent="Pickups" instance=ExtResource("key_blue")]
+position = Vector2(375, 220)
+pickup_id = "inventory_demo/key_blue"
+
+[node name="key_purple" parent="Pickups" instance=ExtResource("key_purple")]
+position = Vector2(490, 220)
+pickup_id = "inventory_demo/key_purple"
+
+[node name="key_gold" parent="Pickups" instance=ExtResource("key_gold")]
+position = Vector2(605, 220)
+pickup_id = "inventory_demo/key_gold"
+
+[node name="book_blue" parent="Pickups" instance=ExtResource("book_blue")]
+position = Vector2(260, 380)
+pickup_id = "inventory_demo/book_blue"
+
+[node name="book_white" parent="Pickups" instance=ExtResource("book_white")]
+position = Vector2(375, 380)
+pickup_id = "inventory_demo/book_white"
+
+[node name="book_orange" parent="Pickups" instance=ExtResource("book_orange")]
+position = Vector2(490, 380)
+pickup_id = "inventory_demo/book_orange"
