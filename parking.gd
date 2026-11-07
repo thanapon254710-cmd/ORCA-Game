@@ -5,6 +5,8 @@ signal puzzle_completed
 @onready var instruction_label: Label = $UI/InstructionLabel
 @onready var success_label: Label = $UI/SuccessLabel
 
+var _ending_started := false
+
 var selected_car: ParkingCar = null
 
 func _ready():
@@ -42,6 +44,9 @@ func _unhandled_input(event):
 			selected_car = null
 
 func _on_red_car_escaped():
+	if _ending_started:
+		return
+	_ending_started = true
 	print("รถสีแดงหลุดออกจากลานจอดรถสำเร็จ!")
 	
 	# แสดงข้อความว่าคุณออกจากที่นี่ได้แล้ว
@@ -60,4 +65,4 @@ func _on_red_car_escaped():
 		
 	# รอสักครู่แล้วเปิดทางหรือเปลี่ยนกลับไปยังฉากหลัก
 	await get_tree().create_timer(2.5).timeout
-	# queue_free() หรือ get_tree().change_scene_to_file("res://scenes/main.tscn")
+	GameState.finish_story()

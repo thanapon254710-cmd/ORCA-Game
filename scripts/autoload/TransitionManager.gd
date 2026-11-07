@@ -233,6 +233,7 @@ func _fade_to(target_alpha: float) -> void:
 	var target_color := Color(0, 0, 0, target_alpha)
 
 	var tween: Tween = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 
 	tween.tween_property(
 		fade_overlay,

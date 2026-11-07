@@ -35,6 +35,8 @@
 [ext_resource type="Script" uid="uid://clnxba2ia12mh" path="res://scenes/floors/orca_floor_4.gd" id="31_l52j7"]
 [ext_resource type="AudioStream" uid="uid://bxv23mgy81m1q" path="res://universfield-horror-background-atmosphere-09-219111.mp3" id="32_y7s7m"]
 
+[ext_resource type="PackedScene" path="res://scenes/ui/floor_dialogue.tscn" id="floor_dialogue"]
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kxqf"]
 texture = ExtResource("1_hy4yd")
 texture_region_size = Vector2i(32, 32)
@@ -1503,3 +1505,7 @@ target_floor = 3
 destination_spawn_marker = "SpawnFromFloor4"
 prompt_text = "Press E to use stairs"
 stair_puzzle_scene = ExtResource("27_y7s7m")
+
+[node name="IntroUI" parent="." instance=ExtResource("floor_dialogue")]
+passages = Array[String](["Alright, the tutorial is over. From here on out, the choices you make will seal your fate forever."])
+
