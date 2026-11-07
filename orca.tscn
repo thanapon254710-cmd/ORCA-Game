@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://buys13wha88m7"]
 
-[ext_resource type="Texture2D" uid="uid://bb1f0up708ait" path="res://OrcaBloody.png" id="1_44a57"]
+[ext_resource type="Texture2D" uid="uid://bb1f0up708ait" path="res://data/picture/OrcaBloody.png" id="1_44a57"]
 [ext_resource type="Script" uid="uid://tyrj60b5uerr" path="res://orca.gd" id="1_yluti"]
 [ext_resource type="AudioStream" uid="uid://bra0piebw0xy8" path="res://dragon-studio-deepsea-sonar-386156.mp3" id="3_gkwf8"]
 [ext_resource type="AudioStream" uid="uid://c4d7skx4ejl3i" path="res://tomas_herudek-cinematic-horror-music-ident-2-256204.mp3" id="4_083xy"]

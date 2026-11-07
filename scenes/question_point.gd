@@ -148,7 +148,7 @@ func _show_question() -> void:
 	)
 
 	# Display question
-	question_box.open_question(question_data)
+	question_box.display_question(question_data)
 
 # --------------------------------------------------
 # SUBMIT SINGLE TEXT ANSWER

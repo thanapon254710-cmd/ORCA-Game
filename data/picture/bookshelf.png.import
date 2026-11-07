@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb1f0up708ait"
-path="res://.godot/imported/OrcaBloody.png-735d2d08c220a864325da70e9b7e1494.ctex"
+uid="uid://c2lfbh3k4ulac"
+path="res://.godot/imported/bookshelf.png-b4efae06a156ae9e3ebe871cfbb3a8e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://OrcaBloody.png"
-dest_files=["res://.godot/imported/OrcaBloody.png-735d2d08c220a864325da70e9b7e1494.ctex"]
+source_file="res://data/picture/bookshelf.png"
+dest_files=["res://.godot/imported/bookshelf.png-b4efae06a156ae9e3ebe871cfbb3a8e1.ctex"]
 
 [params]
 

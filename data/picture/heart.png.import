@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqo4ryfwm6wpy"
-path="res://.godot/imported/Front_Draft1 (1).png-f65bc80cc6627e7feb83cb224b8ee28e.ctex"
+uid="uid://bju80hk6rfsex"
+path="res://.godot/imported/heart.png-f8fd1d2c530660c0d538f449d83b031b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Front_Draft1 (1).png"
-dest_files=["res://.godot/imported/Front_Draft1 (1).png-f65bc80cc6627e7feb83cb224b8ee28e.ctex"]
+source_file="res://data/picture/heart.png"
+dest_files=["res://.godot/imported/heart.png-f8fd1d2c530660c0d538f449d83b031b.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
