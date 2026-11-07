@@ -21,6 +21,9 @@
 [ext_resource type="PackedScene" uid="uid://ld8pmtm6pleu" path="res://scenes/inventory/items/book_orange.tscn" id="16_8xc52"]
 [ext_resource type="AudioStream" uid="uid://bxv23mgy81m1q" path="res://universfield-horror-background-atmosphere-09-219111.mp3" id="17_p1j4b"]
 [ext_resource type="Script" uid="uid://btqcavof58ieq" path="res://scenes/floors/static_body_2d.gd" id="17_ukwv0"]
+[ext_resource type="Script" uid="uid://dy3lw4xashk10" path="res://bookshelf_puzzle.gd" id="22_4phxh"]
+[ext_resource type="Script" uid="uid://bm7ry8o2ahd1l" path="res://scenes/room/computer_hint.gd" id="22_mmjs1"]
+[ext_resource type="Texture2D" uid="uid://c2lfbh3k4ulac" path="res://data/picture/bookshelf.png" id="23_vlp0b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_312yu"]
 texture = ExtResource("1_qoq52")
@@ -1701,6 +1704,12 @@ size = Vector2(160, 152)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2emf8"]
 size = Vector2(96, 136)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hwa2x"]
+size = Vector2(61, 74)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vlp0b"]
+size = Vector2(43.5, 44)
+
 [node name="floor2" type="Node2D" unique_id=2030209140]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=837420413]
@@ -1848,6 +1857,21 @@ collision_mask = 2
 position = Vector2(-8, 36)
 shape = SubResource("RectangleShape2D_2emf8")
 debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
+
+[node name="BookShelfPuzzle" type="Area2D" parent="." unique_id=1952935453]
+position = Vector2(553, 441)
+script = ExtResource("22_4phxh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BookShelfPuzzle" unique_id=453374635]
+shape = SubResource("RectangleShape2D_hwa2x")
+
+[node name="Hint" type="Area2D" parent="." unique_id=1984999572]
+position = Vector2(428, 316)
+script = ExtResource("22_mmjs1")
+HINT_IMAGE = ExtResource("23_vlp0b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hint" unique_id=30275577]
+shape = SubResource("RectangleShape2D_vlp0b")
 
 [connection signal="body_entered" from="HidingSpot1" to="Player2" method="_on_hiding_spot_1_body_entered"]
 [connection signal="body_exited" from="HidingSpot1" to="Player2" method="_on_hiding_spot_1_body_exited"]

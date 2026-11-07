@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://cr7aguwcp27jo" path="res://scenes/room/RoomDoor.gd" id="21_0fjm4"]
 [ext_resource type="Script" uid="uid://bou64gtml2sc2" path="res://scenes/room/room408_fuse_box.gd" id="22_8fdfc"]
 [ext_resource type="Script" uid="uid://bm7ry8o2ahd1l" path="res://scenes/room/computer_hint.gd" id="23_pdrpk"]
+[ext_resource type="Texture2D" uid="uid://degbnmq5l383f" path="res://assets/sprites/408_hint.png" id="24_lovao"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vjbbv"]
 texture = ExtResource("1_b56mw")
@@ -1495,6 +1496,7 @@ shape = SubResource("RectangleShape2D_g6g7o")
 [node name="Hint" type="Area2D" parent="." unique_id=2098747832]
 position = Vector2(144, 497)
 script = ExtResource("23_pdrpk")
+HINT_IMAGE = ExtResource("24_lovao")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hint" unique_id=516311717]
 shape = SubResource("RectangleShape2D_g6g7o")
