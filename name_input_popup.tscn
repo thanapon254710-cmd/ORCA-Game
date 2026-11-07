@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cpcfcdect0g1w"]
+
+[ext_resource type="Script" uid="uid://ctvvc81swq77b" path="res://scripts/name_input_popup.gd" id="1_t6r2c"]
+
+[node name="NameInputPopup" type="CanvasLayer" unique_id=1794007]
+script = ExtResource("1_t6r2c")
+
+[node name="Background" type="ColorRect" parent="." unique_id=97101735]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 236.0
+offset_top = 53.0
+offset_right = -181.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Card" type="Panel" parent="Background" unique_id=90934638]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.001
+anchor_bottom = 1.0
+offset_right = 0.2649536
+offset_bottom = -1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/Card" unique_id=1943019896]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0040001
+offset_bottom = 0.023956299
+
+[node name="TitleLabel" type="Label" parent="Background/Card/VBoxContainer" unique_id=1445606541]
+layout_mode = 2
+text = "Enter Username (กรุณากรอกชื่อผู้เล่น)"
+
+[node name="NameInput" type="LineEdit" parent="Background/Card/VBoxContainer" unique_id=1694154166]
+layout_mode = 2
+
+[node name="WarningLabel" type="Label" parent="Background/Card/VBoxContainer" unique_id=1024062161]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="Background/Card/VBoxContainer" unique_id=1694951322]
+layout_mode = 2
+text = "start"
