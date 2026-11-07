@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b3fydi2tvkekk"]
 
 [ext_resource type="Texture2D" uid="uid://dk2lnropnq7pg" path="res://assets/sprites/stylish_room_door_tiles.png" id="1_qn337"]
+[ext_resource type="Script" uid="uid://b7ug73qmdpgg3" path="res://scenes/floors/floor_3.gd" id="1_rtvxg"]
 [ext_resource type="Texture2D" uid="uid://b85y2tkh3jsej" path="res://assets/sprites/TX Tileset Stone Ground.png" id="2_p2ubo"]
 [ext_resource type="Texture2D" uid="uid://c8x3mfy3f8ilv" path="res://assets/sprites/room-builder-stairs-school 48.png" id="3_ebmow"]
 [ext_resource type="Texture2D" uid="uid://vkhlval5klm8" path="res://assets/sprites/school-floor-overlays-horror.png" id="4_4dxh7"]
@@ -1388,6 +1389,7 @@ _data = {
 point_count = 14
 
 [node name="floor3" type="Node2D" unique_id=1008020499]
+script = ExtResource("1_rtvxg")
 
 [node name="TileMap" type="TileMap" parent="." unique_id=531926006]
 tile_set = SubResource("TileSet_g4etx")
