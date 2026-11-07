@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b85y2tkh3jsej" path="res://assets/sprites/TX Tileset Stone Ground.png" id="2_kunif"]
 [ext_resource type="Texture2D" uid="uid://b4hmpn00yr8ga" path="res://assets/sprites/school-furniture-school-chairs-horror.png" id="3_ko2ek"]
 [ext_resource type="Texture2D" uid="uid://byp1kvpcxjstl" path="res://assets/sprites/room-builder-floors-vinyl.png" id="3_nsmr2"]
+[ext_resource type="PackedScene" uid="uid://c7pwe2ghy86cb" path="res://player.tscn" id="4_kunif"]
 [ext_resource type="Texture2D" uid="uid://dk2lnropnq7pg" path="res://assets/sprites/stylish_room_door_tiles.png" id="4_nsmr2"]
 [ext_resource type="Texture2D" uid="uid://ctugnxitbra8b" path="res://assets/sprites/school-wall-props-wall-boards-horror.png" id="5_gq8na"]
 [ext_resource type="Texture2D" uid="uid://did7ogx7bgmuo" path="res://assets/sprites/school-wall-props-wall-boards-horror 48.png" id="6_40ld1"]
@@ -13,9 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://tw4qq5bn0tkg" path="res://assets/sprites/school-furniture-teacher-desks-clean.png" id="8_40ld1"]
 [ext_resource type="Texture2D" uid="uid://eveg8hxu0w3u" path="res://assets/sprites/prop2.png" id="9_okme5"]
 [ext_resource type="Texture2D" uid="uid://bkfuab3fou8l0" path="res://assets/sprites/school-furniture-school-chairs-clean.png" id="10_tia58"]
-[ext_resource type="PackedScene" uid="uid://b1nmaupvdtlum" path="res://player2.tscn" id="14_lsn8g"]
 [ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสงวงกลม.jpg" id="15_owlvu"]
-[ext_resource type="Script" uid="uid://bdy12fkwmvbmk" path="res://scripts/ui/room407_intro.gd" id="16_a08vc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_10xoj"]
 texture = ExtResource("1_3sskx")
@@ -596,18 +595,6 @@ sources/14 = SubResource("TileSetAtlasSource_262wr")
 sources/15 = SubResource("TileSetAtlasSource_wi3ju")
 sources/3 = SubResource("TileSetAtlasSource_a203q")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6hvo"]
-bg_color = Color(0.035, 0.025, 0.03, 0.65)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.42, 0.08, 0.09, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
 [node name="room407" type="Node2D" unique_id=117380184]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=54302894]
@@ -623,8 +610,8 @@ layer_2/tile_data = PackedInt32Array(65535, 4, 2, 131071, 4, 2, 196607, 4, 2, 26
 layer_3/name = "Asset"
 layer_3/tile_data = PackedInt32Array(65540, 7, 0, 131076, 7, 1, 196612, 7, 2, 65541, 65543, 0, 131077, 65543, 1, 196613, 65543, 2, 65542, 131079, 0, 131078, 131079, 1, 196614, 131079, 2, 65543, 196615, 0, 131079, 196615, 1, 196615, 196615, 2, 65544, 262151, 0, 131080, 262151, 1, 196616, 262151, 2, 65545, 327687, 0, 131081, 327687, 1, 196617, 327687, 2, 65546, 393223, 0, 131082, 393223, 1, 196618, 393223, 2, 65547, 458759, 0, 131083, 458759, 1, 196619, 458759, 2, 65548, 524295, 0, 131084, 524295, 1, 196620, 524295, 2, 65549, 7, 0, 131085, 7, 1, 196621, 7, 2, 65550, 65543, 0, 131086, 65543, 1, 196622, 65543, 2, 65551, 131079, 0, 131087, 131079, 1, 196623, 131079, 2, 65552, 196615, 0, 131088, 196615, 1, 196624, 196615, 2, 65553, 262151, 0, 131089, 262151, 1, 196625, 262151, 2, 65554, 327687, 0, 131090, 327687, 1, 196626, 327687, 2, 65555, 393223, 0, 131091, 393223, 1, 196627, 393223, 2, 65556, 458759, 0, 131092, 458759, 1, 196628, 458759, 2, 65557, 524295, 0, 131093, 524295, 1, 196629, 524295, 2, 65558, 7, 0, 131094, 7, 1, 196630, 7, 2, 65559, 65543, 0, 131095, 65543, 1, 196631, 65543, 2, 65560, 131079, 0, 131096, 131079, 1, 196632, 131079, 2, 65561, 196615, 0, 131097, 196615, 1, 196633, 196615, 2, 65562, 262151, 0, 131098, 262151, 1, 196634, 262151, 2, 65563, 327687, 0, 131099, 327687, 1, 196635, 327687, 2, 65564, 393223, 0, 131100, 393223, 1, 196636, 393223, 2, 65565, 458759, 0, 131101, 458759, 1, 196637, 458759, 2, 65566, 524295, 0, 131102, 524295, 1, 196638, 524295, 2, 262176, 13, 0, 327712, 13, 1, 262177, 65549, 0, 327713, 65549, 1, 393220, 131086, 0, 458756, 131086, 1, 393221, 131086, 268435456, 458757, 131086, 268435457, 393222, 15, 0, 458758, 15, 1, 393223, 131086, 268435456, 458759, 131086, 268435457, 458760, 15, 1, 458761, 65551, 1, 393226, 131086, 0, 458762, 131086, 1, 393227, 65551, 0, 458763, 65551, 1, 393228, 15, 0, 458764, 15, 1, 393229, 65551, 0, 458765, 65551, 1, 393234, 131086, 0, 458770, 131086, 1, 393235, 131086, 268435456, 458771, 131086, 268435457, 393236, 15, 0, 458772, 15, 1, 393237, 65551, 0, 458773, 65551, 1, 393238, 15, 0, 458774, 15, 1, 393239, 65551, 0, 458775, 65551, 1, 393240, 15, 0, 458776, 15, 1, 393241, 65551, 0, 458777, 65551, 1, 393242, 15, 0, 458778, 15, 1, 393243, 65551, 0, 458779, 65551, 1, 589828, 15, 0, 655364, 15, 1, 589829, 65551, 0, 655365, 65551, 1, 589832, 15, 0, 655368, 15, 1, 589833, 65551, 0, 655369, 65551, 1, 589834, 15, 0, 655370, 15, 1, 589835, 65551, 0, 655371, 65551, 1, 589836, 15, 0, 655372, 15, 1, 589837, 65551, 0, 655373, 65551, 1, 589842, 131086, 0, 655378, 131086, 1, 589843, 65551, 0, 655379, 65551, 1, 589844, 15, 0, 655380, 15, 1, 589845, 65551, 0, 655381, 65551, 1, 589846, 15, 0, 655382, 15, 1, 589847, 131086, 268435456, 655383, 131086, 268435457, 589848, 15, 0, 655384, 15, 1, 589849, 65551, 0, 655385, 65551, 1, 589850, 15, 0, 655386, 15, 1, 589851, 131086, 268435456, 655387, 131086, 268435457, 786436, 15, 0, 851972, 15, 1, 786437, 65551, 0, 851973, 65551, 1, 786438, 15, 0, 851974, 15, 1, 786439, 131086, 268435456, 851975, 131086, 268435457, 786440, 15, 0, 851976, 15, 1, 786441, 65551, 0, 851977, 65551, 1, 786442, 15, 0, 851978, 15, 1, 786443, 65551, 0, 851979, 65551, 1, 786444, 15, 0, 851980, 15, 1, 786445, 65551, 0, 851981, 65551, 1, 786450, 15, 0, 851986, 15, 1, 786451, 65551, 0, 851987, 65551, 1, 786452, 15, 0, 851988, 15, 1, 786453, 131086, 268435456, 851989, 131086, 268435457, 786454, 15, 0, 851990, 15, 1, 786455, 65551, 0, 851991, 65551, 1, 786456, 15, 0, 851992, 15, 1, 786457, 65551, 0, 851993, 65551, 1, 786458, 131086, 0, 851994, 131086, 1, 786459, 65551, 0, 851995, 65551, 1, 983044, 15, 0, 1048580, 15, 1, 983045, 65551, 0, 1048581, 65551, 1, 983050, 15, 0, 1048586, 15, 1, 983051, 65551, 0, 1048587, 65551, 1, 983052, 15, 0, 1048588, 15, 1, 983053, 65551, 0, 1048589, 65551, 1, 983058, 131086, 0, 1048594, 131086, 1, 983059, 131086, 268435456, 1048595, 131086, 268435457, 983060, 15, 0, 1048596, 15, 1, 983061, 65551, 0, 1048597, 65551, 1, 983062, 15, 0, 1048598, 15, 1, 983063, 65551, 0, 1048599, 65551, 1, 983064, 15, 0, 1048600, 15, 1, 983065, 65551, 0, 1048601, 65551, 1, 983066, 131086, 0, 1048602, 131086, 1, 983067, 131086, 268435456, 1048603, 131086, 268435457, 589830, 15, 0, 655366, 15, 1, 589831, 65551, 0, 655367, 65551, 1, 983046, 131086, 0, 1048582, 131086, 1, 983047, 131086, 268435456, 1048583, 131086, 268435457, 983048, 15, 0, 1048584, 15, 1, 983049, 65551, 0, 1048585, 65551, 1, 393224, 15, 0, 393225, 65551, 0)
 
-[node name="Playerปิดไฟ" parent="." unique_id=472222300 instance=ExtResource("14_lsn8g")]
-position = Vector2(605, 351)
+[node name="Player" parent="." unique_id=472222300 instance=ExtResource("4_kunif")]
+position = Vector2(1134, 262)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1064842986]
 visible = false
@@ -635,70 +622,3 @@ position = Vector2(524, 338)
 scale = Vector2(1.0960145, 1.0609927)
 color = Color(1, 1, 1, 0.5254902)
 texture = ExtResource("15_owlvu")
-
-[node name="CutsceneSeat" type="Marker2D" parent="." unique_id=229164828]
-position = Vector2(605, 355)
-
-[node name="IntroUI" type="CanvasLayer" parent="." unique_id=153645008]
-process_mode = 3
-layer = 300
-script = ExtResource("16_a08vc")
-
-[node name="Control" type="Control" parent="IntroUI" unique_id=274282388]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="IntroUI/Control" unique_id=608241722]
-layout_mode = 0
-anchor_left = 0.06
-anchor_top = 1.0
-anchor_right = 0.94
-anchor_bottom = 1.0
-offset_top = -270.0
-offset_bottom = -32.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_p6hvo")
-
-[node name="Label" type="Label" parent="IntroUI/Control/Panel" unique_id=689181071]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 26.0
-offset_top = 20.0
-offset_right = -26.0
-offset_bottom = -52.0
-theme_override_colors/font_color = Color(0.94, 0.9, 0.85, 1)
-theme_override_font_sizes/font_size = 22
-text = "Just a moment ago, you were sitting in your game dev class, but with a single blink, you suddenly found yourself in the 5th-floor restroom of the Main Building."
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="ContinueHint" type="Label" parent="IntroUI/Control/Panel" unique_id=1015462697]
-layout_mode = 0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 26.0
-offset_top = -45.0
-offset_right = -26.0
-offset_bottom = -15.0
-theme_override_colors/font_color = Color(0.85, 0.38, 0.35, 1)
-theme_override_font_sizes/font_size = 18
-text = "Press Enter to continue"
-horizontal_alignment = 2
-
-[node name="Fade" type="ColorRect" parent="IntroUI/Control" unique_id=1028748981]
-visible = false
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)

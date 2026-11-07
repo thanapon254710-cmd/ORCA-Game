@@ -1,5 +1,10 @@
 extends CharacterBody2D
 
+
+signal quiz_requested
+
+var quiz_triggered := false
+
 const SPEED = 200.0
 
 # ---------- ระบบซ่อนตัว Safe Zone ----------
@@ -172,3 +177,15 @@ func _on_hiding_spot_2_body_entered(body: Node2D) -> void: _set_player_hiding(bo
 func _on_hiding_spot_2_body_exited(body: Node2D) -> void: _set_player_hiding(body, false)
 func _on_hiding_spot_3_body_entered(body: Node2D) -> void: _set_player_hiding(body, true)
 func _on_hiding_spot_3_body_exited(body: Node2D) -> void: _set_player_hiding(body, false)
+
+
+func _on_hit_box_body_entered(body: Node2D) -> void:
+	print("Something entered: ", body.name)
+
+	if quiz_triggered:
+		return
+
+	if body.name == "Player2":
+		quiz_triggered = true
+		print("Player near Orca!")
+		quiz_requested.emit()

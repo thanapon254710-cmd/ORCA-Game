@@ -7,7 +7,7 @@ extends Node
 @export var shake_intensity: float = 10.0 # ความแรงสั่นหน้าจอ
 
 # ---------- ปรับค่าสมดุลสำหรับชั้น 3 (ยากระดับปานกลาง-สูง) ----------
-@export var floor3_speed: float = 120.0          # เดินตรวจไวขึ้น (110.0 px/s)
+@export var floor3_speed: float = 110.0          # เดินตรวจไวขึ้น (110.0 px/s)
 @export var floor3_chase_mult: float = 1.55      # ความเร็วไล่ล่า ~170.5 px/s (จี้หลังผู้เล่นเรื่อยๆ)
 @export var floor3_sight_range: float = 220.0    # ระยะสายตาไกลขึ้น (220.0 px)
 @export var floor3_sight_angle: float = 85.0     # กรวยสายตากว้างขึ้นเป็น 85 องศา
