@@ -20,7 +20,6 @@
 [ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="16_upcpg"]
 [ext_resource type="PackedScene" path="res://scenes/inventory/items/key_yellow.tscn" id="17_ptg47"]
 [ext_resource type="PackedScene" uid="uid://bayn15qbyvf7a" path="res://stair_puzzle.tscn" id="18_hmm4o"]
-
 [ext_resource type="PackedScene" path="res://scenes/ui/floor_dialogue.tscn" id="floor_dialogue"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hkwmq"]
@@ -1390,8 +1389,14 @@ _data = {
 }
 point_count = 14
 
+[sub_resource type="Curve2D" id="Curve2D_cw66q"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 2169.6782, 2450.3918, 0, 0, 0, 0, 1786.7937, 2178.1262, 0, 0, 0, 0, 1574.0801, 1769.7275, 0, 0, 0, 0, 1361.3667, 1769.7275, 0, 0, 0, 0, 893.3969, 1769.7275, 0, 0, 0, 0, 553.05524, 1769.7275, 0, 0, 0, 0, 170.17084, 1452.0842, 0, 0, 0, 0, 297.799, 635.28687, 0, 0, 0, 0, 595.59796, 226.88818, 0, 0, 0, 0, 1403.9094, 317.64343, 0, 0, 0, 0, 2084.5928, 635.28687, 0, 0, 0, 0, 2595.1052, 453.77625, 0, 0, 0, 0, 3403.4167, 363.021, 0, 0, 0, 0, 3956.472, 544.5316, 0, 0, 0, 0, 4041.5574, 907.5526, 0, 0, 0, 0, 3616.1301, 1315.9512, 0, 0, 0, 0, 3105.6177, 1769.7275, 0, 0, 0, 0, 2850.3616, 1769.7275, 0, 0, 0, 0, 2169.6782, 2450.3918)
+}
+point_count = 19
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p376d"]
-size = Vector2(80, 50)
+size = Vector2(80, 88)
 
 [node name="floor3" type="Node2D" unique_id=1008020499]
 script = ExtResource("1_rtvxg")
@@ -1458,9 +1463,23 @@ curve = SubResource("Curve2D_rtvxg")
 position = Vector2(4424.442, 1406.7065)
 rotation = -1.5347531
 
-[node name="Orca" parent="." unique_id=2000482544 node_paths=PackedStringArray("path_follow") groups=["orca"] instance=ExtResource("14_kipsh")]
+[node name="Path2D2" type="Path2D" parent="." unique_id=85570309]
 position = Vector2(160, 168)
+scale = Vector2(0.18804632, 0.17629834)
+curve = SubResource("Curve2D_cw66q")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D2" unique_id=1594775202]
+position = Vector2(2169.6782, 2450.3918)
+rotation = -2.523462
+
+[node name="Orca" parent="." unique_id=2000482544 node_paths=PackedStringArray("path_follow") groups=["orca"] instance=ExtResource("14_kipsh")]
+position = Vector2(40, 96)
 path_follow = NodePath("../Path2D/PathFollow2D")
+sight_range = 300.0
+
+[node name="Orca2" parent="." unique_id=1591090641 node_paths=PackedStringArray("path_follow") groups=["orca"] instance=ExtResource("14_kipsh")]
+position = Vector2(1008, 432)
+path_follow = NodePath("../Path2D2/PathFollow2D")
 sight_range = 300.0
 
 [node name="orca_floor_3" type="Node" parent="." unique_id=1355635366]
@@ -1491,7 +1510,7 @@ destination_spawn_marker = "SpawnFromFloor3"
 prompt_text = "Press E to use stairs"
 stair_puzzle_scene = ExtResource("18_hmm4o")
 
-[node name="IntroUI" parent="." instance=ExtResource("floor_dialogue")]
+[node name="IntroUI" parent="." unique_id=1388625773 instance=ExtResource("floor_dialogue")]
 passages = Array[String](["Some things require the right sequence; don't rush. Slow and steady wins the race."])
 
 [node name="HidingSpot1" type="Area2D" parent="." unique_id=1804183380 groups=["hiding_spots"]]
@@ -1529,5 +1548,6 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot4" unique_id=623732173]
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_p376d")
 debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
