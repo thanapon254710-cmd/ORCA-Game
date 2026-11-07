@@ -35,6 +35,11 @@ func _ready():
 	title_label.text = "Order Step to upload code into ESP32 (IoT)"
 
 	reward_overlay.visible = false
+	# Make the first-time hint use the same size as the repeat hint.
+	reward_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	reward_overlay.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	reward_overlay.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	reward_overlay.z_index = 100
 
 	var img_path = "res://data/picture/bookshelf.png"
 
@@ -110,18 +115,18 @@ func _on_check_pressed():
 		feedback_label.modulate = Color.RED
 
 func _show_hint_and_close() -> void:
+	reward_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	reward_overlay.modulate.a = 0.0
 	reward_overlay.visible = true
 
 	var tween = create_tween()
-	tween.tween_property(
-		reward_overlay,
-		"modulate:a",
-		1.0,
-		0.4
-	)
+	tween.tween_property(reward_overlay, "modulate:a", 1.0, 0.4)
 
 	await get_tree().create_timer(3.0).timeout
 
 	hide()
 	puzzle_closed.emit()
+
+func _close_already_completed() -> void:
+	puzzle_closed.emit()
+	queue_free()

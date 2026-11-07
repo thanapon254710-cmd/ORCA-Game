@@ -38,6 +38,7 @@ func _ready():
 	_setup_layout_dimensions()
 	_create_shelf_slots()
 	_create_feedback_label()
+	set_process_unhandled_input(true)
 	
 	check_button.pressed.connect(_on_check_pressed)
 	reset_button.pressed.connect(reset_puzzle)
@@ -113,3 +114,12 @@ func reset_puzzle():
 		if slot.current_item != "":
 			Inventory.collect(slot.current_item, "reset_" + str(Time.get_ticks_msec()) + "_" + str(randi()))
 			slot.set_book("")
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		close_puzzle()
+		get_viewport().set_input_as_handled()
+
+
+func close_puzzle() -> void:
+	queue_free()

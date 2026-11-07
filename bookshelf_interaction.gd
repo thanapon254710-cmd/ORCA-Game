@@ -35,13 +35,6 @@ func interact(_player: Node):
 		show_message("Complete the IoT computer question first!")
 		return
 
-	if not GameState.has_all_ft2_books():
-		var white = Inventory.get_count("book_white")
-		var blue = Inventory.get_count("book_blue")
-		var orange = Inventory.get_count("book_orange")
-
-		return
-
 	puzzle_instance = puzzle_scene.instantiate()
 	get_tree().root.add_child(puzzle_instance)
 
