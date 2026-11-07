@@ -10,33 +10,24 @@ func _ready():
 	play_again_btn.pressed.connect(_on_play_again)
 	exit_btn.pressed.connect(func(): get_tree().quit())
 	
-	# ดึงสถิติตัวเองและเซฟลง disk
-	var result = SaveManager.record_run_completion(SaveManager.latest_reward_name)
+	var sm = get_node_or_null("/root/SaveManager")
+	if not sm:
+		return
+		
+	var result = sm.record_run_completion(sm.latest_reward_name)
 	
-	# ปรับแต่งหัวเรื่อง
-	$BackgroundDim/CenterContainer/BoardCard/VBoxContainer/HeaderLabel.text = "★ สรุปผลการเล่น / SCOREBOARD ★"
-	$BackgroundDim/CenterContainer/BoardCard/VBoxContainer/HeaderLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	$BackgroundDim/CenterContainer/BoardCard/VBoxContainer/HeaderLabel.add_theme_font_size_override("font_size", 22)
+	# แสดงผลรอบล่าสุดชัดเจน
+	$BackgroundDim/CenterContainer/BoardCard/VBoxContainer/HeaderLabel.text = "★ MISSION COMPLETE / สรุปผลรอบล่าสุด ★"
 	
-	# แสดงข้อมูลผู้เล่น
-	user_info_label.text = "ผู้เล่น: %s   |   เล่นเป็นครั้งที่: %d" % [result["username"], result["play_count"]]
-	user_info_label.add_theme_font_size_override("font_size", 16)
+	user_info_label.text = "ผู้เล่น: %s   |   ครั้งที่เล่น: %d" % [result["username"], result["play_count"]]
 	
-	var cur_str = SaveManager.format_seconds(result["current_time"])
-	var best_str = SaveManager.format_seconds(result["best_time"])
-	time_info_label.text = "เวลารอบนี้: %s   |   เวลาที่ดีที่สุด: %s" % [cur_str, best_str]
-	time_info_label.add_theme_font_size_override("font_size", 16)
-	time_info_label.modulate = Color(1.0, 0.85, 0.3) # สีเหลืองทอง
+	var time_str = sm.format_seconds(result["clear_time"])
+	time_info_label.text = "⏱ เวลาที่ใช้: %s   |   💀 จำนวนการตาย: %d ครั้ง" % [time_str, result["deaths"]]
+	time_info_label.modulate = Color(1.0, 0.85, 0.3)
 	
-	# แสดงประวัติไอเทม
-	var history: Array = result["items_history"]
-	if history.is_empty():
-		items_list_label.text = "- ยังไม่เคยได้รับไอเทม -"
-	else:
-		var formatted_items = []
-		for item in history:
-			formatted_items.append("• " + str(item))
-		items_list_label.text = "\n".join(formatted_items)
+	# แสดงของรางวัลที่ได้รับในรอบนี้
+	var reward_text = result["reward"] if result["reward"] != "" else "ไม่มีของรางวัล"
+	items_list_label.text = "🎁 รางวัลที่สุ่มได้รอบนี้:\n• " + reward_text
 
 func _on_play_again():
 	# รีสตาร์ทกลับไปหน้าแรกสุดของโปรเจกต์
