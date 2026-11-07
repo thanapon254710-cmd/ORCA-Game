@@ -40,13 +40,18 @@ shape = SubResource("CircleShape2D_p376d")
 collision_mask = 3
 
 [node name="SfxDetect" type="AudioStreamPlayer2D" parent="." unique_id=911676495]
+process_mode = 3
 stream = ExtResource("3_gkwf8")
+volume_db = -10.0
 
 [node name="SfxChaseLoop" type="AudioStreamPlayer2D" parent="." unique_id=1767472018]
+process_mode = 3
 stream = ExtResource("4_083xy")
+volume_db = -10.0
 
 [node name="SfxCaught" type="AudioStreamPlayer" parent="." unique_id=443495302]
+process_mode = 3
 stream = ExtResource("5_hdrnb")
+volume_db = -30.0
 
 [node name="GameOverPopup" parent="." unique_id=1486938208 instance=ExtResource("game_over_popup")]
-visible = true
