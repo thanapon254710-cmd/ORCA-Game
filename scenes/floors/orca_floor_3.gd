@@ -1,19 +1,18 @@
 extends Node
 
-@export var shake_duration: float = 0.6
-@export var shake_intensity: float = 15.0
+@export var shake_duration: float = 0.4   # เวลาสั่นหน้าจอเมื่อโดนจับในชั้น 3
+@export var shake_intensity: float = 10.0 # ความแรงสั่นหน้าจอ
 
-# ปรับระยะสายตา Floor 3
-@export var floor3_speed: float = 150.0
-@export var floor3_chase_mult: float = 2.0
-@export var floor3_sight_range: float = 220.0
-@export var floor3_sight_angle: float = 90.0
-@export var floor3_lose_sight_time: float = 3.0
+# ---------- ปรับค่าสมดุลสำหรับชั้น 3 (ยากระดับปานกลาง-สูง) ----------
+@export var floor3_speed: float = 110.0          # เดินตรวจไวขึ้น (110.0 px/s)
+@export var floor3_chase_mult: float = 1.55      # ความเร็วไล่ล่า ~170.5 px/s (จี้หลังผู้เล่นเรื่อยๆ)
+@export var floor3_sight_range: float = 220.0    # ระยะสายตาไกลขึ้น (220.0 px)
+@export var floor3_sight_angle: float = 85.0     # กรวยสายตากว้างขึ้นเป็น 85 องศา
+@export var floor3_lose_sight_time: float = 1.8  # ติดตามดมกลิ่น 1.8 วินาทีหลังพ้นสายตา
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
-	# ค้นหา Orca ทุกตัวในกลุ่ม "orca"
 	var orcas := get_tree().get_nodes_in_group("orca")
 	if orcas.is_empty():
 		var parent := get_parent()
@@ -34,7 +33,7 @@ func _ready() -> void:
 			orca.sight_angle = floor3_sight_angle
 		if "lose_sight_time" in orca:
 			orca.lose_sight_time = floor3_lose_sight_time
-			
+
 		if orca.has_signal("player_caught"):
 			if not orca.player_caught.is_connected(_on_player_caught):
 				orca.player_caught.connect(_on_player_caught)
@@ -43,14 +42,9 @@ func _on_player_caught() -> void:
 	print("GAME OVER - FLOOR 3")
 	get_tree().paused = true
 	
-	# 1. ทำหน้าจอสั่น (ปล่อยให้เสียง Jumpscare เล่นขนานกันไป)
 	await _trigger_screen_shake()
-	
-	# 2. รอเวลา 0.8 วินาที เพื่อให้เสียง Jumpscare (SfxCaught) เล่นจนจบ
-	# (ตั้งค่า ignore_paused = true เพื่อไม่ให้ Timer ค้างแม้ฉากหยุด)
 	await get_tree().create_timer(0.8, true, false, true).timeout
 	
-	# 3. โหลดด่านใหม่หลังจากเสียงเล่นจบแล้ว
 	get_tree().paused = false
 	await TransitionManager.respawn_player()
 
