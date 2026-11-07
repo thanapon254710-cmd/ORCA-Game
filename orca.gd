@@ -12,12 +12,15 @@ enum State { PATROL, CHASE, RETURN }
 @export var sight_range: float = 220.0
 @export_range(10, 180) var sight_angle: float = 100.0
 @export var debug_draw: bool = true
+@export var caught_sound_offset: float = 0.15 # ข้ามช่วงเงียบตอนโดนจับ (ปรับใน Inspector ได้)
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var vision: RayCast2D = $Vision
 
 # ---------- Audio Nodes ----------
-@onready var sfx_detect: AudioStreamPlayer2D = $SfxDetect if has_node("SfxDetect") else null
+@onready var sfx_detect: Node = $SfxDetect if has_node("SfxDetect") else null
+@onready var sfx_chase_loop: Node = $SfxChaseLoop if has_node("SfxChaseLoop") else null
+@onready var sfx_caught: Node = $SfxCaught if has_node("SfxCaught") else null
 
 var state: State = State.PATROL
 var has_caught := false
@@ -25,7 +28,7 @@ var facing := Vector2.RIGHT
 var player: Node2D
 var last_seen_pos := Vector2.ZERO
 var return_stuck_timer := 0.0
-var state_timer := 0.0 # ตัวแปรหน่วงเวลาป้องกัน State สลับรัวๆ
+var state_timer := 0.0
 
 func _ready() -> void:
 	has_caught = false
@@ -65,7 +68,6 @@ func _patrol(delta: float) -> void:
 	if path_follow == null:
 		return
 
-	# ต้องอยู่ใน PATROL อย่างน้อย 0.15 วินาที ก่อนจะเริ่มไล่ใหม่ เพื่อตัดลูปสลับรัว
 	if state_timer >= 0.15 and can_see_player():
 		_change_state(State.CHASE)
 		return
@@ -79,16 +81,15 @@ func _patrol(delta: float) -> void:
 		_face(move)
 
 # ---------- STATE: CHASE ----------
-func _chase(delta: float) -> void:
+func _chase(_delta: float) -> void:
 	if player == null:
 		player = get_tree().get_first_node_in_group("player")
 
-	# 1. หาก Player เข้า Safe Zone (is_hiding = true) ให้ยกเลิกการไล่ล่าและถอยกลับทันที (ไม่รอ 0.2 วิ)
+	# หาก Player เข้า Safe Zone ให้ถอยกลับทันที
 	if player and "is_hiding" in player and player.is_hiding:
 		_change_state(State.RETURN)
 		return
 
-	# 2. หากคลาดสายตาทั่วไป (เช่น หลบหลังกำแพง) ให้หน่วง 0.2 วิ ตัดอาการสั่นรัว
 	if player == null or not can_see_player():
 		if state_timer >= 0.2:
 			_change_state(State.RETURN)
@@ -117,7 +118,6 @@ func _chase(delta: float) -> void:
 
 # ---------- STATE: RETURN ----------
 func _return_to_path(delta: float) -> void:
-	# ถ้าอยู่ใน RETURN เกิน 0.2 วินาทีแล้วมองเห็น Player ชัดเจน จึงสลับกลับ CHASE
 	if state_timer >= 0.2 and can_see_player():
 		_change_state(State.CHASE)
 		return
@@ -132,7 +132,6 @@ func _return_to_path(delta: float) -> void:
 	var target := path_follow.global_position
 	var to_target := target - global_position
 	
-	# ปรับเงื่อนไขให้เข้าใกล้และต้องอยู่สถานะ RETURN มาแล้วอย่างน้อย 0.2 วินาที
 	if (to_target.length() <= 16.0 and state_timer >= 0.2) or return_stuck_timer >= 1.5:
 		global_position = target
 		_change_state(State.PATROL)
@@ -152,16 +151,17 @@ func _return_to_path(delta: float) -> void:
 	if velocity.length() > 5.0:
 		_face(velocity)
 
-# ---------- State Machine Handling ----------
+# ---------- State Machine Handling & Audio Controller ----------
 func _change_state(new_state: State) -> void:
 	if new_state == state:
 		return
 	state = new_state
-	state_timer = 0.0 # รีเซ็ตเวลาสะสมทุกครั้งที่เปลี่ยนสถานะ
+	state_timer = 0.0
 
 	match state:
 		State.PATROL:
-			pass
+			_stop_chase_sound()
+
 		State.CHASE:
 			if player == null:
 				player = get_tree().get_first_node_in_group("player")
@@ -169,15 +169,29 @@ func _change_state(new_state: State) -> void:
 				last_seen_pos = player.global_position
 				_face((player.global_position - global_position).normalized())
 			
+			# 1. เล่นเสียงตกใจ/ตรวจเจอ (SfxDetect)
 			if sfx_detect and sfx_detect.has_method("play"):
 				sfx_detect.play()
 				
+			# 2. เริ่มเล่นเสียงวนลูปไล่ล่า (SfxChaseLoop)
+			if sfx_chase_loop and sfx_chase_loop.has_method("play"):
+				var is_playing: bool = sfx_chase_loop.get("playing") if "playing" in sfx_chase_loop else false
+				if not is_playing:
+					sfx_chase_loop.play()
+				
 		State.RETURN:
+			_stop_chase_sound()
 			return_stuck_timer = 0.0
 			_snap_guide_to_nearest_point()
 
 	print("Orca → ", State.keys()[state])
 	state_changed.emit(state)
+
+func _stop_chase_sound() -> void:
+	if sfx_chase_loop:
+		var is_playing: bool = sfx_chase_loop.get("playing") if "playing" in sfx_chase_loop else false
+		if is_playing and sfx_chase_loop.has_method("stop"):
+			sfx_chase_loop.stop()
 
 func _snap_guide_to_nearest_point() -> void:
 	if path_follow and path_follow.get_parent() is Path2D:
@@ -223,7 +237,6 @@ func can_see_player() -> bool:
 	vision.target_position = vision.to_local(player.global_position)
 	vision.add_exception(self)
 	
-	# ปิดการชน Area2D อื่นๆ ชนเฉพาะ Physics Body (ผู้เล่น/กำแพง)
 	vision.collide_with_areas = false
 	vision.collide_with_bodies = true
 	vision.force_raycast_update()
@@ -248,10 +261,17 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	if has_caught:
 		return
 	if body.is_in_group("player"):
-		# 3. หากผู้เล่นกำลังซ่อนตัวอยู่ ห้ามจับเด็ดขาด!
 		if "is_hiding" in body and body.is_hiding:
 			return
 			
 		has_caught = true
+		
+		# หยุดเสียง BGM ไล่ล่า
+		_stop_chase_sound()
+			
+		# เล่นเสียง SfxCaught ตามตำแหน่งเวลาที่กำหนดไว้ใน caught_sound_offset
+		if sfx_caught and sfx_caught.has_method("play"):
+			sfx_caught.play(caught_sound_offset)
+			
 		print("Player caught!")
 		player_caught.emit()

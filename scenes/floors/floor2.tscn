@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="14_o81gl"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="15_i6siy"]
 [ext_resource type="Script" uid="uid://duiupm8gbt4qy" path="res://scenes/floors/orca_floor_2.gd" id="16_5twv8"]
+[ext_resource type="AudioStream" uid="uid://bxv23mgy81m1q" path="res://universfield-horror-background-atmosphere-09-219111.mp3" id="17_p1j4b"]
 [ext_resource type="Script" uid="uid://btqcavof58ieq" path="res://scenes/floors/static_body_2d.gd" id="17_ukwv0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_312yu"]
@@ -1793,6 +1794,7 @@ path_follow = NodePath("../Path2D/PathFollow2D")
 
 [node name="orca_floor_2" type="Node" parent="." unique_id=1698608641]
 script = ExtResource("16_5twv8")
+floor_bgm = ExtResource("17_p1j4b")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1094729855]
 script = ExtResource("17_ukwv0")
