@@ -34,7 +34,7 @@ grow_vertical = 2
 texture = ExtResource("1_8bx44")
 expand_mode = 1
 
-[node name="ShelvesContainer" type="VBoxContainer" parent="BookshelfBackdrop" unique_id=443105770]
+[node name="ShelvesContainer" type="Control" parent="BookshelfBackdrop" unique_id=443105770]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

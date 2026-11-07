@@ -26,7 +26,6 @@
 [ext_resource type="Script" uid="uid://3i8yb8f0s5a6" path="res://scenes/room/computer_hint2ft.gd" id="23_vlp0b"]
 [ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="24_hwa2x"]
 [ext_resource type="PackedScene" uid="uid://bayn15qbyvf7a" path="res://stair_puzzle.tscn" id="25_a468h"]
-
 [ext_resource type="PackedScene" path="res://scenes/ui/floor_dialogue.tscn" id="floor_dialogue"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_312yu"]
@@ -1887,8 +1886,7 @@ destination_spawn_marker = "SpawnFromFloor2"
 prompt_text = "Press E to use stairs"
 stair_puzzle_scene = ExtResource("25_a468h")
 
-
-[node name="IntroUI" parent="." instance=ExtResource("floor_dialogue")]
+[node name="IntroUI" parent="." unique_id=904212654 instance=ExtResource("floor_dialogue")]
 passages = Array[String](["Walk over to the empty bookshelf: The shelf is completely bare... If you don't read every single book, you'll never get out of this library."])
 
 [connection signal="body_entered" from="HidingSpot1" to="Player2" method="_on_hiding_spot_1_body_entered"]

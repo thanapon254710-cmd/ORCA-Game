@@ -17,6 +17,7 @@ func _ready():
 	load_data_from_disk()
 
 func start_new_run(username: String):
+	latest_reward_name = ""
 	current_username = username.strip_edges()
 	if current_username == "":
 		current_username = "Guest"

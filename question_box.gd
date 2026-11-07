@@ -490,6 +490,8 @@ func _handle_floor_1_answer(is_correct: bool):
 		is_floor_1_battle = false
 		hide()
 		floor_1_cleared.emit()
+		get_tree().paused = false
+		get_tree().change_scene_to_file.call_deferred("res://scenes/parking.tscn")
 	elif player_hearts <= 0:
 		feedback_label.text = "💀 GAME OVER... You have run out of heart."
 		feedback_label.modulate = Color.DARK_RED
