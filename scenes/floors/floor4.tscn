@@ -1344,6 +1344,12 @@ _data = {
 }
 point_count = 29
 
+[sub_resource type="Curve2D" id="Curve2D_ettpi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -2302.6243, -1678.9725, 0, 0, 0, 0, -478.60547, -1599.5616, 0, 0, 0, 0, -191.44238, -1384.018, 0, 0, 0, 0, -186.12451, -391.38232, 0, 0, 0, 0, -882.7612, -73.73901, 0, 0, 0, 0, -2031.4143, -221.21631, 0, 0, 0, 0, -2589.7874, -215.54395, 0, 0, 0, 0, -2908.8577, -90.755615, 0, 0, 0, 0, -3887.34, -249.57715, 0, 0, 0, 0, -4110.6895, -714.6979, 0, 0, 0, 0, -3956.472, -1423.7234, 0, 0, 0, 0, -3562.952, -1605.2339, 0, 0, 0, 0, -2770.594, -1820.7776, 0, 0, 0, 0, -2302.6243, -1678.9725)
+}
+point_count = 14
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oqb0x"]
 size = Vector2(59.5, 60)
 
@@ -1478,6 +1484,10 @@ texture = ExtResource("28_ueo2k")
 position = Vector2(994, 480.00003)
 path_follow = NodePath("../Path2D/PathFollow2D")
 
+[node name="Orca2" parent="." unique_id=890257720 node_paths=PackedStringArray("path_follow") groups=["orca"] instance=ExtResource("29_ucpdf")]
+position = Vector2(994, 480.00003)
+path_follow = NodePath("../Path2D2/PathFollow2D")
+
 [node name="Path2D" type="Path2D" parent="." unique_id=145487918]
 position = Vector2(994, 480.00003)
 scale = Vector2(0.18804632, 0.17629834)
@@ -1486,6 +1496,15 @@ curve = SubResource("Curve2D_e5plf")
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=1407725072]
 position = Vector2(-409.47363, -260.92163)
 rotation = 2.9111025
+
+[node name="Path2D2" type="Path2D" parent="." unique_id=334951697]
+position = Vector2(994, 480.00003)
+scale = Vector2(0.18804632, 0.17629834)
+curve = SubResource("Curve2D_ettpi")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D2" unique_id=64315612]
+position = Vector2(-2302.6243, -1678.9725)
+rotation = 0.043508746
 
 [node name="orca_floor_4" type="Node" parent="." unique_id=1141609695]
 script = ExtResource("31_l52j7")
