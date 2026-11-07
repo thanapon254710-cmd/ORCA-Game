@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d34xspflx57sj"]
 
 [ext_resource type="Texture2D" uid="uid://b85y2tkh3jsej" path="res://assets/sprites/TX Tileset Stone Ground.png" id="1_ouej7"]
+[ext_resource type="Script" uid="uid://dwhknq1lggkfn" path="res://floor_1.gd" id="1_pkswe"]
 [ext_resource type="Texture2D" uid="uid://dk2lnropnq7pg" path="res://assets/sprites/stylish_room_door_tiles.png" id="2_2y1be"]
 [ext_resource type="Texture2D" uid="uid://c8x3mfy3f8ilv" path="res://assets/sprites/room-builder-stairs-school 48.png" id="3_7nq3v"]
 [ext_resource type="Texture2D" uid="uid://dkv5gfcrpfsfn" path="res://assets/sprites/school-wall-props-doors-horror.png" id="4_2y1be"]
@@ -636,6 +637,7 @@ sources/4 = SubResource("TileSetAtlasSource_pkswe")
 size = Vector2(88.5, 114)
 
 [node name="floor1" type="Node2D" unique_id=1704164976]
+script = ExtResource("1_pkswe")
 
 [node name="TileMap" type="TileMap" parent="." unique_id=61051801]
 tile_set = SubResource("TileSet_4kxuq")
@@ -666,4 +668,53 @@ destination_spawn_marker = "SpawnFromFloor1"
 shape = SubResource("RectangleShape2D_e64pu")
 
 [node name="Orca" parent="." unique_id=2000482544 instance=ExtResource("8_e64pu")]
-position = Vector2(1000, 528)
+position = Vector2(509.00006, 552.00006)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=790126412]
+
+[node name="FloorPopup" type="AcceptDialog" parent="CanvasLayer" unique_id=1198079179]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(395, 476)
+visible = true
+borderless = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/FloorPopup" unique_id=1481209259]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 387.0
+offset_bottom = 427.0
+
+[node name="Label" type="Label" parent="CanvasLayer/FloorPopup/VBoxContainer" unique_id=978719206]
+layout_mode = 2
+text = "Alert!
+"
+horizontal_alignment = 1
+
+[node name="WelcomeLabel" type="Label" parent="CanvasLayer/FloorPopup/VBoxContainer" unique_id=1746064846]
+layout_mode = 2
+text = "Welcome to Floor 1!
+"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/FloorPopup/VBoxContainer" unique_id=2089518420]
+layout_mode = 2
+
+[node name="RulesLabel" type="Label" parent="CanvasLayer/FloorPopup/VBoxContainer/CenterContainer" unique_id=1248595596]
+layout_mode = 2
+text = "Your mission is to challenge Orca in a quiz battle!
+
+❤️ You and Orca each have 3 hearts.
+
+❌ Each wrong answer costs you 1 heart.
+
+💀 Lose all 3 hearts, and you lose the battle!
+
+🏆 Defeat Orca to complete this floor.
+"
+
+[node name="GoodLuckLabel" type="Label" parent="CanvasLayer/FloorPopup/VBoxContainer" unique_id=760584282]
+layout_mode = 2
+text = "Good luck!
+"
+horizontal_alignment = 1
