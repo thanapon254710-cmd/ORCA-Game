@@ -7,7 +7,7 @@ extends Node
 @export var shake_intensity: float = 5.0   # ลดความแรงสั่นหน้าจอลง
 
 # ---------- ปรับค่าสมดุลโหมดง่ายสุดๆ (เทียบกับ Player SPEED = 200.0) ----------
-@export var floor5_speed: float = 50.0           # ความเร็วเดินตรวจ (Player วิ่งเร็วกว่า 4 เท่า)
+@export var floor5_speed: float = 80.0           # ความเร็วเดินตรวจ (Player วิ่งเร็วกว่า 4 เท่า)
 @export var floor5_chase_mult: float = 1.15      # ตัวคูณไล่ล่า (วิ่งไล่แค่ 57.5 px/s วิ่งทิ้งห่างได้สบาย)
 @export var floor5_sight_range: float = 100.0    # ระยะสายตา (สั้นมาก ต้องยืนใกล้ประมาณ 1-2 ช่องกระเบื้อง)
 @export var floor5_sight_angle: float = 40.0     # กรวยสายตา (มุมมองแคบมาก ยืนเฉียงข้างนิดเดียวก็มองไม่เห็น)
