@@ -8,7 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://gi1w7ltxvfkq" path="res://assets/sprites/prop5.png" id="5_7nq3v"]
 [ext_resource type="PackedScene" uid="uid://b1nmaupvdtlum" path="res://player2.tscn" id="7_e64pu"]
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="7_rv4a6"]
-[ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="8_e64pu"]
+[ext_resource type="Script" uid="uid://ci7u3i7dgj3bf" path="res://scenes/floors/orca_floor_1.gd" id="9_0vnnr"]
+[ext_resource type="Texture2D" uid="uid://8jlgvm6pompx" path="res://orca_eng.png" id="9_pkswe"]
+[ext_resource type="PackedScene" uid="uid://x6vdm4wml6sa" path="res://question_box.tscn" id="11_66qjv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xhphg"]
 texture = ExtResource("1_ouej7")
@@ -636,6 +638,9 @@ sources/4 = SubResource("TileSetAtlasSource_pkswe")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e64pu"]
 size = Vector2(88.5, 114)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_66qjv"]
+radius = 80.0
+
 [node name="floor1" type="Node2D" unique_id=1704164976]
 script = ExtResource("1_pkswe")
 
@@ -667,16 +672,12 @@ destination_spawn_marker = "SpawnFromFloor1"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStairs1to2" unique_id=1895639199]
 shape = SubResource("RectangleShape2D_e64pu")
 
-[node name="Orca" parent="." unique_id=2000482544 instance=ExtResource("8_e64pu")]
-position = Vector2(509.00006, 552.00006)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=790126412]
 
 [node name="FloorPopup" type="AcceptDialog" parent="CanvasLayer" unique_id=1198079179]
 oversampling_override = 1.0
 initial_position = 2
 size = Vector2i(395, 476)
-visible = true
 borderless = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/FloorPopup" unique_id=1481209259]
@@ -718,3 +719,23 @@ layout_mode = 2
 text = "Good luck!
 "
 horizontal_alignment = 1
+
+[node name="OrcaFloor1" type="CharacterBody2D" parent="." unique_id=1453459964]
+position = Vector2(519, 593)
+script = ExtResource("9_0vnnr")
+
+[node name="Sprite2D" type="Sprite2D" parent="OrcaFloor1" unique_id=1477203519]
+position = Vector2(-4, -14)
+scale = Vector2(0.072268955, 0.072268955)
+texture = ExtResource("9_pkswe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OrcaFloor1" unique_id=2003904459]
+
+[node name="Area2D" type="Area2D" parent="OrcaFloor1" unique_id=179657679]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OrcaFloor1/Area2D" unique_id=2012479109]
+shape = SubResource("CircleShape2D_66qjv")
+
+[node name="QuestionBox" parent="." unique_id=759334856 instance=ExtResource("11_66qjv")]
+
+[connection signal="body_entered" from="OrcaFloor1/Area2D" to="OrcaFloor1" method="_on_area_2d_body_entered"]

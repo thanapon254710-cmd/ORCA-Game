@@ -1,8 +1,7 @@
 
 extends Area2D
 
-@export var HINT_IMAGE: Texture2D
-@export var prompt_text: String = "Press E to enter"
+const HINT_IMAGE = preload("res://assets/sprites/408_hint.png")
 
 var prompt: Label
 var hint_layer: CanvasLayer

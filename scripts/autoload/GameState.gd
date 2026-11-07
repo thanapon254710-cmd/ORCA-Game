@@ -9,9 +9,6 @@ signal question_answered(question_id: String, is_correct: bool)
 signal player_caught
 signal game_over(reason: String)
 
-var room407_intro_seen: bool = false
-var floor5_intro_seen: bool = false
-
 var current_floor: int = 5
 var questions_answered: Array[String] = []
 var game_is_over: bool = false
@@ -66,8 +63,6 @@ func end_game(reason: String) -> void:
 	game_over.emit(reason)
 
 func reset_game() -> void:
-	room407_intro_seen = false
-	floor5_intro_seen = false
 	Inventory.reset_inventory()
 	current_floor = 5
 	questions_answered.clear()
@@ -130,10 +125,3 @@ func collect_passkey(number: int) -> void:
 	popup.confirmed.connect(func(): popup.queue_free())
 	popup.canceled.connect(func(): popup.queue_free())
 	popup.popup_centered()
-
-func has_all_ft2_books() -> bool:
-	return (
-		Inventory.get_count("book_white") >= 6
-		and Inventory.get_count("book_blue") >= 6
-		and Inventory.get_count("book_orange") >= 3
-	)

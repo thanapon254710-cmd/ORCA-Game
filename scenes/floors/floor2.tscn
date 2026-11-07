@@ -14,17 +14,13 @@
 [ext_resource type="Texture2D" uid="uid://clj4n5xgb46fk" path="res://assets/sprites/school-furniture-lockers-horror.png" id="11_ukwv0"]
 [ext_resource type="PackedScene" uid="uid://b1nmaupvdtlum" path="res://player2.tscn" id="14_i6siy"]
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="14_o81gl"]
-[ext_resource type="PackedScene" uid="uid://5a18rx3iqrqe" path="res://scenes/inventory/items/book_blue.tscn" id="15_8xc52"]
+[ext_resource type="PackedScene" path="res://scenes/inventory/items/book_blue.tscn" id="15_8xc52"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="15_i6siy"]
-[ext_resource type="PackedScene" uid="uid://ue45dmbvuhw5" path="res://scenes/inventory/items/book_white.tscn" id="15_xofbi"]
+[ext_resource type="PackedScene" path="res://scenes/inventory/items/book_white.tscn" id="15_xofbi"]
 [ext_resource type="Script" uid="uid://duiupm8gbt4qy" path="res://scenes/floors/orca_floor_2.gd" id="16_5twv8"]
-[ext_resource type="PackedScene" uid="uid://ld8pmtm6pleu" path="res://scenes/inventory/items/book_orange.tscn" id="16_8xc52"]
+[ext_resource type="PackedScene" path="res://scenes/inventory/items/book_orange.tscn" id="16_8xc52"]
 [ext_resource type="AudioStream" uid="uid://bxv23mgy81m1q" path="res://universfield-horror-background-atmosphere-09-219111.mp3" id="17_p1j4b"]
 [ext_resource type="Script" uid="uid://btqcavof58ieq" path="res://scenes/floors/static_body_2d.gd" id="17_ukwv0"]
-[ext_resource type="Script" uid="uid://bowc81aprx3va" path="res://bookshelf_interaction.gd" id="22_4phxh"]
-[ext_resource type="Script" uid="uid://3i8yb8f0s5a6" path="res://scenes/room/computer_hint2ft.gd" id="23_vlp0b"]
-[ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="24_hwa2x"]
-[ext_resource type="PackedScene" uid="uid://bayn15qbyvf7a" path="res://stair_puzzle.tscn" id="25_a468h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_312yu"]
 texture = ExtResource("1_qoq52")
@@ -1705,12 +1701,6 @@ size = Vector2(160, 152)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2emf8"]
 size = Vector2(96, 136)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hwa2x"]
-size = Vector2(61, 74)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vlp0b"]
-size = Vector2(52.75, 59)
-
 [node name="floor2" type="Node2D" unique_id=2030209140]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=837420413]
@@ -1745,32 +1735,32 @@ position = Vector2(900, 264)
 [node name="book_white6" parent="." unique_id=1021424743 instance=ExtResource("15_xofbi")]
 position = Vector2(712, 301)
 
-[node name="book_blue" parent="." unique_id=788127717 instance=ExtResource("15_8xc52")]
-position = Vector2(837, 494)
+[node name="book_blue" parent="." unique_id=8048569 instance=ExtResource("15_8xc52")]
+position = Vector2(136, 154)
 
-[node name="book_blue2" parent="." unique_id=981234675 instance=ExtResource("15_8xc52")]
-position = Vector2(293, 277)
+[node name="book_blue2" parent="." unique_id=788127717 instance=ExtResource("15_8xc52")]
+position = Vector2(110, 272)
 
 [node name="book_blue3" parent="." unique_id=1897089767 instance=ExtResource("15_8xc52")]
 position = Vector2(373, 210)
 
 [node name="book_blue4" parent="." unique_id=1561931576 instance=ExtResource("15_8xc52")]
-position = Vector2(616, 467)
+position = Vector2(592, 419)
 
-[node name="book_blue5" parent="." unique_id=2044368800 instance=ExtResource("15_8xc52")]
-position = Vector2(249, 411)
+[node name="book_blue5" parent="." unique_id=2005258841 instance=ExtResource("15_8xc52")]
+position = Vector2(42, 354)
 
 [node name="book_blue6" parent="." unique_id=1387732689 instance=ExtResource("15_8xc52")]
 position = Vector2(359, 417)
 
 [node name="book_orange" parent="." unique_id=1317046685 instance=ExtResource("16_8xc52")]
-position = Vector2(533, 318)
+position = Vector2(419, 291)
 
 [node name="book_orange2" parent="." unique_id=256473133 instance=ExtResource("16_8xc52")]
-position = Vector2(965, 370)
+position = Vector2(850, 325)
 
 [node name="book_orange3" parent="." unique_id=1915615467 instance=ExtResource("16_8xc52")]
-position = Vector2(875, 147)
+position = Vector2(769, 118)
 
 [node name="Player2" parent="." unique_id=2022886588 groups=["player"] instance=ExtResource("14_i6siy")]
 position = Vector2(261, 503)
@@ -1858,30 +1848,6 @@ collision_mask = 2
 position = Vector2(-8, 36)
 shape = SubResource("RectangleShape2D_2emf8")
 debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
-
-[node name="BookShelfPuzzle" type="Area2D" parent="." unique_id=1952935453]
-position = Vector2(553, 441)
-script = ExtResource("22_4phxh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BookShelfPuzzle" unique_id=453374635]
-shape = SubResource("RectangleShape2D_hwa2x")
-
-[node name="Question_IoT" type="Area2D" parent="." unique_id=1984999572]
-position = Vector2(428, 316)
-script = ExtResource("23_vlp0b")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Question_IoT" unique_id=30275577]
-position = Vector2(3, -2)
-shape = SubResource("RectangleShape2D_vlp0b")
-
-[node name="Question_ft2toft1" parent="." unique_id=2029985172 instance=ExtResource("24_hwa2x")]
-position = Vector2(337, 559)
-scale = Vector2(1.5, 0.5)
-script = ExtResource("14_o81gl")
-target_floor = 1
-destination_spawn_marker = "SpawnFromFloor2"
-prompt_text = "Press E to use stairs"
-stair_puzzle_scene = ExtResource("25_a468h")
 
 [connection signal="body_entered" from="HidingSpot1" to="Player2" method="_on_hiding_spot_1_body_entered"]
 [connection signal="body_exited" from="HidingSpot1" to="Player2" method="_on_hiding_spot_1_body_exited"]
