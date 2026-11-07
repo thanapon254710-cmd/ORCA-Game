@@ -23,7 +23,6 @@ TransitionManager="*uid://cp11wy35hwv4s"
 
 [display]
 
-window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
