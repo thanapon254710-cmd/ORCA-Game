@@ -5,6 +5,8 @@ signal puzzle_completed
 @onready var instruction_label: Label = $UI/InstructionLabel
 @onready var success_label: Label = $UI/SuccessLabel
 
+var _ending_started := false
+
 var selected_car: ParkingCar = null
 
 func _ready():
@@ -41,23 +43,28 @@ func _unhandled_input(event):
 			selected_car.set_selected(false)
 			selected_car = null
 
+# ตัวอย่างใน parking.gd ตอนตรวจว่ารถสีแดงหลุดถึงจุด EXIT แล้ว
 func _on_red_car_escaped():
-	print("รถสีแดงหลุดออกจากลานจอดรถสำเร็จ!")
+	print("รถสีแดงหลบหนีสำเร็จ!")
 	
-	# แสดงข้อความว่าคุณออกจากที่นี่ได้แล้ว
-	success_label.modulate.a = 0.0
-	success_label.visible = true
-	var tween = create_tween()
-	tween.tween_property(success_label, "modulate:a", 1.0, 0.5)
+	# โหลดและเปิดหน้าต่างสุ่มรางวัล PCG
+	var gacha_scene = load("res://scenes/puzzle/reward_gacha.tscn")
+	var gacha_instance = gacha_scene.instantiate()
+	add_child(gacha_instance)
 	
-	puzzle_completed.emit()
-	
-	# อัปเดตสถานะเข้า GameState กลาง
-	if GameState.has_signal("question_answered"):
-		GameState.question_answered.emit("q_parking_puzzle", true)
-	if not GameState.questions_answered.has("q_parking_puzzle"):
-		GameState.questions_answered.append("q_parking_puzzle")
+	# รอรับสัญญาณเมื่อผู้เล่นกดรับของรางวัลเสร็จสิ้น
+	# รอรับสัญญาณเมื่อผู้เล่นกดรับของรางวัลเสร็จสิ้น
+	gacha_instance.reward_claimed.connect(func(item):
+		# ใช้ name_th (หรือ name_en) แทนคีย์ "name"
+		var item_name = item.get("name_th", item.get("name", "Unknown Item"))
+		print("ผู้เล่นได้รับ: ", item_name, " (", item["rarity"], ")")
 		
-	# รอสักครู่แล้วเปิดทางหรือเปลี่ยนกลับไปยังฉากหลัก
-	await get_tree().create_timer(2.5).timeout
-	# queue_free() หรือ get_tree().change_scene_to_file("res://scenes/main.tscn")
+		var sb = load("res://score_board.tscn").instantiate()
+		add_child(sb)
+		
+		# บันทึกสถานะว่าเคลียร์ลานจอดรถแล้ว
+		if GameState.has_signal("question_answered"):
+			GameState.question_answered.emit("q_parking_escaped", true)
+		if not GameState.questions_answered.has("q_parking_escaped"):
+			GameState.questions_answered.append("q_parking_escaped")
+	)
