@@ -1384,11 +1384,14 @@ sources/11 = SubResource("TileSetAtlasSource_upcpg")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kipsh"]
 size = Vector2(88.5, 66)
 
-[sub_resource type="Curve2D" id="Curve2D_l52j7"]
+[sub_resource type="Curve2D" id="Curve2D_rtvxg"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 4424.442, 1406.7065, 0, 0, 0, 0, 4424.442, 136.13293, 0, 0, 0, 0, -255.25629, 136.13293, 0, 0, 0, 0, -255.25629, -589.9092, 0, 0, 0, 0, -723.2261, -589.9092, 0, 0, 0, 0, -723.2261, 1588.217, 0, 0, 0, 0, 510.5125, 1588.217, -605.91125, -20.626194, 605.91125, 20.626194, 1148.6531, 1905.8604, 0, 0, 0, 0, 1871.8792, 1588.217, 0, 0, 0, 0, 2552.5625, 1588.217, -331.96204, -10.313097, 331.96204, 10.313097, 2807.8188, 1406.7065, 0, 0, 0, 0, 3063.075, 1588.217, 0, 0, 0, 0, 4169.1855, 1588.217, 0, 0, 0, 0, 4424.442, 1406.7065)
+"points": PackedVector2Array(0, 0, 0, 0, 4424.442, 1406.7065, 0, 0, 0, 0, 4466.985, 226.88818, 0, 0, 0, 0, -255.25629, 226.88818, 0, 0, 0, 0, -340.34167, -589.9092, 0, 0, 0, 0, -765.7688, -589.9092, 0, 0, 0, 0, -765.7688, 1588.217, 0, 0, 0, 0, 893.3969, 1588.217, 0, 0, 0, 0, 808.31146, 1815.1052, 0, 0, 0, 0, 1659.1655, 1769.7275, 0, 0, 0, 0, 1829.3364, 2450.3918, 0, 0, 0, 0, 2595.1052, 2450.3918, 0, 0, 0, 0, 2765.2761, 1678.9722, 0, 0, 0, 0, 4169.1855, 1724.3499, 0, 0, 0, 0, 4424.442, 1406.7065)
 }
 point_count = 14
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p376d"]
+size = Vector2(80, 50)
 
 [node name="floor3" type="Node2D" unique_id=1008020499]
 script = ExtResource("1_rtvxg")
@@ -1449,11 +1452,11 @@ shape = SubResource("RectangleShape2D_kipsh")
 [node name="Path2D" type="Path2D" parent="." unique_id=517045263]
 position = Vector2(160, 168)
 scale = Vector2(0.18804632, 0.17629834)
-curve = SubResource("Curve2D_l52j7")
+curve = SubResource("Curve2D_rtvxg")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=2075185475]
 position = Vector2(4424.442, 1406.7065)
-rotation = -1.5707964
+rotation = -1.5347531
 
 [node name="Orca" parent="." unique_id=2000482544 node_paths=PackedStringArray("path_follow") groups=["orca"] instance=ExtResource("14_kipsh")]
 position = Vector2(160, 168)
@@ -1491,3 +1494,40 @@ stair_puzzle_scene = ExtResource("18_hmm4o")
 [node name="IntroUI" parent="." instance=ExtResource("floor_dialogue")]
 passages = Array[String](["Some things require the right sequence; don't rush. Slow and steady wins the race."])
 
+[node name="HidingSpot1" type="Area2D" parent="." unique_id=1804183380 groups=["hiding_spots"]]
+position = Vector2(304, 176)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot1" unique_id=1547053972]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_p376d")
+debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
+
+[node name="HidingSpot2" type="Area2D" parent="." unique_id=987311661 groups=["hiding_spots"]]
+position = Vector2(624, 176)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot2" unique_id=1407415498]
+shape = SubResource("RectangleShape2D_p376d")
+debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
+
+[node name="HidingSpot3" type="Area2D" parent="." unique_id=1295402393 groups=["hiding_spots"]]
+position = Vector2(792, 192)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot3" unique_id=1465445388]
+position = Vector2(152, -16)
+shape = SubResource("RectangleShape2D_p376d")
+debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
+
+[node name="HidingSpot4" type="Area2D" parent="." unique_id=1540572466 groups=["hiding_spots"]]
+position = Vector2(672, 496)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot4" unique_id=623732173]
+shape = SubResource("RectangleShape2D_p376d")
+debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
