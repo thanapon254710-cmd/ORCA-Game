@@ -2,6 +2,8 @@ extends CanvasLayer
 
 signal question_answered(correct: bool)
 signal question_closed
+signal floor_1_cleared
+signal floor_1_game_over
 
 @onready var question_label: Label = $Panel/VBoxContainer/QuestionLabel
 @onready var question_image: TextureRect = $Panel/VBoxContainer/QuestionImage
@@ -24,7 +26,7 @@ signal question_closed
 @onready var input_a: LineEdit = $Panel/VBoxContainer/InputContainer/DoubleInputContainer/AnswerInputA
 @onready var input_b: LineEdit = $Panel/VBoxContainer/InputContainer/DoubleInputContainer/AnswerInputB
 
-# กลุ่มช่องกรอก 4 ช่อง (Quad Input - ข้อ 3.1)
+# กลุ่มช่องกรอก 4 ช่อง (Quad Input)
 @onready var quad_input_container: GridContainer = $Panel/VBoxContainer/InputContainer/QuadInputContainer
 @onready var label_1: Label = $Panel/VBoxContainer/InputContainer/QuadInputContainer/Label1
 @onready var input_1: LineEdit = $Panel/VBoxContainer/InputContainer/QuadInputContainer/AnswerInput1
@@ -40,24 +42,27 @@ signal question_closed
 var current_question_data = {}
 var current_question_id: String = ""
 var questions_list: Array = []
-var current_question_index: int = 0
+var floor_1_pool: Array = []
+
+# --- ตัวแปรสำหรับระบบแบทเทิลชั้น 1 ---
+var is_floor_1_battle: bool = false
+var player_hearts: int = 3
+var monster_hearts: int = 3
+
+var battle_hud: Control
+var player_heart_icons: Array[TextureRect] = []
+var monster_heart_icons: Array[TextureRect] = []
+var player_sprite: TextureRect
+var monster_sprite: TextureRect
+
+# พาธรูปภาพ (สามารถเปลี่ยนให้ตรงกับโฟลเดอร์ sprites ของคุณได้ครับ)
+const PLAYER_TEX_PATH = "res://data/picture/player_battle.png"
+const MONSTER_TEX_PATH = "res://data/picture/orca_monster.png"
+const HEART_TEX_PATH = "res://data/picture/heart.png"
 
 func _ready():
-	add_to_group("question_box")
-	# สร้างปุ่มปิดกล่อง (X)
-	var close_button = Button.new()
-	close_button.name = "CloseButton"
-	close_button.text = "×"
-	close_button.tooltip_text = "Close (ESC)"
-	close_button.custom_minimum_size = Vector2(35, 35)
-	close_button.focus_mode = Control.FOCUS_NONE
-	close_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	close_button.offset_left = -43
-	close_button.offset_top = 8
-	close_button.offset_right = -8
-	close_button.offset_bottom = 43
-	close_button.pressed.connect(close_question)
-	$Panel.add_child(close_button)
+	_create_close_button()
+	_create_battle_hud()
 	
 	# ผูกปุ่มคำตอบ
 	for btn in choice_buttons:
@@ -75,20 +80,149 @@ func _ready():
 	input_4.text_submitted.connect(func(_t): _on_submit_input())
 	
 	load_questions_from_json()
+	
+	# ถ้าต้องการทดสอบแบทเทิลชั้น 1 ทันทีที่กดรัน:
+	start_floor_1_battle()
+
+func _create_close_button():
+	var close_button = Button.new()
+	close_button.name = "CloseButton"
+	close_button.text = "×"
+	close_button.tooltip_text = "Close (ESC)"
+	close_button.custom_minimum_size = Vector2(35, 35)
+	close_button.focus_mode = Control.FOCUS_NONE
+	close_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	close_button.offset_left = -43
+	close_button.offset_top = 8
+	close_button.offset_right = -8
+	close_button.offset_bottom = 43
+	close_button.pressed.connect(close_question)
+	$Panel.add_child(close_button)
+
+
+func _create_battle_hud():
+	battle_hud = Control.new()
+	battle_hud.name = "BattleHUD"
+	battle_hud.set_anchors_preset(Control.PRESET_FULL_RECT)
+	battle_hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# ให้ battle_hud แสดงอยู่ชั้นบนสุด
+	add_child(battle_hud)
+	
+	# --- 1. ตัวละครผู้เล่น (ฝั่งล่างซ้าย) ---
+	player_sprite = TextureRect.new()
+	player_sprite.custom_minimum_size = Vector2(160, 220)
+	player_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	player_sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	player_sprite.position = Vector2(60, 360)
+	if ResourceLoader.exists(PLAYER_TEX_PATH):
+		player_sprite.texture = load(PLAYER_TEX_PATH)
+	else:
+		# หากยังไม่มีรูป ให้สร้างบล็อกสีน้ำเงินจำลองเป็นตัวผู้เล่นไว้ก่อน
+		var placeholder = ColorRect.new()
+		placeholder.color = Color(0.2, 0.4, 0.8, 0.8)
+		placeholder.set_anchors_preset(Control.PRESET_FULL_RECT)
+		player_sprite.add_child(placeholder)
+	battle_hud.add_child(player_sprite)
+	
+	# แถวหัวใจของผู้เล่น (ใต้ตัวละคร)
+	var p_heart_box = HBoxContainer.new()
+	p_heart_box.position = Vector2(65, 590)
+	p_heart_box.add_theme_constant_override("separation", 10)
+	battle_hud.add_child(p_heart_box)
+	
+	player_heart_icons.clear()
+	for i in range(3):
+		var h = TextureRect.new()
+		h.custom_minimum_size = Vector2(36, 36)
+		h.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		h.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		if ResourceLoader.exists(HEART_TEX_PATH):
+			h.texture = load(HEART_TEX_PATH)
+		else:
+			# แสดงหัวใจสี่เหลี่ยมสีแดงแบบพิกเซลทันที
+			var red_box = ColorRect.new()
+			red_box.color = Color.RED
+			red_box.set_anchors_preset(Control.PRESET_FULL_RECT)
+			h.add_child(red_box)
+		p_heart_box.add_child(h)
+		player_heart_icons.append(h)
+		
+	# --- 2. มอนสเตอร์ออก้า (ฝั่งล่างขวา) ---
+	monster_sprite = TextureRect.new()
+	monster_sprite.custom_minimum_size = Vector2(230, 230)
+	monster_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	monster_sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	monster_sprite.position = Vector2(860, 350)
+	if ResourceLoader.exists(MONSTER_TEX_PATH):
+		monster_sprite.texture = load(MONSTER_TEX_PATH)
+	else:
+		var placeholder = ColorRect.new()
+		placeholder.color = Color(0.6, 0.1, 0.4, 0.8)
+		placeholder.set_anchors_preset(Control.PRESET_FULL_RECT)
+		monster_sprite.add_child(placeholder)
+	battle_hud.add_child(monster_sprite)
+	
+	# แถวหัวใจของออก้า (ใต้ออก้า)
+	var m_heart_box = HBoxContainer.new()
+	m_heart_box.position = Vector2(895, 590)
+	m_heart_box.add_theme_constant_override("separation", 10)
+	battle_hud.add_child(m_heart_box)
+	
+	monster_heart_icons.clear()
+	for i in range(3):
+		var h = TextureRect.new()
+		h.custom_minimum_size = Vector2(36, 36)
+		h.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		h.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		if ResourceLoader.exists(HEART_TEX_PATH):
+			h.texture = load(HEART_TEX_PATH)
+		else:
+			var red_box = ColorRect.new()
+			red_box.color = Color.RED
+			red_box.set_anchors_preset(Control.PRESET_FULL_RECT)
+			h.add_child(red_box)
+		m_heart_box.add_child(h)
+		monster_heart_icons.append(h)
+		
+	battle_hud.visible = false
+
+func _update_hearts_ui():
+	for i in range(3):
+		player_heart_icons[i].modulate.a = 1.0 if i < player_hearts else 0.15
+		monster_heart_icons[i].modulate.a = 1.0 if i < monster_hearts else 0.15
+
+func start_floor_1_battle():
+	is_floor_1_battle = true
+	player_hearts = 3
+	monster_hearts = 3
+	battle_hud.visible = true
+	_update_hearts_ui()
+	
+	floor_1_pool.clear()
+	for q in questions_list:
+		var q_id = str(q.get("id", ""))
+		if q_id.begins_with("q_1_") or q.get("floor") == 1:
+			floor_1_pool.append(q)
 			
+	floor_1_pool.shuffle()
+	_next_floor_1_question()
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_ESCAPE and visible:
-			close_question()
-			get_viewport().set_input_as_handled()
-
-func open_question(data: Dictionary) -> void:
-	current_question_index = 0
-	display_question(data)
+func _next_floor_1_question():
+	if floor_1_pool.is_empty():
+		for q in questions_list:
+			if str(q.get("id", "")).begins_with("q_1_") or q.get("floor") == 1:
+				floor_1_pool.append(q)
+		floor_1_pool.shuffle()
+		
+	if floor_1_pool.is_empty():
+		push_warning("ไม่พบคำถามชั้น 1 ใน questions.json")
+		return
+		
+	var next_q = floor_1_pool.pop_front()
+	display_question(next_q)
 
 func load_questions_from_json():
-	var file_path = "res://questions.json"
+	var file_path = "res://data/questions.json"
 	if not FileAccess.file_exists(file_path):
 		push_error("ไม่พบไฟล์: " + file_path)
 		return
@@ -99,7 +233,7 @@ func load_questions_from_json():
 	
 	if parsed and parsed.has("questions"):
 		questions_list = parsed["questions"]
-		print("โหลดสำเร็จ: ", questions_list.size(), " ข้อ")
+		print("โหลดคำถามสำเร็จ: ", questions_list.size(), " ข้อ")
 
 func load_question_by_id(target_id: String):
 	for q in questions_list:
@@ -114,20 +248,17 @@ func display_question(data: Dictionary):
 	feedback_label.text = ""
 	question_label.text = data.get("question", "")
 	
-	# ตรวจสอบกุญแจในกระเป๋า (Inventory Check)
 	var req_key = data.get("required_key", "")
 	if req_key != "" and not Inventory.has_item(req_key):
 		var key_display = str(Inventory.ITEM_NAMES.get(req_key, req_key))
 		feedback_label.text = "🔒 Locked! Requires " + key_display + " to unlock."
 		feedback_label.modulate = Color.ORANGE
-		
 		choices_container.visible = false
 		input_container.visible = false
 		question_image.visible = false
 		show()
 		return
 	
-	# รูปภาพประกอบโจทย์
 	var img_path = data.get("image_path", "")
 	if img_path != "" and ResourceLoader.exists(img_path):
 		question_image.texture = load(img_path)
@@ -139,7 +270,6 @@ func display_question(data: Dictionary):
 	
 	var q_type = data.get("type", "multiple_choice")
 	
-	# ช่องกรอก 4 ช่อง (ข้อ 3.1 XOR)
 	if q_type == "text_input_quad":
 		choices_container.visible = false
 		input_container.visible = true
@@ -155,12 +285,11 @@ func display_question(data: Dictionary):
 		for inp in [input_1, input_2, input_3, input_4]:
 			inp.text = ""
 			inp.editable = true
-			inp.placeholder_text = "0 หรือ 1"
+			inp.placeholder_text = "0 or 1"
 			
 		submit_button.disabled = false
 		input_1.grab_focus()
 		
-	# ช่องกรอกคู่ (ข้อ 5.2)
 	elif q_type == "text_input_double":
 		choices_container.visible = false
 		input_container.visible = true
@@ -172,13 +301,11 @@ func display_question(data: Dictionary):
 		input_b.text = ""
 		input_a.placeholder_text = "A ="
 		input_b.placeholder_text = "B ="
-		
 		input_a.editable = true
 		input_b.editable = true
 		submit_button.disabled = false
 		input_a.grab_focus()
 		
-	# ช่องกรอกเดี่ยว (ข้อ 5.1)
 	elif q_type == "text_input":
 		choices_container.visible = false
 		input_container.visible = true
@@ -191,7 +318,6 @@ func display_question(data: Dictionary):
 		submit_button.disabled = false
 		single_input.grab_focus()
 		
-	# ตัวเลือก (Multiple Choice)
 	else:
 		input_container.visible = false
 		choices_container.visible = true
@@ -218,6 +344,13 @@ func display_question(data: Dictionary):
 				btn.visible = false
 				
 	show()
+	# ถ้าอยู่ในโหมดดวลชั้น 1 ให้ปรับกล่องคำถามให้อยู่ด้านบนกึ่งกลางเหมือนบอลลูนคำพูด
+	if is_floor_1_battle:
+		$Panel.position = Vector2(240, 30)
+		# ขยายความสูงเป็น 310px เพื่อให้คลุมครบทั้ง 5 ตัวเลือก
+		$Panel.size = Vector2(670, 310)
+		# สั่งรีเซ็ตขนาดอัตโนมัติตามเนื้อหาด้านใน
+		$Panel.reset_size()
 
 func _on_choice_selected(selected_value: String):
 	for btn in choice_buttons:
@@ -245,20 +378,17 @@ func _on_submit_input():
 				u3 == parts[2].strip_edges() and
 				u4 == parts[3].strip_edges()
 			)
-			
 		for inp in [input_1, input_2, input_3, input_4]:
 			inp.editable = false
 			
 	elif q_type == "text_input_double":
 		var val_a = input_a.text.strip_edges().replace(" ", "").to_lower()
 		var val_b = input_b.text.strip_edges().replace(" ", "").to_lower()
-		
 		var parts = correct_val.split(",")
 		if parts.size() >= 2:
 			var ans_a = parts[0].strip_edges().replace(" ", "").to_lower()
 			var ans_b = parts[1].strip_edges().replace(" ", "").to_lower()
 			is_correct = (val_a == ans_a and val_b == ans_b)
-			
 		input_a.editable = false
 		input_b.editable = false
 	else:
@@ -270,11 +400,14 @@ func _on_submit_input():
 	_finish_answering(is_correct)
 
 func _finish_answering(is_correct: bool):
+	if is_floor_1_battle:
+		_handle_floor_1_answer(is_correct)
+		return
+		
 	if is_correct:
 		feedback_label.text = "✓ correct!"
 		feedback_label.modulate = Color.GREEN
 		var required_key: String = str(current_question_data.get("required_key", ""))
-
 		if required_key != "" and Inventory.has_item(required_key):
 			Inventory.remove_item(required_key)
 		
@@ -286,7 +419,6 @@ func _finish_answering(is_correct: bool):
 			feedback_label.text += " Received " + key_name + "!"
 			
 		question_answered.emit(is_correct)
-		
 		if GameState.has_signal("question_answered"):
 			GameState.question_answered.emit(current_question_id, is_correct)
 		if not GameState.questions_answered.has(current_question_id):
@@ -294,12 +426,21 @@ func _finish_answering(is_correct: bool):
 			
 		await get_tree().create_timer(1.5).timeout
 		
-		hide()
-		question_closed.emit()
+		if current_question_id == "q_3_1":
+			load_question_by_id("q_3_2")
+		elif current_question_id == "q_3_2":
+			load_question_by_id("q_3_3")
+		elif current_question_id == "q_3_3":
+			feedback_label.text = "Solved all the puzzles on the 3rd floor!"
+			await get_tree().create_timer(1.2).timeout
+			hide()
+			question_closed.emit()
+		else:
+			hide()
+			question_closed.emit()
 	else:
 		feedback_label.text = "try again"
 		feedback_label.modulate = Color.RED
-		
 		var q_type = current_question_data.get("type", "multiple_choice")
 		if q_type == "text_input":
 			single_input.editable = true
@@ -322,10 +463,51 @@ func _finish_answering(is_correct: bool):
 		else:
 			for btn in choice_buttons:
 				btn.disabled = false
+
+func _handle_floor_1_answer(is_correct: bool):
+	if is_correct:
+		monster_hearts -= 1
+		feedback_label.text = "✓ Correct! Oga loses one heart!"
+		feedback_label.modulate = Color.GREEN
+		
+		var tween = create_tween()
+		tween.tween_property(monster_sprite, "modulate", Color.RED, 0.15)
+		tween.tween_property(monster_sprite, "modulate", Color.WHITE, 0.15)
+	else:
+		player_hearts -= 1
+		feedback_label.text = "✗ Wrong! You lose 1 heart!"
+		feedback_label.modulate = Color.RED
+		
+		var tween = create_tween()
+		tween.tween_property(player_sprite, "modulate", Color.RED, 0.15)
+		tween.tween_property(player_sprite, "modulate", Color.WHITE, 0.15)
+		
+	_update_hearts_ui()
+	await get_tree().create_timer(1.5).timeout
 	
+	if monster_hearts <= 0:
+		feedback_label.text = "🎉 Congratulations! You have successfully defeated Oga!"
+		feedback_label.modulate = Color.GREEN
+		await get_tree().create_timer(2.0).timeout
+		battle_hud.visible = false
+		is_floor_1_battle = false
+		hide()
+		floor_1_cleared.emit()
+	elif player_hearts <= 0:
+		feedback_label.text = "💀 GAME OVER... You have run out of heart."
+		feedback_label.modulate = Color.DARK_RED
+		await get_tree().create_timer(2.0).timeout
+		battle_hud.visible = false
+		is_floor_1_battle = false
+		hide()
+		floor_1_game_over.emit()
+	else:
+		_next_floor_1_question()
 
 func close_question() -> void:
 	if not visible:
 		return
+	if is_floor_1_battle and battle_hud:
+		battle_hud.visible = false
 	hide()
 	question_closed.emit()
