@@ -1,27 +1,25 @@
-[gd_scene format=3 uid="uid://5a18rx3iqrqe"]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource type="Script" uid="uid://c3xdsq67b5tkx" path="res://scripts/inventory/item_pickup.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://ba2hkrelg1vd2" path="res://assets/inventory/book_blue.svg" id="2"]
-
+[ext_resource type="Script" path="res://scripts/inventory/item_pickup.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/inventory/book_blue.svg" id="2"]
 [sub_resource type="CircleShape2D" id="Shape"]
-radius = 16.03122
+radius = 18.0
 
-[node name="book_blue" type="Area2D" unique_id=788127717]
+[node name="book_blue" type="Area2D"]
+collision_layer = 1
 collision_mask = 0
 monitoring = false
 script = ExtResource("1")
 item_id = "book_blue"
 
-[node name="Visual" type="Sprite2D" parent="." unique_id=1183477107]
-position = Vector2(30.496017, 36.496006)
-scale = Vector2(0.45300004, 0.45300004)
+[node name="Visual" type="Sprite2D" parent="."]
 texture = ExtResource("2")
+scale = Vector2(0.75, 0.75)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1096497062]
-position = Vector2(31.992004, 35.992004)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("Shape")
 
-[node name="Prompt" type="Label" parent="." unique_id=1160948526]
+[node name="Prompt" type="Label" parent="."]
 visible = false
 offset_left = -115.0
 offset_top = -52.0

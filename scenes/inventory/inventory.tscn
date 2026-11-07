@@ -3,8 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://ba2hkrelg1vd2" path="res://assets/inventory/book_blue.svg" id="book_blue"]
 [ext_resource type="Texture2D" uid="uid://dwq71dpj5dyfu" path="res://assets/inventory/book_orange.svg" id="book_orange"]
 [ext_resource type="Texture2D" uid="uid://4onhivww3e7p" path="res://assets/inventory/book_white.svg" id="book_white"]
-[ext_resource type="Texture2D" uid="uid://d2cj1onf22uhu" path="res://assets/ui/home_icon.png" id="home_icon"]
-[ext_resource type="Script" uid="uid://dbv56ib1yxl3x" path="res://scripts/ui/home_button.gd" id="home_script"]
 [ext_resource type="Script" uid="uid://k0nqyxma1xtf" path="res://scripts/inventory/inventory_hud.gd" id="hud"]
 [ext_resource type="Script" uid="uid://dogbmaojbeb48" path="res://scripts/inventory/inventory.gd" id="inventory"]
 [ext_resource type="Texture2D" uid="uid://dr063brs5hutr" path="res://assets/inventory/key_blue.svg" id="key_blue"]
@@ -324,28 +322,6 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 22
 text = "I = Inventory"
 horizontal_alignment = 2
-
-[node name="HomeButton" type="TextureButton" parent="InventoryHUD/Root" unique_id=286861032]
-layout_mode = 1
-offset_right = 72.0
-offset_bottom = 72.0
-tooltip_text = "Home - return to the start menu. Start begins a new game."
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource("home_icon")
-ignore_texture_size = true
-stretch_mode = 5
-script = ExtResource("home_script")
-
-[node name="HomeLabel" type="Label" parent="InventoryHUD/Root/HomeButton" unique_id=1429143899]
-layout_mode = 0
-offset_top = 68.0
-offset_right = 72.0
-offset_bottom = 92.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 16
-text = "Home"
-horizontal_alignment = 1
 
 [node name="NoticeTimer" type="Timer" parent="InventoryHUD" unique_id=791024881]
 wait_time = 2.0
