@@ -14,9 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://clj4n5xgb46fk" path="res://assets/sprites/school-furniture-lockers-horror.png" id="11_ukwv0"]
 [ext_resource type="PackedScene" uid="uid://b1nmaupvdtlum" path="res://player2.tscn" id="14_i6siy"]
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="14_o81gl"]
-[ext_resource type="PackedScene" uid="uid://cgd0pa6y8y3qj" path="res://scenes/inventory/items/book_blue.tscn" id="15_8xc52"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="15_i6siy"]
-[ext_resource type="PackedScene" uid="uid://ue45dmbvuhw5" path="res://scenes/inventory/items/book_white.tscn" id="15_xofbi"]
 [ext_resource type="Script" uid="uid://duiupm8gbt4qy" path="res://scenes/floors/orca_floor_2.gd" id="16_5twv8"]
 [ext_resource type="AudioStream" uid="uid://bxv23mgy81m1q" path="res://universfield-horror-background-atmosphere-09-219111.mp3" id="17_p1j4b"]
 [ext_resource type="Script" uid="uid://btqcavof58ieq" path="res://scenes/floors/static_body_2d.gd" id="17_ukwv0"]
@@ -1690,9 +1688,37 @@ _data = {
 }
 point_count = 38
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_62yky"]
+a = Vector2(-3, -12)
+b = Vector2(5, 19)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_xofbi"]
+a = Vector2(10, -11)
+b = Vector2(-2, 19)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_8xc52"]
+a = Vector2(-3, -12)
+b = Vector2(9, 18)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_7nemi"]
+a = Vector2(11, -11)
+b = Vector2(4, 19)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_5twv8"]
+a = Vector2(-4, -11)
+b = Vector2(5, 18)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ukwv0"]
+a = Vector2(3, -13)
+b = Vector2(-5, 16)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_p1j4b"]
+a = Vector2(3, -14)
+b = Vector2(-6, 16)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4kxuq"]
-radius = 11.0
-height = 62.0
+radius = 7.0
+height = 52.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p376d"]
 size = Vector2(160, 152)
@@ -1714,52 +1740,7 @@ layer_2/tile_data = PackedInt32Array(65535, 1, 2, 131071, 1, 2, 196607, 1, 2, 26
 layer_3/name = "Asset"
 layer_3/tile_data = PackedInt32Array(1179654, 0, 1, 1245190, 0, 2, 1179655, 65536, 1, 1245191, 65536, 2, 1179656, 131072, 1, 1245192, 131072, 2, 1179657, 196608, 1, 1245193, 196608, 2, 1179658, 262144, 1, 1179659, 327680, 1, 1245194, 262144, 2, 1245195, 327680, 2, 65539, 917509, 3, 131075, 917509, 4, 196611, 917509, 5, 262147, 917509, 6, 65540, 983045, 3, 131076, 983045, 4, 196612, 983045, 5, 262148, 983045, 6, 65541, 1048581, 3, 131077, 1048581, 4, 196613, 1048581, 5, 262149, 1048581, 6, 65542, 917509, 3, 131078, 917509, 4, 196614, 917509, 5, 262150, 917509, 6, 65543, 983045, 3, 131079, 983045, 4, 196615, 983045, 5, 262151, 983045, 6, 65544, 1048581, 3, 131080, 1048581, 4, 196616, 1048581, 5, 262152, 1048581, 6, 65552, 917509, 3, 131088, 917509, 4, 196624, 917509, 5, 262160, 917509, 6, 65553, 983045, 3, 131089, 983045, 4, 196625, 983045, 5, 262161, 983045, 6, 65554, 1048581, 3, 131090, 1048581, 4, 196626, 1048581, 5, 262162, 1048581, 6, 65555, 917509, 3, 131091, 917509, 4, 196627, 917509, 5, 262163, 917509, 6, 65556, 983045, 3, 131092, 983045, 4, 196628, 983045, 5, 262164, 983045, 6, 65557, 1048581, 3, 131093, 1048581, 4, 196629, 1048581, 5, 262165, 1048581, 6, 65558, 917509, 3, 131094, 917509, 4, 196630, 917509, 5, 262166, 917509, 6, 65559, 983045, 3, 131095, 983045, 4, 196631, 983045, 5, 262167, 983045, 6, 65560, 1048581, 3, 131096, 1048581, 4, 196632, 1048581, 5, 262168, 1048581, 6, 65561, 917509, 3, 131097, 917509, 4, 196633, 917509, 5, 262169, 917509, 6, 65562, 983045, 3, 131098, 983045, 4, 196634, 983045, 5, 262170, 983045, 6, 65563, 1048581, 3, 131099, 1048581, 4, 196635, 1048581, 5, 262171, 1048581, 6, 65564, 917509, 3, 131100, 917509, 4, 196636, 917509, 5, 262172, 917509, 6, 65565, 983045, 3, 131101, 983045, 4, 196637, 983045, 5, 262173, 983045, 6, 65566, 1048581, 3, 131102, 1048581, 4, 196638, 1048581, 5, 262174, 1048581, 6, 65567, 917509, 3, 131103, 917509, 4, 196639, 917509, 5, 262175, 917509, 6, 65568, 983045, 3, 131104, 983045, 4, 196640, 983045, 5, 262176, 983045, 6, 65569, 1048581, 3, 131105, 1048581, 4, 196641, 1048581, 5, 262177, 1048581, 6, 393219, 917509, 3, 458755, 917509, 4, 524291, 917509, 5, 589827, 917509, 6, 393220, 983045, 3, 458756, 983045, 4, 524292, 983045, 5, 589828, 983045, 6, 393221, 1048581, 3, 458757, 1048581, 4, 524293, 1048581, 5, 589829, 1048581, 6, 393222, 917509, 3, 458758, 917509, 4, 524294, 917509, 5, 589830, 917509, 6, 393223, 983045, 3, 458759, 983045, 4, 524295, 983045, 5, 589831, 983045, 6, 393224, 1048581, 3, 458760, 1048581, 4, 524296, 1048581, 5, 589832, 1048581, 6, 393238, 917509, 3, 458774, 917509, 4, 524310, 917509, 5, 589846, 917509, 6, 393239, 983045, 3, 458775, 983045, 4, 524311, 983045, 5, 589847, 983045, 6, 393240, 1048581, 3, 458776, 1048581, 4, 524312, 1048581, 5, 589848, 1048581, 6, 393241, 917509, 3, 458777, 917509, 4, 524313, 917509, 5, 589849, 917509, 6, 393242, 983045, 3, 458778, 983045, 4, 524314, 983045, 5, 589850, 983045, 6, 393243, 1048581, 3, 458779, 1048581, 4, 524315, 1048581, 5, 589851, 1048581, 6, 393247, 917509, 3, 458783, 917509, 4, 524319, 917509, 5, 589855, 917509, 6, 393248, 983045, 3, 458784, 983045, 4, 524320, 983045, 5, 589856, 983045, 6, 393249, 1048581, 3, 458785, 1048581, 4, 524321, 1048581, 5, 589857, 1048581, 6, 786448, 720901, 3, 851984, 720901, 4, 917520, 720901, 5, 786449, 786437, 3, 851985, 786437, 4, 917521, 786437, 5, 786450, 851973, 3, 851986, 851973, 4, 917522, 851973, 5, 786451, 917509, 3, 851987, 917509, 4, 917523, 917509, 5, 983059, 917509, 6, 786452, 983045, 3, 851988, 983045, 4, 917524, 983045, 5, 983060, 983045, 6, 786453, 1048581, 3, 851989, 1048581, 4, 917525, 1048581, 5, 983061, 1048581, 6, 786454, 917509, 3, 851990, 917509, 4, 917526, 917509, 5, 983062, 917509, 6, 786455, 983045, 3, 851991, 983045, 4, 917527, 983045, 5, 983063, 983045, 6, 786456, 1048581, 3, 851992, 1048581, 4, 917528, 1048581, 5, 983064, 1048581, 6, 786457, 262149, 19, 851993, 262149, 20, 917529, 262149, 21, 983065, 262149, 22, 786458, 327685, 19, 851994, 327685, 20, 917530, 327685, 21, 983066, 327685, 22, 786459, 393221, 19, 851995, 393221, 20, 917531, 393221, 21, 983067, 393221, 22, 786460, 458757, 19, 851996, 458757, 20, 917532, 458757, 21, 983068, 458757, 22, 786463, 917509, 3, 851999, 917509, 4, 917535, 917509, 5, 786464, 983045, 3, 852000, 983045, 4, 917536, 983045, 5, 786465, 1048581, 3, 852001, 1048581, 4, 917537, 1048581, 5, 262155, 786437, 11, 327691, 786437, 12, 393227, 786437, 13, 262156, 851973, 11, 327692, 851973, 12, 393228, 851973, 13, 262157, 917509, 11, 327693, 917509, 12, 393229, 917509, 13, 655371, 1048581, 12, 720907, 1048581, 13, 589836, 1114117, 11, 655372, 1114117, 12, 720908, 1114117, 13, 589837, 1179653, 11, 655373, 1179653, 12, 720909, 1179653, 13, 589838, 1245189, 11, 655374, 1245189, 12, 720910, 1245189, 13, 851997, 524293, 20, 917533, 524293, 21, 983069, 262149, 19, 1048605, 262149, 20, 1114141, 262149, 21, 983070, 327685, 19, 1048606, 327685, 20, 1114142, 327685, 21, 983071, 393221, 19, 1048607, 393221, 20, 1114143, 393221, 21, 983072, 458757, 19, 1048608, 458757, 20, 1114144, 458757, 21, 1048609, 524293, 20, 1114145, 524293, 21, 0, 1245189, 19, 65536, 1245189, 20, 131072, 1245189, 21, 1, 1310725, 19, 65537, 1310725, 20, 2, 1376261, 19, 35, 1245189, 268435475, 34, 1310725, 268435475, 33, 1376261, 268435475, 65571, 1245189, 268435476, 65570, 1310725, 268435476, 1048578, 524293, 8, 1114114, 524293, 9, 1048579, 589829, 8, 1114115, 589829, 9, 720898, 9, 0, 786434, 9, 1, 720899, 65545, 0, 786435, 65545, 1, 851970, 131082, 0, 917506, 131082, 1, 851971, 196618, 0, 917507, 196618, 1, 786436, 11, 1, 720900, 11, 0, 786437, 65547, 1, 720901, 65547, 0, 1114121, 65540, 5, 1114122, 65540, 5, 1114123, 131076, 5, 393235, 917509, 3, 458771, 917509, 4, 458772, 983045, 4, 524308, 983045, 5, 524307, 917509, 5, 524309, 1048581, 5, 589844, 983045, 6, 589843, 917509, 6, 589845, 1048581, 6, 393236, 983045, 3, 393237, 1048581, 3, 458773, 1048581, 4)
 layer_4/name = "Prop"
-layer_4/tile_data = PackedInt32Array(9, 196613, 11, 65545, 196613, 12, 10, 262149, 11, 65546, 262149, 12, 196642, 131077, 14, 262178, 131077, 15, 327714, 131077, 16, 196643, 196613, 14, 262179, 196613, 15, 327715, 196613, 16, 393250, 131077, 14, 393251, 196613, 14, 393240, 196613, 8, 458776, 196613, 9, 393241, 262149, 8, 458777, 262149, 9, 65552, 1835013, 19, 131088, 1835013, 20, 65553, 262149, 8, 131089, 262149, 9, 65548, 1572869, 19, 131084, 1572869, 20, 196620, 1572869, 21, 65549, 1638405, 19, 131085, 1638405, 20, 196621, 1638405, 21, 65550, 1703941, 19, 131086, 1703941, 20, 196622, 1703941, 21, 65551, 1769477, 19, 131087, 1769477, 20, 196623, 1769477, 21, 196624, 1835013, 21, 589826, 524300, 15)
-
-[node name="book_white" parent="." unique_id=767480384 instance=ExtResource("15_xofbi")]
-position = Vector2(156, 154)
-
-[node name="book_white2" parent="." unique_id=1689779540 instance=ExtResource("15_xofbi")]
-position = Vector2(180, 320)
-
-[node name="book_white3" parent="." unique_id=1450144587 instance=ExtResource("15_xofbi")]
-position = Vector2(545, 166)
-
-[node name="book_white4" parent="." unique_id=1248527667 instance=ExtResource("15_xofbi")]
-position = Vector2(448, 431)
-
-[node name="book_white5" parent="." unique_id=1506640704 instance=ExtResource("15_xofbi")]
-position = Vector2(900, 264)
-
-[node name="book_white6" parent="." unique_id=1021424743 instance=ExtResource("15_xofbi")]
-position = Vector2(712, 301)
-
-[node name="book_blue" parent="." unique_id=8048569 instance=ExtResource("15_8xc52")]
-position = Vector2(136, 154)
-
-[node name="book_blue2" parent="." unique_id=788127717 instance=ExtResource("15_8xc52")]
-position = Vector2(110, 272)
-
-[node name="book_blue3" parent="." unique_id=1897089767 instance=ExtResource("15_8xc52")]
-position = Vector2(373, 210)
-
-[node name="book_blue4" parent="." unique_id=1561931576 instance=ExtResource("15_8xc52")]
-position = Vector2(592, 419)
-
-[node name="book_blue5" parent="." unique_id=2005258841 instance=ExtResource("15_8xc52")]
-position = Vector2(42, 354)
-
-[node name="book_blue6" parent="." unique_id=1387732689 instance=ExtResource("15_8xc52")]
-position = Vector2(359, 417)
-
-[node name="book_orange" parent="." unique_id=1317046685 instance=ExtResource("16_8xc52")]
-position = Vector2(419, 291)
-
-[node name="book_orange2" parent="." unique_id=256473133 instance=ExtResource("16_8xc52")]
-position = Vector2(850, 325)
-
-[node name="book_orange3" parent="." unique_id=1915615467 instance=ExtResource("16_8xc52")]
-position = Vector2(769, 118)
+layer_4/tile_data = PackedInt32Array(9, 196613, 11, 65545, 196613, 12, 10, 262149, 11, 65546, 262149, 12, 196642, 131077, 14, 262178, 131077, 15, 327714, 131077, 16, 196643, 196613, 14, 262179, 196613, 15, 327715, 196613, 16, 393250, 131077, 14, 393251, 196613, 14, 393240, 196613, 8, 458776, 196613, 9, 393241, 262149, 8, 458777, 262149, 9, 65552, 1835013, 19, 131088, 1835013, 20, 65553, 262149, 8, 131089, 262149, 9, 65548, 1572869, 19, 131084, 1572869, 20, 196620, 1572869, 21, 65549, 1638405, 19, 131085, 1638405, 20, 196621, 1638405, 21, 65550, 1703941, 19, 131086, 1703941, 20, 196622, 1703941, 21, 65551, 1769477, 19, 131087, 1769477, 20, 196623, 1769477, 21, 196624, 1835013, 21, 655366, 655372, 15, 655367, 720908, 15, 1048593, 851980, 15, 655381, 983052, 15, 1048600, 983052, 15, 1048601, 1048588, 15, 589853, 1114124, 15, 589854, 1179660, 15, 655389, 1245196, 15, 655390, 1310732, 15, 655388, 851980, 15, 327683, 851980, 15, 327696, 655372, 15, 327697, 720908, 15, 327706, 983052, 15, 196617, 1114124, 15, 196618, 1179660, 15, 1114136, 1245196, 15, 1114137, 1310732, 15, 589826, 524300, 15)
 
 [node name="Player2" parent="." unique_id=2022886588 groups=["player"] instance=ExtResource("14_i6siy")]
 position = Vector2(261, 503)
@@ -1818,13 +1799,45 @@ floor_bgm = ExtResource("17_p1j4b")
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1094729855]
 script = ExtResource("17_ukwv0")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=753895209]
+position = Vector2(384, 181)
+shape = SubResource("SegmentShape2D_62yky")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D" unique_id=1670006453]
+position = Vector2(387, 338)
+shape = SubResource("SegmentShape2D_xofbi")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D" unique_id=834654499]
+position = Vector2(408, 340)
+shape = SubResource("SegmentShape2D_62yky")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="StaticBody2D" unique_id=25170036]
+position = Vector2(456, 341)
+shape = SubResource("SegmentShape2D_8xc52")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="StaticBody2D" unique_id=1680356225]
+position = Vector2(433, 340)
+shape = SubResource("SegmentShape2D_7nemi")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1193766700]
+position = Vector2(430, 180)
+shape = SubResource("SegmentShape2D_5twv8")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=520795687]
+position = Vector2(415, 182)
+shape = SubResource("SegmentShape2D_ukwv0")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=1746547711]
+position = Vector2(369, 182)
+shape = SubResource("SegmentShape2D_p1j4b")
+
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" unique_id=218664881]
-position = Vector2(399, 164)
+position = Vector2(398, 160)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_4kxuq")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D" unique_id=980358977]
-position = Vector2(424, 319)
+position = Vector2(424, 317)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_4kxuq")
 
