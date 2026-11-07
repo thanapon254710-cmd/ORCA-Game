@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://ddo1mmy0aws03"]
 
+[ext_resource type="Script" uid="uid://h7ghfoia6sgu" path="res://scenes/floors/floor_4.gd" id="1_2u1ge"]
 [ext_resource type="PackedScene" uid="uid://c7pwe2ghy86cb" path="res://player.tscn" id="1_5vcy3"]
 [ext_resource type="Texture2D" uid="uid://b85y2tkh3jsej" path="res://assets/sprites/TX Tileset Stone Ground.png" id="1_hy4yd"]
 [ext_resource type="Texture2D" uid="uid://c8x3mfy3f8ilv" path="res://assets/sprites/room-builder-stairs-school 48.png" id="2_ipnr1"]
@@ -1346,6 +1347,7 @@ point_count = 29
 size = Vector2(59.5, 60)
 
 [node name="floor4" type="Node2D" unique_id=1963433244]
+script = ExtResource("1_2u1ge")
 
 [node name="TileMap" type="TileMap" parent="." unique_id=227891699]
 tile_set = SubResource("TileSet_5vcy3")
