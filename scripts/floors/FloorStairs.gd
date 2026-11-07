@@ -58,9 +58,26 @@ func interact(_player: Node) -> void:
 		popup.canceled.connect(func(): popup.queue_free())
 		popup.popup_centered()
 		return
+		
+	if target_floor == 2 and not GameState.floor3_gate_unlocked:
+		if not Inventory.has_item("key_gold"):
+			var popup := AcceptDialog.new()
+			popup.add_to_group("question_box")
+			popup.title = "Gate Locked"
+			popup.dialog_text = "A Gold key is required to unlock this gate."
+
+			get_tree().root.add_child(popup)
+			popup.confirmed.connect(func(): popup.queue_free())
+			popup.canceled.connect(func(): popup.queue_free())
+			popup.popup_centered()
+			return
+
+		Inventory.remove_item("key_gold")
+		GameState.floor3_gate_unlocked = true
+		return
 
 	# Open the existing French symbol puzzle.
-	if target_floor == 3:
+	if target_floor == 3 and not is_gate_unlocked():
 		if is_instance_valid(stair_puzzle):
 			return
 
@@ -88,7 +105,14 @@ func _on_stair_puzzle_answered(correct: bool) -> void:
 		return
 
 	if target_floor == 3:
-		TransitionManager.change_floor(
-			target_floor,
-			destination_spawn_marker
-		)
+		GameState.floor4_gate_unlocked = true
+		return
+
+func is_gate_unlocked() -> bool:
+	match target_floor:
+		3:
+			return GameState.floor4_gate_unlocked
+		2:
+			return GameState.floor3_gate_unlocked
+
+	return false

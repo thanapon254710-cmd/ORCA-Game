@@ -273,6 +273,10 @@ func _finish_answering(is_correct: bool):
 	if is_correct:
 		feedback_label.text = "✓ correct!"
 		feedback_label.modulate = Color.GREEN
+		var required_key: String = str(current_question_data.get("required_key", ""))
+
+		if required_key != "" and Inventory.has_item(required_key):
+			Inventory.remove_item(required_key)
 		
 		var reward_k = current_question_data.get("reward_key", "")
 		if reward_k != "":
@@ -290,19 +294,8 @@ func _finish_answering(is_correct: bool):
 			
 		await get_tree().create_timer(1.5).timeout
 		
-		# --- ตรวจสอบลำดับเพื่อเปิดข้อถัดไปของชั้น 3 อัตโนมัติ ---
-		if current_question_id == "q_3_1":
-			load_question_by_id("q_3_2")
-		elif current_question_id == "q_3_2":
-			load_question_by_id("q_3_3")
-		elif current_question_id == "q_3_3":
-			feedback_label.text = "เคลียร์ปริศนาชั้น 3 ครบแล้ว!"
-			await get_tree().create_timer(1.2).timeout
-			hide()
-			question_closed.emit()
-		else:
-			hide()
-			question_closed.emit()
+		hide()
+		question_closed.emit()
 	else:
 		feedback_label.text = "try again"
 		feedback_label.modulate = Color.RED
