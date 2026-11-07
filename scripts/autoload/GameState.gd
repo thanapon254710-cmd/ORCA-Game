@@ -12,6 +12,8 @@ signal game_over(reason: String)
 var room407_intro_seen: bool = false
 var floor5_intro_seen: bool = false
 
+var floor_dialogues_seen: Dictionary = {}
+
 var current_floor: int = 5
 var questions_answered: Array[String] = []
 var game_is_over: bool = false
@@ -66,6 +68,7 @@ func end_game(reason: String) -> void:
 	game_over.emit(reason)
 
 func reset_game() -> void:
+	floor_dialogues_seen.clear()
 	room407_intro_seen = false
 	floor5_intro_seen = false
 	Inventory.reset_inventory()
