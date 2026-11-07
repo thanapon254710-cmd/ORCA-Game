@@ -24,8 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="21_c5wpi"]
 [ext_resource type="Script" uid="uid://cdehyfvl6fmae" path="res://scenes/floors/orca_floor_5.gd" id="22_ty1mm"]
 [ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="23_8rjlg"]
-
-[ext_resource type="Script" path="res://scripts/ui/floor5_intro.gd" id="intro_script"]
+[ext_resource type="Script" uid="uid://du1j74k38fisb" path="res://scripts/ui/floor5_intro.gd" id="intro_script"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ea2ge"]
 texture = ExtResource("1_t6y78")
@@ -1283,8 +1282,8 @@ border_width_bottom = 2
 border_color = Color(0.42, 0.08, 0.09, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
-corner_radius_bottom_left = 8
 corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="floor5" type="Node2D" unique_id=1642363128]
 script = ExtResource("1_8rjlg")
@@ -1358,6 +1357,7 @@ question_index = 2
 [node name="HidingSpot1" type="Area2D" parent="." unique_id=1358168926 groups=["hiding_spots"]]
 position = Vector2(928, 208)
 collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot1" unique_id=1333886746]
 position = Vector2(-4, 0)
@@ -1367,6 +1367,7 @@ debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
 [node name="HidingSpot2" type="Area2D" parent="." unique_id=1934791536 groups=["hiding_spots"]]
 position = Vector2(928, 496)
 collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot2" unique_id=910597646]
 position = Vector2(-4, 0)
@@ -1376,6 +1377,7 @@ debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
 [node name="HidingSpot3" type="Area2D" parent="." unique_id=106017674 groups=["hiding_spots"]]
 position = Vector2(144, 544)
 collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot3" unique_id=1248480742]
 position = Vector2(0, -5)
@@ -1397,13 +1399,12 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 
-
-[node name="IntroUI" type="CanvasLayer" parent="."]
+[node name="IntroUI" type="CanvasLayer" parent="." unique_id=1201751749]
 process_mode = 3
 layer = 300
 script = ExtResource("intro_script")
 
-[node name="Control" type="Control" parent="IntroUI"]
+[node name="Control" type="Control" parent="IntroUI" unique_id=1013462455]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1411,9 +1412,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
 
-[node name="Panel" type="Panel" parent="IntroUI/Control"]
+[node name="Panel" type="Panel" parent="IntroUI/Control" unique_id=1864228310]
 layout_mode = 0
 anchor_left = 0.06
 anchor_top = 1.0
@@ -1425,7 +1425,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("IntroPanelStyle")
 
-[node name="Label" type="Label" parent="IntroUI/Control/Panel"]
+[node name="Label" type="Label" parent="IntroUI/Control/Panel" unique_id=801907167]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1438,24 +1438,22 @@ theme_override_font_sizes/font_size = 22
 text = "You hear the Orca mascot’s voice declare: “I’m taking you with me.” You need to find a way to escape the Main Building now. If you don't know where to start, try picking a path and stay on your guard. The friends you know might not always be on your side."
 vertical_alignment = 1
 autowrap_mode = 3
-mouse_filter = 2
 
-[node name="ContinueHint" type="Label" parent="IntroUI/Control/Panel"]
+[node name="ContinueHint" type="Label" parent="IntroUI/Control/Panel" unique_id=1291238452]
 layout_mode = 0
-anchor_right = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 26.0
 offset_top = -45.0
 offset_right = -26.0
 offset_bottom = -15.0
-text = "Press Enter to continue"
-horizontal_alignment = 2
 theme_override_colors/font_color = Color(0.85, 0.38, 0.35, 1)
 theme_override_font_sizes/font_size = 18
-mouse_filter = 2
+text = "Press Enter to continue"
+horizontal_alignment = 2
 
-[node name="Fade" type="ColorRect" parent="IntroUI/Control"]
+[node name="Fade" type="ColorRect" parent="IntroUI/Control" unique_id=1296239561]
 visible = false
 layout_mode = 0
 anchor_right = 1.0
