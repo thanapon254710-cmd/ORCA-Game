@@ -20,6 +20,9 @@ var pk2_collected: bool = false
 var pk3_collected: bool = false
 var pk4_collected: bool = false
 
+# Gate unlock progress
+var floor3_gate_unlocked: bool = false
+var floor4_gate_unlocked: bool = false
 
 func change_floor(new_floor: int) -> void:
 	if game_is_over:
@@ -69,6 +72,8 @@ func reset_game() -> void:
 	pk2_collected = false
 	pk3_collected = false
 	pk4_collected = false
+	floor3_gate_unlocked = false
+	floor4_gate_unlocked = false
 
 func has_all_passkeys() -> bool:
 	return (
