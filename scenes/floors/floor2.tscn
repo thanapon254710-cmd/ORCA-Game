@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="14_o81gl"]
 [ext_resource type="PackedScene" uid="uid://5a18rx3iqrqe" path="res://scenes/inventory/items/book_blue.tscn" id="15_8xc52"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="15_i6siy"]
-[ext_resource type="PackedScene" path="res://scenes/inventory/items/book_white.tscn" id="15_xofbi"]
+[ext_resource type="PackedScene" uid="uid://ue45dmbvuhw5" path="res://scenes/inventory/items/book_white.tscn" id="15_xofbi"]
 [ext_resource type="Script" uid="uid://duiupm8gbt4qy" path="res://scenes/floors/orca_floor_2.gd" id="16_5twv8"]
 [ext_resource type="PackedScene" uid="uid://ld8pmtm6pleu" path="res://scenes/inventory/items/book_orange.tscn" id="16_8xc52"]
 [ext_resource type="AudioStream" uid="uid://bxv23mgy81m1q" path="res://universfield-horror-background-atmosphere-09-219111.mp3" id="17_p1j4b"]
@@ -1760,7 +1760,7 @@ position = Vector2(533, 318)
 position = Vector2(965, 370)
 
 [node name="book_orange3" parent="." unique_id=1915615467 instance=ExtResource("16_8xc52")]
-position = Vector2(859, 128)
+position = Vector2(862, 149)
 
 [node name="Player2" parent="." unique_id=2022886588 groups=["player"] instance=ExtResource("14_i6siy")]
 position = Vector2(261, 503)
