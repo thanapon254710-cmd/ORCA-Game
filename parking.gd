@@ -48,7 +48,7 @@ func _on_red_car_escaped():
 	print("รถสีแดงหลบหนีสำเร็จ!")
 	
 	# โหลดและเปิดหน้าต่างสุ่มรางวัล PCG
-	var gacha_scene = load("res://scenes/puzzle/reward_gacha.tscn")
+	var gacha_scene = load("res://reward_gacha.tscn")
 	var gacha_instance = gacha_scene.instantiate()
 	add_child(gacha_instance)
 	
