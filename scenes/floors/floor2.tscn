@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://s0t60f5o81xg"]
 
+[ext_resource type="Script" uid="uid://d8d74pqeclfd" path="res://scenes/floors/floor_2.gd" id="1_a468h"]
 [ext_resource type="Texture2D" uid="uid://c8x3mfy3f8ilv" path="res://assets/sprites/room-builder-stairs-school 48.png" id="1_qoq52"]
 [ext_resource type="Texture2D" uid="uid://dk2lnropnq7pg" path="res://assets/sprites/stylish_room_door_tiles.png" id="2_312yu"]
 [ext_resource type="Texture2D" uid="uid://sxvkvddblwkp" path="res://assets/sprites/school-furniture-student-desks-horror.png" id="3_f78ap"]
@@ -16,7 +17,7 @@
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="14_o81gl"]
 [ext_resource type="PackedScene" uid="uid://5a18rx3iqrqe" path="res://scenes/inventory/items/book_blue.tscn" id="15_8xc52"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="15_i6siy"]
-[ext_resource type="PackedScene" path="res://scenes/inventory/items/book_white.tscn" id="15_xofbi"]
+[ext_resource type="PackedScene" uid="uid://ue45dmbvuhw5" path="res://scenes/inventory/items/book_white.tscn" id="15_xofbi"]
 [ext_resource type="Script" uid="uid://duiupm8gbt4qy" path="res://scenes/floors/orca_floor_2.gd" id="16_5twv8"]
 [ext_resource type="PackedScene" uid="uid://ld8pmtm6pleu" path="res://scenes/inventory/items/book_orange.tscn" id="16_8xc52"]
 [ext_resource type="AudioStream" uid="uid://bxv23mgy81m1q" path="res://universfield-horror-background-atmosphere-09-219111.mp3" id="17_p1j4b"]
@@ -35,10 +36,10 @@ texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 1.696392, -16, 0.77108765, 16, -16, 16)
 4:0/0 = 0
 5:0/0 = 0
-5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(6.3229103, -16, 16, -16, 16, 16, 6.014473, 16)
 6:0/0 = 0
 7:0/0 = 0
 8:0/0 = 0
@@ -49,10 +50,10 @@ texture_region_size = Vector2i(32, 32)
 1:1/0 = 0
 2:1/0 = 0
 3:1/0 = 0
-3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 1.696392, -16, 0.77108765, 16, -16, 16)
 4:1/0 = 0
 5:1/0 = 0
-5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(6.3229103, -16, 16, -16, 16, 16, 6.014473, 16)
 6:1/0 = 0
 7:1/0 = 0
 8:1/0 = 0
@@ -63,7 +64,7 @@ texture_region_size = Vector2i(32, 32)
 1:2/0 = 0
 2:2/0 = 0
 3:2/0 = 0
-3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 1.696392, -16, 0.77108765, 16, -16, 16)
 4:2/0 = 0
 5:2/0 = 0
 6:2/0 = 0
@@ -1714,6 +1715,7 @@ size = Vector2(61, 74)
 size = Vector2(52.75, 59)
 
 [node name="floor2" type="Node2D" unique_id=2030209140]
+script = ExtResource("1_a468h")
 
 [node name="TileMap" type="TileMap" parent="." unique_id=837420413]
 tile_set = SubResource("TileSet_4kxuq")
