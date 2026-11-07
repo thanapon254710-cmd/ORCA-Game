@@ -1,6 +1,7 @@
 extends CanvasLayer
 @export_multiline var passages: Array[String] = []
 @export var voice: AudioStream
+var _floor_key: String
 var _page := 0
 var _active := true
 var _waiting := false
@@ -8,8 +9,15 @@ var _tree: SceneTree
 func _enter_tree() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_tree = get_tree()
-	_tree.paused = true
+	_floor_key = get_parent().scene_file_path
+	_active = not GameState.floor_dialogues_seen.has(_floor_key)
+	if _active:
+		_tree.paused = true
 func _ready() -> void:
+	if not _active:
+		$Control.hide()
+		set_process_input(false)
+		return
 	$Control.show()
 	$Control/Fade.hide()
 	if passages.is_empty():
@@ -40,6 +48,7 @@ func _input(event: InputEvent) -> void:
 		else:
 			_finish()
 func _finish() -> void:
+	GameState.floor_dialogues_seen[_floor_key] = true
 	_active = false
 	$Control.hide()
 	set_process_input(false)

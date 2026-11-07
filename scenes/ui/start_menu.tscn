@@ -1,23 +1,21 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b8to0har6713"]
 
-[ext_resource type="Script" path="res://scripts/ui/start_menu.gd" id="script"]
-[ext_resource type="Texture2D" path="res://assets/ui/start_menu/StartSceneNoButton.png" id="background"]
-[ext_resource type="Texture2D" path="res://assets/ui/start_menu/Button.png" id="normal"]
-[ext_resource type="Texture2D" path="res://assets/ui/start_menu/Button_Hover.png" id="hover"]
-[ext_resource type="Shader" path="res://assets/ui/start_menu/blood_glow.gdshader" id="glow"]
+[ext_resource type="Texture2D" uid="uid://cdsrc8hbtee5g" path="res://assets/ui/start_menu/StartSceneNoButton.png" id="background"]
+[ext_resource type="Shader" uid="uid://c1i4o7333p0vc" path="res://assets/ui/start_menu/blood_glow.gdshader" id="glow"]
+[ext_resource type="Texture2D" uid="uid://ckbgfo7ssv6q1" path="res://assets/ui/start_menu/Button_Hover.png" id="hover"]
+[ext_resource type="Texture2D" uid="uid://c2xybp8ckmc2f" path="res://assets/ui/start_menu/Button.png" id="normal"]
+[ext_resource type="Script" uid="uid://ul8q27um226s" path="res://scripts/ui/start_menu.gd" id="script"]
 
-[sub_resource type="AtlasTexture" id="StartNormal"]
-atlas = ExtResource("normal")
-region = Rect2(54, 28, 268, 94)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="ExitNormal"]
-atlas = ExtResource("normal")
-region = Rect2(54, 153, 268, 95)
-filter_clip = true
+[sub_resource type="ShaderMaterial" id="GlowMaterial"]
+shader = ExtResource("glow")
 
 [sub_resource type="AtlasTexture" id="StartHover"]
 atlas = ExtResource("hover")
+region = Rect2(54, 28, 268, 94)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="StartNormal"]
+atlas = ExtResource("normal")
 region = Rect2(54, 28, 268, 94)
 filter_clip = true
 
@@ -26,10 +24,12 @@ atlas = ExtResource("hover")
 region = Rect2(54, 153, 268, 95)
 filter_clip = true
 
-[sub_resource type="ShaderMaterial" id="GlowMaterial"]
-shader = ExtResource("glow")
+[sub_resource type="AtlasTexture" id="ExitNormal"]
+atlas = ExtResource("normal")
+region = Rect2(54, 153, 268, 95)
+filter_clip = true
 
-[node name="StartMenu" type="Control"]
+[node name="StartMenu" type="Control" unique_id=929410858]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,7 +38,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("script")
 
-[node name="Letterbox" type="ColorRect" parent="."]
+[node name="Letterbox" type="ColorRect" parent="." unique_id=945398808]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,22 +48,21 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Artwork" type="Control" parent="."]
-layout_mode = 0
+[node name="Artwork" type="Control" parent="." unique_id=1998702740]
+anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 mouse_filter = 2
 
-[node name="Background" type="TextureRect" parent="Artwork"]
+[node name="Background" type="TextureRect" parent="Artwork" unique_id=318387617]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 mouse_filter = 2
 texture = ExtResource("background")
 expand_mode = 1
-stretch_mode = 0
 
-[node name="StartGlow" type="TextureRect" parent="Artwork"]
+[node name="StartGlow" type="TextureRect" parent="Artwork" unique_id=779083135]
 visible = false
 material = SubResource("GlowMaterial")
 layout_mode = 0
@@ -74,9 +73,8 @@ offset_bottom = 421.0
 mouse_filter = 2
 texture = SubResource("StartHover")
 expand_mode = 1
-stretch_mode = 0
 
-[node name="StartButton" type="TextureButton" parent="Artwork"]
+[node name="StartButton" type="TextureButton" parent="Artwork" unique_id=329833953]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 323.0
@@ -87,7 +85,7 @@ texture_normal = SubResource("StartNormal")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="StartBlood" type="TextureRect" parent="Artwork"]
+[node name="StartBlood" type="TextureRect" parent="Artwork" unique_id=570559604]
 visible = false
 layout_mode = 0
 offset_left = 64.0
@@ -97,9 +95,8 @@ offset_bottom = 417.0
 mouse_filter = 2
 texture = SubResource("StartHover")
 expand_mode = 1
-stretch_mode = 0
 
-[node name="ExitGlow" type="TextureRect" parent="Artwork"]
+[node name="ExitGlow" type="TextureRect" parent="Artwork" unique_id=555021463]
 visible = false
 material = SubResource("GlowMaterial")
 layout_mode = 0
@@ -110,9 +107,8 @@ offset_bottom = 547.0
 mouse_filter = 2
 texture = SubResource("ExitHover")
 expand_mode = 1
-stretch_mode = 0
 
-[node name="ExitButton" type="TextureButton" parent="Artwork"]
+[node name="ExitButton" type="TextureButton" parent="Artwork" unique_id=86616]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 448.0
@@ -123,7 +119,7 @@ texture_normal = SubResource("ExitNormal")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="ExitBlood" type="TextureRect" parent="Artwork"]
+[node name="ExitBlood" type="TextureRect" parent="Artwork" unique_id=2093443585]
 visible = false
 layout_mode = 0
 offset_left = 64.0
@@ -133,9 +129,8 @@ offset_bottom = 543.0
 mouse_filter = 2
 texture = SubResource("ExitHover")
 expand_mode = 1
-stretch_mode = 0
 
-[node name="ErrorMessage" type="Label" parent="Artwork"]
+[node name="ErrorMessage" type="Label" parent="Artwork" unique_id=1436847280]
 visible = false
 layout_mode = 0
 offset_left = 64.0
