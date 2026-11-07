@@ -37,14 +37,26 @@ func can_interact() -> bool:
 # Show or hide the interaction prompt.
 func set_focused(on: bool) -> void:
 	if is_instance_valid(prompt):
-		prompt.visible = on
-
+		prompt.visible = on and can_interact()
 
 # Called when the player presses E.
 func interact(_player: Node) -> void:
-
 	if not can_interact():
 		return
+
+	# Floor 2 -> Floor 1 requires bookshelf completion.
+	if target_floor == 1:
+		if not GameState.questions_answered.has("q_2_bookshelf"):
+			var popup := AcceptDialog.new()
+			popup.add_to_group("question_box")
+			popup.title = "Stairs Locked"
+			popup.dialog_text = "Complete the All the Puzzle first!"
+
+			get_tree().root.add_child(popup)
+			popup.confirmed.connect(func(): popup.queue_free())
+			popup.canceled.connect(func(): popup.queue_free())
+			popup.popup_centered()
+			return
 
 	# Check all four passkeys first.
 	if target_floor == 3 and not GameState.has_all_passkeys():
