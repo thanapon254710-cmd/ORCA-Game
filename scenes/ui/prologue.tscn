@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://ddqi4hd2dscrk" path="res://scripts/ui/prologue.gd" id="1"]
 
+[ext_resource type="Texture2D" path="res://assets/sprites/Chark/There IS FroM tail (1).png" id="story_bg"]
+
 [node name="Prologue" type="Control" unique_id=1917568264]
 layout_mode = 3
 anchors_preset = 15
@@ -12,12 +14,14 @@ grow_vertical = 2
 script = ExtResource("1")
 passages = Array[String](["There Is a Tale from Our Senior", "Orca was an SIIT student on the verge of failing with an F, which drove him to fall to the dark side.", "He transformed into the ghost \"Orca,\" trapped inside the 5th-floor restroom of the SI building.", "He drags anyone who enters the restroom into his personal pocket dimension, searching for someone brilliant enough to tutor him.", "If they fail his test, Orca harms them, trapping them inside the restroom forever. But if they prove skilled enough, Orca releases them from the dimension , issuing them a receipt, granting them internship clearance, and letting them leave the restroom to tutor him so he can finally clear his F"])
 
-[node name="Black" type="ColorRect" parent="." unique_id=969661119]
+[node name="Black" type="TextureRect" parent="." unique_id=969661119]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color(0, 0, 0, 1)
+texture = ExtResource("story_bg")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="Text" type="Label" parent="." unique_id=40212095]
 layout_mode = 0

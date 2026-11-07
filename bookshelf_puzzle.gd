@@ -91,7 +91,7 @@ func _on_check_pressed():
 		check_button.disabled = true
 		feedback_label.text = "✓ That’s right! The bookshelf is perfectly organized."
 		feedback_label.modulate = Color.GREEN
-		
+		GameState.floor2_gate_unlocked = true
 		puzzle_completed.emit()
 		if GameState.has_signal("question_answered"):
 			GameState.question_answered.emit("q_2_bookshelf", true)

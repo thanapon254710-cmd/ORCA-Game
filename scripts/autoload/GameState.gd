@@ -12,6 +12,8 @@ signal game_over(reason: String)
 var room407_intro_seen: bool = false
 var floor5_intro_seen: bool = false
 
+var floor_dialogues_seen: Dictionary = {}
+
 var current_floor: int = 5
 var questions_answered: Array[String] = []
 var game_is_over: bool = false
@@ -24,6 +26,7 @@ var pk3_collected: bool = false
 var pk4_collected: bool = false
 
 # Gate unlock progress
+var floor2_gate_unlocked: bool = false
 var floor3_gate_unlocked: bool = false
 var floor4_gate_unlocked: bool = false
 
@@ -66,6 +69,7 @@ func end_game(reason: String) -> void:
 	game_over.emit(reason)
 
 func reset_game() -> void:
+	floor_dialogues_seen.clear()
 	room407_intro_seen = false
 	floor5_intro_seen = false
 	Inventory.reset_inventory()
@@ -77,6 +81,7 @@ func reset_game() -> void:
 	pk2_collected = false
 	pk3_collected = false
 	pk4_collected = false
+	floor2_gate_unlocked = false
 	floor3_gate_unlocked = false
 	floor4_gate_unlocked = false
 
@@ -137,3 +142,8 @@ func has_all_ft2_books() -> bool:
 		and Inventory.get_count("book_blue") >= 6
 		and Inventory.get_count("book_orange") >= 3
 	)
+
+func finish_story() -> void:
+	var error := get_tree().change_scene_to_file("res://scenes/ui/ending.tscn")
+	if error != OK:
+		push_error("Could not load ending: " + error_string(error))
