@@ -1534,7 +1534,7 @@ destination_spawn_marker = "SpawnFromFloor4"
 prompt_text = "Press E to use stairs"
 stair_puzzle_scene = ExtResource("27_y7s7m")
 
-[node name="IntroUI" parent="." unique_id=1275035327 instance=ExtResource("floor_dialogue")]
+[node name="IntroUI" parent="." unique_id=992612916 instance=ExtResource("floor_dialogue")]
 passages = Array[String](["Alright, the tutorial is over. From here on out, the choices you make will seal your fate forever."])
 
 [node name="HidingSpot1" type="Area2D" parent="." unique_id=1718068226 groups=["hiding_spots"]]
