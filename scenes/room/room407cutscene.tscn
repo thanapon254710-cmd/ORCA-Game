@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://eveg8hxu0w3u" path="res://assets/sprites/prop2.png" id="9_okme5"]
 [ext_resource type="Texture2D" uid="uid://bkfuab3fou8l0" path="res://assets/sprites/school-furniture-school-chairs-clean.png" id="10_tia58"]
 [ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสงวงกลม.jpg" id="15_owlvu"]
+[ext_resource type="Script" uid="uid://m2iijjrx8by3" path="res://scenes/room/room407_intro.gd.gd" id="16_a08vc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_10xoj"]
 texture = ExtResource("1_3sskx")
@@ -622,3 +623,47 @@ position = Vector2(524, 338)
 scale = Vector2(1.0960145, 1.0609927)
 color = Color(1, 1, 1, 0.5254902)
 texture = ExtResource("15_owlvu")
+
+[node name="IntroCutsceneLayer" type="CanvasLayer" parent="." unique_id=1617870361]
+script = ExtResource("16_a08vc")
+
+[node name="FadeOverlay" type="ColorRect" parent="IntroCutsceneLayer" unique_id=1260492897]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = -1
+anchor_right = 0.49800003
+anchor_bottom = 0.58100003
+offset_left = -7.0
+offset_top = -4.0
+offset_right = 580.30396
+offset_bottom = 265.512
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="DialogueUI" type="Control" parent="IntroCutsceneLayer" unique_id=1510408939]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -371.0
+offset_top = -196.0
+offset_right = 388.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="IntroCutsceneLayer/DialogueUI" unique_id=502780576]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -384.5
+offset_top = -127.0
+offset_right = 384.5
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
