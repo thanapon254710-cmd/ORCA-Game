@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://ci7u3i7dgj3bf" path="res://scenes/floors/orca_floor_1.gd" id="9_en1oj"]
 [ext_resource type="Texture2D" uid="uid://8jlgvm6pompx" path="res://data/picture/orca_eng.png" id="9_pkswe"]
 [ext_resource type="PackedScene" uid="uid://x6vdm4wml6sa" path="res://question_box.tscn" id="10_0vnnr"]
-[ext_resource type="Script" uid="uid://vovt2php6igy" path="res://quiz/question_box.gd" id="12_en1oj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xhphg"]
 texture = ExtResource("1_ouej7")
@@ -747,7 +746,6 @@ shape = SubResource("CircleShape2D_tsbbg")
 
 [node name="QuestionBox" parent="." unique_id=759334856 instance=ExtResource("10_0vnnr")]
 visible = false
-script = ExtResource("12_en1oj")
 
 [connection signal="body_entered" from="OrcaFloor1/HitBox" to="OrcaFloor1" method="_on_hit_box_body_entered"]
 [connection signal="body_exited" from="OrcaFloor1/HitBox" to="OrcaFloor1" method="_on_hit_box_body_exited"]
