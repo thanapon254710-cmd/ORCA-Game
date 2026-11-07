@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://baq0s8k4856md"]
 
-[ext_resource type="Texture2D" uid="uid://dxne1hkakmy3v" path="res://data/picture/bookshelf_blank.png" id="1_8bx44"]
-[ext_resource type="Script" uid="uid://dy3lw4xashk10" path="res://bookshelf_puzzle.gd" id="1_bovue"]
+[ext_resource type="Texture2D" uid="uid://c1dsbmrpfe4gn" path="res://data/picture/bookshelf_blank.png" id="1_8bx44"]
+[ext_resource type="Script" uid="uid://dy3lw4xashk10" path="res://scenes/puzzle/bookshelf_puzzle.gd" id="1_bovue"]
 [ext_resource type="Texture2D" uid="uid://ba2hkrelg1vd2" path="res://assets/inventory/book_blue.svg" id="3_b67j2"]
-[ext_resource type="Script" uid="uid://dr78bs5o0gar5" path="res://book_source.gd" id="3_x3nsy"]
+[ext_resource type="Script" uid="uid://dr78bs5o0gar5" path="res://scenes/puzzle/book_source.gd" id="3_x3nsy"]
 [ext_resource type="Texture2D" uid="uid://4onhivww3e7p" path="res://assets/inventory/book_white.svg" id="5_42yf5"]
 [ext_resource type="Texture2D" uid="uid://dwq71dpj5dyfu" path="res://assets/inventory/book_orange.svg" id="6_058io"]
 
@@ -14,23 +14,15 @@ script = ExtResource("1_bovue")
 anchors_preset = -1
 anchor_right = 0.66300005
 anchor_bottom = 0.70500004
-offset_left = 174.0
-offset_top = 2.0
-offset_right = 174.22394
-offset_bottom = 189.15997
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 0.22393799
+offset_bottom = 187.15997
 
 [node name="BookshelfBackdrop" type="TextureRect" parent="." unique_id=1012032288]
 anchors_preset = -1
 anchor_right = 0.66400003
 anchor_bottom = 0.81900007
-offset_left = 174.0
-offset_top = 2.0
-offset_right = 174.07196
-offset_bottom = 2.2879639
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 0.07196045
+offset_bottom = 0.28796387
 texture = ExtResource("1_8bx44")
 expand_mode = 1
 
@@ -39,6 +31,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 52.0
+offset_top = 29.0
+offset_right = -46.0
+offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 40
@@ -66,12 +62,10 @@ anchors_preset = -1
 anchor_top = 0.82400006
 anchor_right = 0.67700005
 anchor_bottom = 0.98800004
-offset_left = 192.0
-offset_top = 2.0479736
-offset_right = 148.09595
-offset_bottom = 1.776001
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 18.0
+offset_top = 0.047973633
+offset_right = -25.904053
+offset_bottom = -0.22399902
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BottomDock" unique_id=1016497285]
 layout_mode = 2
@@ -105,12 +99,10 @@ anchor_left = 0.554
 anchor_top = 0.832
 anchor_right = 0.64900005
 anchor_bottom = 0.89400005
-offset_left = 173.79199
-offset_top = 1.8640137
-offset_right = 174.35193
-offset_bottom = 1.6879883
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -0.20800781
+offset_top = -0.13598633
+offset_right = 0.3519287
+offset_bottom = -0.31201172
 text = "submit"
 
 [node name="ResetButton" type="Button" parent="." unique_id=1880125309]
@@ -119,10 +111,8 @@ anchor_left = 0.554
 anchor_top = 0.90700006
 anchor_right = 0.65000004
 anchor_bottom = 0.97200006
-offset_left = 173.79199
-offset_top = 2.263977
-offset_right = 174.19995
-offset_bottom = 2.143982
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -0.20800781
+offset_top = 0.26397705
+offset_right = 0.19995117
+offset_bottom = 0.14398193
 text = "reset"

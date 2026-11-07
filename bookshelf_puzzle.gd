@@ -38,10 +38,21 @@ func _ready():
 	_setup_layout_dimensions()
 	_create_shelf_slots()
 	_create_feedback_label()
-	set_process_unhandled_input(true)
 	
 	check_button.pressed.connect(_on_check_pressed)
 	reset_button.pressed.connect(reset_puzzle)
+	
+	# เตรียมหนังสือ 15 เล่มเข้ากระเป๋าสำหรับทดสอบ (ฟ้า 6, ขาว 6, ส้ม 3)
+	if Inventory != null:
+		if Inventory.get_count("book_blue") < 6:
+			for i in range(6 - Inventory.get_count("book_blue")):
+				Inventory.collect("book_blue", "init_b_" + str(i))
+		if Inventory.get_count("book_white") < 6:
+			for i in range(6 - Inventory.get_count("book_white")):
+				Inventory.collect("book_white", "init_w_" + str(i))
+		if Inventory.get_count("book_orange") < 3:
+			for i in range(3 - Inventory.get_count("book_orange")):
+				Inventory.collect("book_orange", "init_o_" + str(i))
 
 func _setup_layout_dimensions():
 	shelves_container.position = Vector2(52, 29)
@@ -114,12 +125,3 @@ func reset_puzzle():
 		if slot.current_item != "":
 			Inventory.collect(slot.current_item, "reset_" + str(Time.get_ticks_msec()) + "_" + str(randi()))
 			slot.set_book("")
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		close_puzzle()
-		get_viewport().set_input_as_handled()
-
-
-func close_puzzle() -> void:
-	queue_free()
