@@ -7,7 +7,7 @@ extends Node
 @export var shake_intensity: float = 8.0   # ความแรงสั่นหน้าจอ
 
 # ---------- ปรับค่าสมดุลสำหรับชั้น 4 (ยากขึ้นนิดหน่อย ท้าทายขึ้น) ----------
-@export var floor4_speed: float = 80.0           # เดินตรวจเร็วขึ้น (จาก 50.0 เป็น 80.0)
+@export var floor4_speed: float = 100.0           # เดินตรวจเร็วขึ้น (จาก 50.0 เป็น 80.0)
 @export var floor4_chase_mult: float = 1.4       # ไล่ล่าเร็วขึ้นเป็น 112 px/s (ผู้เล่นวิ่ง 200 ยังหนีพ้นแต่ต้องตั้งสติ)
 @export var floor4_sight_range: float = 170.0    # มองเห็นไกลขึ้นประมาณ 3-4 ช่องพิกเซล
 @export var floor4_sight_angle: float = 65.0     # กรวยสายตากว้างขึ้น เดินผ่านเฉียงๆ อาจโดนเห็นได้

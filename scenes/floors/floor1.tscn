@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="7_rv4a6"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="8_e64pu"]
 
+[ext_resource type="PackedScene" path="res://scenes/ui/floor_dialogue.tscn" id="floor_dialogue"]
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xhphg"]
 texture = ExtResource("1_ouej7")
 texture_region_size = Vector2i(32, 32)
@@ -718,3 +720,7 @@ layout_mode = 2
 text = "Good luck!
 "
 horizontal_alignment = 1
+
+[node name="IntroUI" parent="." instance=ExtResource("floor_dialogue")]
+passages = Array[String](["The world lies before you, but what you’ve learned won’t always save you."])
+

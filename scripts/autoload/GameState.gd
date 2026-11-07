@@ -137,3 +137,8 @@ func has_all_ft2_books() -> bool:
 		and Inventory.get_count("book_blue") >= 6
 		and Inventory.get_count("book_orange") >= 3
 	)
+
+func finish_story() -> void:
+	var error := get_tree().change_scene_to_file("res://scenes/ui/ending.tscn")
+	if error != OK:
+		push_error("Could not load ending: " + error_string(error))
