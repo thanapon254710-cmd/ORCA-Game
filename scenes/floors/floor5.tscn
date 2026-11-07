@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="21_c5wpi"]
 [ext_resource type="Script" uid="uid://cdehyfvl6fmae" path="res://scenes/floors/orca_floor_5.gd" id="22_ty1mm"]
 [ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="23_8rjlg"]
+[ext_resource type="AudioStream" uid="uid://bxv23mgy81m1q" path="res://universfield-horror-background-atmosphere-09-219111.mp3" id="24_na7xd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ea2ge"]
 texture = ExtResource("1_t6y78")
@@ -1328,6 +1329,7 @@ path_follow = NodePath("../PatrolPath/PathFollow2D")
 
 [node name="Orca_floor5" type="Node" parent="." unique_id=976407266]
 script = ExtResource("22_ty1mm")
+floor_bgm = ExtResource("24_na7xd")
 
 [node name="Question_SDG" parent="." unique_id=1777840857 instance=ExtResource("23_8rjlg")]
 position = Vector2(928, 210)

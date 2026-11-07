@@ -1,6 +1,10 @@
 extends Node
-@export var shake_duration: float = 0.25  # ลดเวลาสั่นเมื่อโดนจับ
-@export var shake_intensity: float = 5.0  # ลดความแรงสั่นหน้าจอลง
+
+# ---------- ช่องใส่เพลง BGM ประจำชั้น (ลากไฟล์เสียงใส่ใน Inspector) ----------
+@export var floor_bgm: AudioStream
+
+@export var shake_duration: float = 0.25   # ลดเวลาสั่นเมื่อโดนจับ
+@export var shake_intensity: float = 5.0   # ลดความแรงสั่นหน้าจอลง
 
 # ---------- ปรับค่าสมดุลโหมดง่ายสุดๆ (เทียบกับ Player SPEED = 200.0) ----------
 @export var floor5_speed: float = 50.0           # ความเร็วเดินตรวจ (Player วิ่งเร็วกว่า 4 เท่า)
@@ -33,15 +37,27 @@ func _ready() -> void:
 		if "lose_sight_time" in orca:
 			orca.lose_sight_time = floor5_lose_sight_time
 
+		# ส่งไฟล์เพลง BGM ประจำชั้นนี้ไปที่โหนด SfxBGM ของ Orca
+		if floor_bgm and orca.has_node("SfxBGM"):
+			var bgm_node: Node = orca.get_node("SfxBGM")
+			if "stream" in bgm_node:
+				bgm_node.set("stream", floor_bgm)
+				var is_playing: bool = bgm_node.get("playing") if "playing" in bgm_node else false
+				if bgm_node.has_method("play") and not is_playing:
+					bgm_node.call("play")
+
 		if orca.has_signal("player_caught"):
 			if not orca.player_caught.is_connected(_on_player_caught):
 				orca.player_caught.connect(_on_player_caught)
 
 func _on_player_caught() -> void:
 	print("GAME OVER - FLOOR 5")
-	get_tree().paused = true
 	
-	await _trigger_screen_shake()
+	# เริ่มสั่นหน้าจอก่อน 0.05 วินาที เพื่อให้ SfxCaught เล่นทันทีโดยไม่ติดดีเลย์ Pause
+	_trigger_screen_shake()
+	await get_tree().create_timer(0.05, true, false, true).timeout
+	
+	get_tree().paused = true
 	await get_tree().create_timer(0.8, true, false, true).timeout
 	
 	get_tree().paused = false

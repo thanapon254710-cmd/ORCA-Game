@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="29_ucpdf"]
 [ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="31_e5plf"]
 [ext_resource type="Script" uid="uid://clnxba2ia12mh" path="res://scenes/floors/orca_floor_4.gd" id="31_l52j7"]
+[ext_resource type="AudioStream" uid="uid://bxv23mgy81m1q" path="res://universfield-horror-background-atmosphere-09-219111.mp3" id="32_y7s7m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kxqf"]
 texture = ExtResource("1_hy4yd")
@@ -1475,6 +1476,7 @@ rotation = 2.9111025
 
 [node name="orca_floor_4" type="Node" parent="." unique_id=1141609695]
 script = ExtResource("31_l52j7")
+floor_bgm = ExtResource("32_y7s7m")
 
 [node name="Question_PK1" parent="." unique_id=2029985172 instance=ExtResource("31_e5plf")]
 position = Vector2(1059, 82)

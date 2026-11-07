@@ -1,5 +1,8 @@
 extends Node
 
+# ---------- ช่องใส่เพลง BGM ประจำชั้น 3 (ลากไฟล์เสียงใส่ใน Inspector) ----------
+@export var floor_bgm: AudioStream
+
 @export var shake_duration: float = 0.4   # เวลาสั่นหน้าจอเมื่อโดนจับในชั้น 3
 @export var shake_intensity: float = 10.0 # ความแรงสั่นหน้าจอ
 
@@ -34,15 +37,27 @@ func _ready() -> void:
 		if "lose_sight_time" in orca:
 			orca.lose_sight_time = floor3_lose_sight_time
 
+		# ส่งไฟล์เพลง BGM ประจำชั้น 3 ไปที่โหนด SfxBGM ของ Orca
+		if floor_bgm and orca.has_node("SfxBGM"):
+			var bgm_node: Node = orca.get_node("SfxBGM")
+			if "stream" in bgm_node:
+				bgm_node.set("stream", floor_bgm)
+				var is_playing: bool = bgm_node.get("playing") if "playing" in bgm_node else false
+				if bgm_node.has_method("play") and not is_playing:
+					bgm_node.call("play")
+
 		if orca.has_signal("player_caught"):
 			if not orca.player_caught.is_connected(_on_player_caught):
 				orca.player_caught.connect(_on_player_caught)
 
 func _on_player_caught() -> void:
 	print("GAME OVER - FLOOR 3")
-	get_tree().paused = true
 	
-	await _trigger_screen_shake()
+	# เริ่มสั่นหน้าจอก่อน 0.05 วินาที เพื่อให้ SfxCaught เล่นทันทีโดยไม่ติดดีเลย์ Pause
+	_trigger_screen_shake()
+	await get_tree().create_timer(0.05, true, false, true).timeout
+	
+	get_tree().paused = true
 	await get_tree().create_timer(0.8, true, false, true).timeout
 	
 	get_tree().paused = false
