@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bnc6fuf7xocpj"]
+
+[ext_resource type="Script" uid="uid://lxvouaghrmoy" path="res://scenes/puzzle/car.gd" id="1_uffdj"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yqur2"]
+load_path = "res://.godot/imported/car.png-c1099737cfd460db4648222bf22ca821.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqrmq"]
+size = Vector2(129, 429)
+
+[node name="CarTruckWhite" type="Area2D" unique_id=284613950]
+script = ExtResource("1_uffdj")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1404148665]
+texture = SubResource("CompressedTexture2D_yqur2")
+region_enabled = true
+region_rect = Rect2(1195.7246, 118.70781, 132.0354, 432.8283)
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1746608493]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_rqrmq")
