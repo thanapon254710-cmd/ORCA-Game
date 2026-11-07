@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwihfs2i6yfqw"
-path="res://.godot/imported/gacha6.png-0ebfcd46aed8583086f0d885fef61bee.ctex"
+path="res://.godot/imported/gacha6.png-b89528b270e9e1bb39b9d4faebb4cd28.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/picture/gacha6.png"
-dest_files=["res://.godot/imported/gacha6.png-0ebfcd46aed8583086f0d885fef61bee.ctex"]
+source_file="res://picture/gacha6.png"
+dest_files=["res://.godot/imported/gacha6.png-b89528b270e9e1bb39b9d4faebb4cd28.ctex"]
 
 [params]
 
