@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://x6vdm4wml6sa"]
 
-[ext_resource type="Script" uid="uid://vovt2php6igy" path="res://question_box.gd" id="1_jnr7e"]
+[ext_resource type="Script" uid="uid://vovt2php6igy" path="res://scenes/quiz/question_box.gd" id="1_jnr7e"]
 [ext_resource type="PackedScene" uid="uid://brhhw2uxng5xw" path="res://scenes/inventory/inventory.tscn" id="2_34lpq"]
 
 [node name="QuestionBox" type="CanvasLayer" unique_id=759334856]
 script = ExtResource("1_jnr7e")
 
 [node name="Panel" type="Panel" parent="." unique_id=2053485633]
-offset_left = 208.0
-offset_top = 63.0
-offset_right = 939.0
-offset_bottom = 555.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 737.0
+offset_bottom = 498.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=343894738]
 layout_mode = 0

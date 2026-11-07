@@ -80,6 +80,9 @@ func _ready():
 	input_4.text_submitted.connect(func(_t): _on_submit_input())
 	
 	load_questions_from_json()
+	
+	# ถ้าต้องการทดสอบแบทเทิลชั้น 1 ทันทีที่กดรัน:
+	start_floor_1_battle()
 
 func _create_close_button():
 	var close_button = Button.new()
@@ -219,7 +222,7 @@ func _next_floor_1_question():
 	display_question(next_q)
 
 func load_questions_from_json():
-	var file_path = "res://questions.json"
+	var file_path = "res://data/questions.json"
 	if not FileAccess.file_exists(file_path):
 		push_error("ไม่พบไฟล์: " + file_path)
 		return
@@ -423,8 +426,18 @@ func _finish_answering(is_correct: bool):
 			
 		await get_tree().create_timer(1.5).timeout
 		
-		hide()
-		question_closed.emit()
+		if current_question_id == "q_3_1":
+			load_question_by_id("q_3_2")
+		elif current_question_id == "q_3_2":
+			load_question_by_id("q_3_3")
+		elif current_question_id == "q_3_3":
+			feedback_label.text = "Solved all the puzzles on the 3rd floor!"
+			await get_tree().create_timer(1.2).timeout
+			hide()
+			question_closed.emit()
+		else:
+			hide()
+			question_closed.emit()
 	else:
 		feedback_label.text = "try again"
 		feedback_label.modulate = Color.RED
