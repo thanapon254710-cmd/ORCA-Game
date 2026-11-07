@@ -2,6 +2,7 @@ extends CanvasLayer
 
 signal reward_claimed(item_data: Dictionary)
 signal gacha_closed
+var _reward_claimed := false
 
 @onready var title_label: Label = $BackgroundDim/RewardCard/VBoxContainer/TitleLabel
 @onready var subtitle_label: Label = $BackgroundDim/RewardCard/VBoxContainer/SubtitleLabel
@@ -223,6 +224,11 @@ func _on_roll_pressed():
 	claim_button.visible = true
 
 func _on_claim_pressed():
+	if _reward_claimed or current_reward.is_empty():
+		return
+	_reward_claimed = true
+	claim_button.disabled = true
+	SaveManager.latest_reward_name = str(current_reward.get("name_th", current_reward.get("name_en", current_reward.get("name", "Unknown Item"))))
 	reward_claimed.emit(current_reward)
 	hide()
 	gacha_closed.emit()

@@ -45,6 +45,12 @@ func _unhandled_input(event):
 
 # ตัวอย่างใน parking.gd ตอนตรวจว่ารถสีแดงหลุดถึงจุด EXIT แล้ว
 func _on_red_car_escaped():
+	if _ending_started:
+		return
+	_ending_started = true
+	for car in get_children():
+		if car is ParkingCar:
+			car.set_process_unhandled_input(false)
 	print("รถสีแดงหลบหนีสำเร็จ!")
 	
 	# โหลดและเปิดหน้าต่างสุ่มรางวัล PCG
@@ -59,8 +65,7 @@ func _on_red_car_escaped():
 		var item_name = item.get("name_th", item.get("name", "Unknown Item"))
 		print("ผู้เล่นได้รับ: ", item_name, " (", item["rarity"], ")")
 		
-		var sb = load("res://score_board.tscn").instantiate()
-		add_child(sb)
+		get_tree().change_scene_to_file.call_deferred("res://score_board.tscn")
 		
 		# บันทึกสถานะว่าเคลียร์ลานจอดรถแล้ว
 		if GameState.has_signal("question_answered"):

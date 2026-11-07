@@ -4,7 +4,7 @@ signal puzzle_completed
 signal puzzle_closed
 
 @onready var backdrop: TextureRect = $BookshelfBackdrop
-@onready var shelves_container: VBoxContainer = $BookshelfBackdrop/ShelvesContainer
+@onready var shelves_container: Control = $BookshelfBackdrop/ShelvesContainer
 @onready var shelf_top: HBoxContainer = $BookshelfBackdrop/ShelvesContainer/ShelfTop
 @onready var shelf_middle: HBoxContainer = $BookshelfBackdrop/ShelvesContainer/ShelfMiddle
 @onready var shelf_bottom: HBoxContainer = $BookshelfBackdrop/ShelvesContainer/ShelfBottom
@@ -43,15 +43,40 @@ func _ready():
 	check_button.pressed.connect(_on_check_pressed)
 	reset_button.pressed.connect(reset_puzzle)
 
+func _place(node: Control, pos: Vector2, dimensions: Vector2) -> void:
+	node.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	node.position = pos
+	node.size = dimensions
+
+func _fit_puzzle() -> void:
+	var viewport_size = get_viewport().get_visible_rect().size
+	var factor = minf((viewport_size.x - 32.0) / 760.0, (viewport_size.y - 32.0) / 710.0)
+	transform = Transform2D(0.0, Vector2.ONE * factor, 0.0, (viewport_size - Vector2(760, 710) * factor) / 2.0)
+
 func _setup_layout_dimensions():
-	shelves_container.position = Vector2(52, 29)
-	shelves_container.size = Vector2(667, 476)
-	shelves_container.add_theme_constant_override("separation", 52)
-	
-	for shelf in [shelf_top, shelf_middle, shelf_bottom]:
-		shelf.custom_minimum_size = Vector2(667, 124)
-		shelf.alignment = BoxContainer.ALIGNMENT_CENTER
-		shelf.add_theme_constant_override("separation", 2)
+	_place(backdrop, Vector2.ZERO, Vector2(760, 590))
+	_place($BackgroundDim, Vector2.ZERO, Vector2(760, 710))
+	$BackgroundDim.color = Color(0.12, 0.12, 0.12, 1)
+	_place(shelves_container, Vector2.ZERO, Vector2(760, 590))
+	var rows = [shelf_top, shelf_middle, shelf_bottom]
+	var heights = [29.0, 211.0, 401.0]
+	for i in 3:
+		_place(rows[i], Vector2(52, heights[i]), Vector2(667, 110 if i == 2 else 124))
+		rows[i].alignment = BoxContainer.ALIGNMENT_CENTER
+		rows[i].add_theme_constant_override("separation", 2)
+	_place($BottomDock, Vector2(0, 594), Vector2(760, 116))
+	var dock_style := StyleBoxFlat.new()
+	dock_style.bg_color = Color(0.45, 0.45, 0.45, 1)
+	dock_style.content_margin_left = 12.0
+	dock_style.content_margin_right = 140.0
+	$BottomDock.add_theme_stylebox_override("panel", dock_style)
+	$BottomDock/HBoxContainer.add_theme_constant_override("separation", 12)
+	for source in $BottomDock/HBoxContainer.get_children():
+		source.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	_place(check_button, Vector2(630, 605), Vector2(115, 40))
+	_place(reset_button, Vector2(630, 656), Vector2(115, 40))
+	_fit_puzzle()
+	get_viewport().size_changed.connect(_fit_puzzle)
 
 func _create_shelf_slots():
 	for i in range(11):
@@ -65,6 +90,7 @@ func _create_shelf_slots():
 		
 		var slot_b = BookSlot.new()
 		shelf_bottom.add_child(slot_b)
+		slot_b.custom_minimum_size.y = 110
 		bottom_slots.append(slot_b)
 
 func _create_feedback_label():
@@ -72,8 +98,8 @@ func _create_feedback_label():
 	feedback_label = Label.new()
 	feedback_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	feedback_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	feedback_label.position = Vector2(52, 450)
-	feedback_label.size = Vector2(667, 40)
+	feedback_label.position = Vector2(200, 625)
+	feedback_label.size = Vector2(420, 60)
 	feedback_label.add_theme_font_size_override("font_size", 22)
 	feedback_label.text = ""
 	add_child(feedback_label)

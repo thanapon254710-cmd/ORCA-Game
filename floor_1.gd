@@ -65,3 +65,7 @@ func _on_orca_quiz_requested() -> void:
 func _on_orca_quiz_closed() -> void:
 	print("Closing Floor 1 Quiz!")
 	question_box.hide()
+
+func _start_parking() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file.call_deferred("res://scenes/parking.tscn")
