@@ -189,18 +189,27 @@ func _update_hearts_ui():
 		monster_heart_icons[i].modulate.a = 1.0 if i < monster_hearts else 0.15
 
 func start_floor_1_battle():
+	# ถ้าเคยเริ่ม Battle แล้ว ให้กลับมาเล่นต่อ
+	if is_floor_1_battle:
+		show()
+		battle_hud.visible = true
+		_update_hearts_ui()
+		print("Continue Floor 1 Battle!")
+		return
+
+	# เริ่ม Battle ครั้งแรกเท่านั้น
 	is_floor_1_battle = true
 	player_hearts = 3
 	monster_hearts = 3
 	battle_hud.visible = true
 	_update_hearts_ui()
-	
+
 	floor_1_pool.clear()
 	for q in questions_list:
 		var q_id = str(q.get("id", ""))
 		if q_id.begins_with("q_1_") or q.get("floor") == 1:
 			floor_1_pool.append(q)
-			
+
 	floor_1_pool.shuffle()
 	_next_floor_1_question()
 
