@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bayn15qbyvf7a"]
 
-[ext_resource type="Script" uid="uid://bjkfoptj0kjut" path="res://scenes/quiz/stair_puzzle.gd" id="1_j2tn4"]
-[ext_resource type="Script" uid="uid://b4pkyhqtormw3" path="res://scenes/quiz/DropSlot.gd" id="1_m6mqn"]
+[ext_resource type="Script" uid="uid://bjkfoptj0kjut" path="res://stair_puzzle.gd" id="1_j2tn4"]
+[ext_resource type="Script" uid="uid://b4pkyhqtormw3" path="res://DropSlot.gd" id="1_m6mqn"]
 
 [node name="StairPuzzle" type="CanvasLayer" unique_id=785110227]
 script = ExtResource("1_j2tn4")
@@ -10,7 +10,8 @@ script = ExtResource("1_j2tn4")
 anchors_preset = -1
 anchor_right = 0.55200005
 anchor_bottom = 0.59300005
-offset_right = 0.095947266
+offset_left = 275.0
+offset_right = 275.09595
 offset_bottom = -0.2640381
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1451469332]
@@ -18,17 +19,22 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TitleLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1956470146]
 layout_mode = 2
 text = "Stair Door Locked (Drag and Drop to Adove)"
+horizontal_alignment = 1
 
 [node name="HintLabel" type="Label" parent="Panel/VBoxContainer" unique_id=304549156]
 layout_mode = 2
 text = "Hint : Ascending"
+horizontal_alignment = 1
 
 [node name="TargetContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=2123640688]
 layout_mode = 2
+alignment = 1
 
 [node name="Slot0" type="PanelContainer" parent="Panel/VBoxContainer/TargetContainer" unique_id=3370742]
 layout_mode = 2
@@ -80,6 +86,7 @@ horizontal_alignment = 1
 
 [node name="SourceContainer" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1606318624]
 layout_mode = 2
+alignment = 1
 
 [node name="Item0" type="PanelContainer" parent="Panel/VBoxContainer/SourceContainer" unique_id=939550966]
 layout_mode = 2

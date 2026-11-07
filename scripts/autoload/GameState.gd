@@ -24,6 +24,7 @@ var pk3_collected: bool = false
 var pk4_collected: bool = false
 
 # Gate unlock progress
+var floor2_gate_unlocked: bool = false
 var floor3_gate_unlocked: bool = false
 var floor4_gate_unlocked: bool = false
 
@@ -77,6 +78,7 @@ func reset_game() -> void:
 	pk2_collected = false
 	pk3_collected = false
 	pk4_collected = false
+	floor2_gate_unlocked = false
 	floor3_gate_unlocked = false
 	floor4_gate_unlocked = false
 

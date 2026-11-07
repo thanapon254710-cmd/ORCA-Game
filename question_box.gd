@@ -260,7 +260,7 @@ func display_question(data: Dictionary):
 	if img_path != "" and ResourceLoader.exists(img_path):
 		question_image.texture = load(img_path)
 		question_image.visible = true
-		question_image.custom_minimum_size = Vector2(0, 150)
+		question_image.custom_minimum_size = Vector2(0, 320)
 	else:
 		question_image.texture = null
 		question_image.visible = false
@@ -273,6 +273,7 @@ func display_question(data: Dictionary):
 		single_input.visible = false
 		double_input_container.visible = false
 		quad_input_container.visible = true
+		quad_input_container.columns = 4
 		
 		label_1.text = "0 XOR 0 = "
 		label_2.text = "0 XOR 1 = "
@@ -283,7 +284,7 @@ func display_question(data: Dictionary):
 			inp.text = ""
 			inp.editable = true
 			inp.placeholder_text = "0 or 1"
-			
+			inp.custom_minimum_size = Vector2(60, 35)
 		submit_button.disabled = false
 		input_1.grab_focus()
 		

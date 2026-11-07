@@ -1,4 +1,3 @@
-
 extends CanvasLayer
 
 signal question_answered(correct: bool)
@@ -35,7 +34,6 @@ func _ready():
 	title_label.text = "Order Step to upload code into ESP32 (IoT)"
 
 	reward_overlay.visible = false
-	# Make the first-time hint use the same size as the repeat hint.
 	reward_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	reward_overlay.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	reward_overlay.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -51,17 +49,52 @@ func _ready():
 	check_button.pressed.connect(_on_check_pressed)
 	reset_button.pressed.connect(reset_puzzle)
 
+	# เรียกสร้างปุ่มกากบาท
+	_create_close_button()
+
 	reset_puzzle()
 
-	# Check whether this puzzle was already completed
 	if GameState.questions_answered.has(QUESTION_ID):
 		check_button.disabled = true
 		reset_button.disabled = true
-
 		feedback_label.text = "Already completed!"
 		feedback_label.modulate = Color.GREEN
-
 		_show_hint_and_close()
+
+
+# สร้างปุ่มกากบาทและแปะไว้ที่ตัว CanvasLayer (self) โดยตรง
+func _create_close_button():
+	if has_node("CloseButton"):
+		return
+	var close_button = Button.new()
+	close_button.name = "CloseButton"
+	close_button.text = "×"
+	close_button.tooltip_text = "Close (ESC)"
+	close_button.custom_minimum_size = Vector2(45, 45)
+	close_button.focus_mode = Control.FOCUS_NONE
+	
+	# ตั้งค่าให้อยู่มุมขวาบนสุดของหน้าจอ
+	close_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	close_button.offset_left = -70
+	close_button.offset_top = 20
+	close_button.offset_right = -25
+	close_button.offset_bottom = 65
+	close_button.z_index = 999 # บังคับให้อยู่บนสุดเสมอ
+	
+	close_button.pressed.connect(close_puzzle)
+	add_child(close_button) # แปะที่ตัว CanvasLayer หลัก
+
+
+# ใช้ _input และดักจับปุ่ม ESC (KEY_ESCAPE) โดยตรงเพื่อให้ทำงานได้ชัวร์ 100%
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE and visible:
+		close_puzzle()
+		get_viewport().set_input_as_handled()
+
+
+func close_puzzle() -> void:
+	puzzle_closed.emit()
+	queue_free()
 
 
 func reset_puzzle():
@@ -101,13 +134,8 @@ func _on_check_pressed():
 		check_button.disabled = true
 		reset_button.disabled = true
 
-		# Save completion in GameState
 		GameState.mark_question_answered(QUESTION_ID, true)
-
-		# Notify other connected systems
 		question_answered.emit(true)
-
-		# Automatically display bookshelf hint for 3 seconds
 		_show_hint_and_close()
 
 	else:
