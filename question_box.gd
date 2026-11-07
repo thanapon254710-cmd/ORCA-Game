@@ -222,7 +222,7 @@ func _next_floor_1_question():
 	display_question(next_q)
 
 func load_questions_from_json():
-	var file_path = "res://data/questions.json"
+	var file_path = "res://questions.json"
 	if not FileAccess.file_exists(file_path):
 		push_error("ไม่พบไฟล์: " + file_path)
 		return
