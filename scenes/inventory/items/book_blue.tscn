@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cgd0pa6y8y3qj"]
+[gd_scene format=3 uid="uid://5a18rx3iqrqe"]
 
 [ext_resource type="Script" uid="uid://c3xdsq67b5tkx" path="res://scripts/inventory/item_pickup.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://ba2hkrelg1vd2" path="res://assets/inventory/book_blue.svg" id="2"]
@@ -13,12 +13,12 @@ script = ExtResource("1")
 item_id = "book_blue"
 
 [node name="Visual" type="Sprite2D" parent="." unique_id=1183477107]
-position = Vector2(225.504, 94.504)
+position = Vector2(30.496017, 36.496006)
 scale = Vector2(0.45300004, 0.45300004)
 texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1096497062]
-position = Vector2(227, 94)
+position = Vector2(31.992004, 35.992004)
 shape = SubResource("Shape")
 
 [node name="Prompt" type="Label" parent="." unique_id=1160948526]
