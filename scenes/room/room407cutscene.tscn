@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bkfuab3fou8l0" path="res://assets/sprites/school-furniture-school-chairs-clean.png" id="10_tia58"]
 [ext_resource type="PackedScene" uid="uid://b1nmaupvdtlum" path="res://player2.tscn" id="14_lsn8g"]
 [ext_resource type="Texture2D" uid="uid://ck0g8y6paqkj6" path="res://แสงวงกลม.jpg" id="15_owlvu"]
+[ext_resource type="Script" uid="uid://bdy12fkwmvbmk" path="res://scripts/ui/room407_intro.gd" id="16_a08vc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_10xoj"]
 texture = ExtResource("1_3sskx")
@@ -595,6 +596,18 @@ sources/14 = SubResource("TileSetAtlasSource_262wr")
 sources/15 = SubResource("TileSetAtlasSource_wi3ju")
 sources/3 = SubResource("TileSetAtlasSource_a203q")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6hvo"]
+bg_color = Color(0.035, 0.025, 0.03, 0.65)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.42, 0.08, 0.09, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="room407" type="Node2D" unique_id=117380184]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=54302894]
@@ -622,3 +635,70 @@ position = Vector2(524, 338)
 scale = Vector2(1.0960145, 1.0609927)
 color = Color(1, 1, 1, 0.5254902)
 texture = ExtResource("15_owlvu")
+
+[node name="CutsceneSeat" type="Marker2D" parent="." unique_id=229164828]
+position = Vector2(605, 355)
+
+[node name="IntroUI" type="CanvasLayer" parent="." unique_id=153645008]
+process_mode = 3
+layer = 300
+script = ExtResource("16_a08vc")
+
+[node name="Control" type="Control" parent="IntroUI" unique_id=274282388]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="IntroUI/Control" unique_id=608241722]
+layout_mode = 0
+anchor_left = 0.06
+anchor_top = 1.0
+anchor_right = 0.94
+anchor_bottom = 1.0
+offset_top = -270.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_p6hvo")
+
+[node name="Label" type="Label" parent="IntroUI/Control/Panel" unique_id=689181071]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = 20.0
+offset_right = -26.0
+offset_bottom = -52.0
+theme_override_colors/font_color = Color(0.94, 0.9, 0.85, 1)
+theme_override_font_sizes/font_size = 22
+text = "Just a moment ago, you were sitting in your game dev class, but with a single blink, you suddenly found yourself in the 5th-floor restroom of the Main Building."
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ContinueHint" type="Label" parent="IntroUI/Control/Panel" unique_id=1015462697]
+layout_mode = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = -45.0
+offset_right = -26.0
+offset_bottom = -15.0
+theme_override_colors/font_color = Color(0.85, 0.38, 0.35, 1)
+theme_override_font_sizes/font_size = 18
+text = "Press Enter to continue"
+horizontal_alignment = 2
+
+[node name="Fade" type="ColorRect" parent="IntroUI/Control" unique_id=1028748981]
+visible = false
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

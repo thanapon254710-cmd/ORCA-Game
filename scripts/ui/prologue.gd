@@ -56,7 +56,7 @@ func _advance() -> void:
 
 func _open_room() -> void:
 	_switching = true
-	var error := _tree.change_scene_to_file("res://scenes/room/room407.tscn")
+	var error := _tree.change_scene_to_file("res://scenes/room/room407cutscene.tscn")
 	if error != OK:
 		_switching = false
 		$Text.modulate.a = 1.0
