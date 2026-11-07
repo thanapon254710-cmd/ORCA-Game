@@ -14,11 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://clj4n5xgb46fk" path="res://assets/sprites/school-furniture-lockers-horror.png" id="11_ukwv0"]
 [ext_resource type="PackedScene" uid="uid://b1nmaupvdtlum" path="res://player2.tscn" id="14_i6siy"]
 [ext_resource type="Script" uid="uid://bpvskt6ugig53" path="res://scripts/floors/FloorStairs.gd" id="14_o81gl"]
-[ext_resource type="PackedScene" path="res://scenes/inventory/items/book_blue.tscn" id="15_8xc52"]
+[ext_resource type="PackedScene" uid="uid://5a18rx3iqrqe" path="res://scenes/inventory/items/book_blue.tscn" id="15_8xc52"]
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="15_i6siy"]
 [ext_resource type="PackedScene" path="res://scenes/inventory/items/book_white.tscn" id="15_xofbi"]
 [ext_resource type="Script" uid="uid://duiupm8gbt4qy" path="res://scenes/floors/orca_floor_2.gd" id="16_5twv8"]
-[ext_resource type="PackedScene" path="res://scenes/inventory/items/book_orange.tscn" id="16_8xc52"]
+[ext_resource type="PackedScene" uid="uid://ld8pmtm6pleu" path="res://scenes/inventory/items/book_orange.tscn" id="16_8xc52"]
 [ext_resource type="AudioStream" uid="uid://bxv23mgy81m1q" path="res://universfield-horror-background-atmosphere-09-219111.mp3" id="17_p1j4b"]
 [ext_resource type="Script" uid="uid://btqcavof58ieq" path="res://scenes/floors/static_body_2d.gd" id="17_ukwv0"]
 
@@ -1735,32 +1735,32 @@ position = Vector2(900, 264)
 [node name="book_white6" parent="." unique_id=1021424743 instance=ExtResource("15_xofbi")]
 position = Vector2(712, 301)
 
-[node name="book_blue" parent="." unique_id=8048569 instance=ExtResource("15_8xc52")]
-position = Vector2(136, 154)
+[node name="book_blue" parent="." unique_id=788127717 instance=ExtResource("15_8xc52")]
+position = Vector2(837, 494)
 
-[node name="book_blue2" parent="." unique_id=788127717 instance=ExtResource("15_8xc52")]
-position = Vector2(110, 272)
+[node name="book_blue2" parent="." unique_id=981234675 instance=ExtResource("15_8xc52")]
+position = Vector2(293, 277)
 
 [node name="book_blue3" parent="." unique_id=1897089767 instance=ExtResource("15_8xc52")]
 position = Vector2(373, 210)
 
 [node name="book_blue4" parent="." unique_id=1561931576 instance=ExtResource("15_8xc52")]
-position = Vector2(592, 419)
+position = Vector2(616, 467)
 
-[node name="book_blue5" parent="." unique_id=2005258841 instance=ExtResource("15_8xc52")]
-position = Vector2(42, 354)
+[node name="book_blue5" parent="." unique_id=2044368800 instance=ExtResource("15_8xc52")]
+position = Vector2(249, 411)
 
 [node name="book_blue6" parent="." unique_id=1387732689 instance=ExtResource("15_8xc52")]
 position = Vector2(359, 417)
 
 [node name="book_orange" parent="." unique_id=1317046685 instance=ExtResource("16_8xc52")]
-position = Vector2(419, 291)
+position = Vector2(533, 318)
 
 [node name="book_orange2" parent="." unique_id=256473133 instance=ExtResource("16_8xc52")]
-position = Vector2(850, 325)
+position = Vector2(965, 370)
 
 [node name="book_orange3" parent="." unique_id=1915615467 instance=ExtResource("16_8xc52")]
-position = Vector2(769, 118)
+position = Vector2(859, 128)
 
 [node name="Player2" parent="." unique_id=2022886588 groups=["player"] instance=ExtResource("14_i6siy")]
 position = Vector2(261, 503)

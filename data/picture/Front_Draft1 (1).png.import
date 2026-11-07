@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cil0o4p68colx"
-path="res://.godot/imported/iot_order.png-9428b471c151e79ea291b5d13dd846a6.ctex"
+uid="uid://cqo4ryfwm6wpy"
+path="res://.godot/imported/Front_Draft1 (1).png-2c872a96746bf63e7388be6a3f6e1910.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://iot_order.png"
-dest_files=["res://.godot/imported/iot_order.png-9428b471c151e79ea291b5d13dd846a6.ctex"]
+source_file="res://data/picture/Front_Draft1 (1).png"
+dest_files=["res://.godot/imported/Front_Draft1 (1).png-2c872a96746bf63e7388be6a3f6e1910.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

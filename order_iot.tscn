@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c5hwdx751jomx"]
 
-[ext_resource type="Script" uid="uid://7ej5aps57u73" path="res://scenes/puzzle/order_iot.gd" id="1_jvo6w"]
-[ext_resource type="Script" uid="uid://qyojaceit5eg" path="res://scenes/quiz/DropSlot_iot.gd" id="1_vf5mt"]
+[ext_resource type="Script" uid="uid://7ej5aps57u73" path="res://order_iot.gd" id="1_jvo6w"]
+[ext_resource type="Script" uid="uid://qyojaceit5eg" path="res://DropSlot_iot.gd" id="1_vf5mt"]
 [ext_resource type="Texture2D" uid="uid://cil0o4p68colx" path="res://data/picture/iot_order.png" id="2_lfjdr"]
 
 [node name="order_puzzle" type="CanvasLayer" unique_id=890697]
