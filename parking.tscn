@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cubq6yeecmemw"]
+[gd_scene format=3 uid="uid://b8etnficyio5h"]
 
 [ext_resource type="Texture2D" uid="uid://cmk4jr3c8n0l8" path="res://assets/sprites/TX Tileset Grass.png" id="1_m8wfw"]
 [ext_resource type="Script" uid="uid://2rwdum8karew" path="res://scenes/parking.gd" id="1_q2t31"]

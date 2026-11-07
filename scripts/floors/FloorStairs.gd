@@ -8,6 +8,10 @@ extends Area2D
 
 @export var prompt_text: String = "Press E to use stairs"
 
+@export var stair_puzzle_scene: PackedScene
+
+var stair_puzzle: CanvasLayer = null
+
 var prompt: Label
 
 
@@ -30,7 +34,6 @@ func can_interact() -> bool:
 		and not GameState.game_is_over
 	)
 
-
 # Show or hide the interaction prompt.
 func set_focused(on: bool) -> void:
 	if is_instance_valid(prompt):
@@ -39,10 +42,77 @@ func set_focused(on: bool) -> void:
 
 # Called when the player presses E.
 func interact(_player: Node) -> void:
+
 	if not can_interact():
 		return
 
+	# Check all four passkeys first.
+	if target_floor == 3 and not GameState.has_all_passkeys():
+		var popup := AcceptDialog.new()
+		popup.add_to_group("question_box")
+		popup.title = "Gate Locked"
+		popup.dialog_text = "Four passkeys are required to unlock this gate."
+
+		get_tree().root.add_child(popup)
+		popup.confirmed.connect(func(): popup.queue_free())
+		popup.canceled.connect(func(): popup.queue_free())
+		popup.popup_centered()
+		return
+		
+	if target_floor == 2 and not GameState.floor3_gate_unlocked:
+		if not Inventory.has_item("key_gold"):
+			var popup := AcceptDialog.new()
+			popup.add_to_group("question_box")
+			popup.title = "Gate Locked"
+			popup.dialog_text = "A Gold key is required to unlock this gate."
+
+			get_tree().root.add_child(popup)
+			popup.confirmed.connect(func(): popup.queue_free())
+			popup.canceled.connect(func(): popup.queue_free())
+			popup.popup_centered()
+			return
+
+		Inventory.remove_item("key_gold")
+		GameState.floor3_gate_unlocked = true
+		return
+
+	# Open the existing French symbol puzzle.
+	if target_floor == 3 and not is_gate_unlocked():
+		if is_instance_valid(stair_puzzle):
+			return
+
+		if stair_puzzle_scene == null:
+			push_error("Stair puzzle scene is not assigned!")
+			return
+
+		stair_puzzle = stair_puzzle_scene.instantiate()
+		get_tree().root.add_child(stair_puzzle)
+
+		stair_puzzle.question_answered.connect(
+			_on_stair_puzzle_answered
+		)
+
+		return
+
+	# Normal stairs to other floors.
 	TransitionManager.change_floor(
 		target_floor,
 		destination_spawn_marker
 	)
+
+func _on_stair_puzzle_answered(correct: bool) -> void:
+	if not correct:
+		return
+
+	if target_floor == 3:
+		GameState.floor4_gate_unlocked = true
+		return
+
+func is_gate_unlocked() -> bool:
+	match target_floor:
+		3:
+			return GameState.floor4_gate_unlocked
+		2:
+			return GameState.floor3_gate_unlocked
+
+	return false

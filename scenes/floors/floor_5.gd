@@ -1,6 +1,8 @@
 extends Node2D
+
 @onready var popup_text: Label = $CanvasLayer/PopupText
 var popup_time_left: float = 0.0
+
 # ดึงโหนด TileMap จากในฉากมาใช้งานอัตโนมัติ 
 @onready var target_tilemap: TileMap = $TileMap 
 
@@ -16,7 +18,6 @@ var popup_time_left: float = 0.0
 
 func _ready() -> void:
 	popup_text.hide()
-	show_popup("Correct!")
 	# call function remove fences
 	GameState.question_answered.connect(_on_question_answered)
 	
@@ -24,7 +25,6 @@ func _ready() -> void:
 	check_all_questions_completed()
 
 func _on_question_answered(question_id: String, is_correct: bool) -> void:
-
 	# Ignore incorrect answers
 	if not is_correct:
 		return
@@ -32,15 +32,13 @@ func _on_question_answered(question_id: String, is_correct: bool) -> void:
 	check_all_questions_completed()
 
 func check_all_questions_completed() -> void:
-
 	var required_questions = [
 		"q_5_1",
 		"q_5_2",
-        "q_5_3"
+		"q_5_3"
 	]
 
 	for question_id in required_questions:
-
 		if not GameState.questions_answered.has(question_id):
 			return
 
@@ -64,3 +62,43 @@ func _process(delta: float) -> void:
 		popup_time_left -= delta
 		if popup_time_left <= 0.0:
 			popup_text.hide()
+
+# ---------- ระบบควบคุม Hiding Spot ทั้ง 3 จุด ----------
+
+# ฟังก์ชันตัวกลางช่วยจัดการสถานะการซ่อนของ Player
+func _set_player_hiding(body: Node2D, hiding: bool) -> void:
+	if body.is_in_group("player"):
+		if hiding:
+			if "hiding_zones_count" in body:
+				body.hiding_zones_count += 1
+			body.is_hiding = true
+			print("Player entered Hiding Zone! (is_hiding = true)")
+		else:
+			if "hiding_zones_count" in body:
+				body.hiding_zones_count = max(0, body.hiding_zones_count - 1)
+				if body.hiding_zones_count == 0:
+					body.is_hiding = false
+			else:
+				body.is_hiding = false
+			print("Player left Hiding Zone!")
+
+# จุดซ่อนที่ 1
+func _on_hiding_spot_1_body_entered(body: Node2D) -> void:
+	_set_player_hiding(body, true)
+
+func _on_hiding_spot_1_body_exited(body: Node2D) -> void:
+	_set_player_hiding(body, false)
+
+# จุดซ่อนที่ 2
+func _on_hiding_spot_2_body_entered(body: Node2D) -> void:
+	_set_player_hiding(body, true)
+
+func _on_hiding_spot_2_body_exited(body: Node2D) -> void:
+	_set_player_hiding(body, false)
+
+# จุดซ่อนที่ 3
+func _on_hiding_spot_3_body_entered(body: Node2D) -> void:
+	_set_player_hiding(body, true)
+
+func _on_hiding_spot_3_body_exited(body: Node2D) -> void:
+	_set_player_hiding(body, false)

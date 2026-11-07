@@ -15,7 +15,7 @@
 	  "subject": "Python",
 	  "type": "text_input_double",
 	  "question": "5.2 Based on the Python code in the image, determine the correct values ​​for A and B.",
-	  "image_path": "res://python_tree.png",
+	  "image_path": "res://data/picture/python_tree.png",
 	  "choices": [],
 	  "correct_answer": "n, n+1"
 	},
@@ -74,7 +74,9 @@
 	  "question": "3.1 Using the XOR table, fill in the correct result for each pair.",
 	  "image_path": "res://data/picture/xor_table.png",
 	  "choices": [],
-	  "correct_answer": "0, 1, 1, 0"
+	  "correct_answer": "0, 1, 1, 0",
+	  "required_key": "key_yellow",
+	  "reward_key": "key_blue"
 	},
 	{
 	  "id": "q_3_2",
@@ -88,7 +90,9 @@
 		"res://data/picture/multivalued_attribute.png",
         "res://data/picture/simple_attribute.png"
 	  ],
-	  "correct_answer": "res://assets/sprites/questions/derived_attribute.png"
+	  "correct_answer": "res://data/picture/derived_attribute.png",
+	  "required_key": "key_blue",
+	  "reward_key": "key_purple"
 	},
 	{
 	  "id": "q_3_3",
@@ -102,7 +106,9 @@
 		"OWNER'S EQUITY = LIABILITIES + ASSETS",
         "ASSETS = LIABILITIES * OWNER'S EQUITY"
 	  ],
-	  "correct_answer": "LIABILITIES = ASSETS - OWNER'S EQUITY"
+	  "correct_answer": "LIABILITIES = ASSETS - OWNER'S EQUITY",
+	  "required_key": "key_purple",
+	  "reward_key": "key_gold"
 	},
 	{
 	  "id": "q_1_1",

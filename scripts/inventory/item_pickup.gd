@@ -1,6 +1,6 @@
 extends Area2D
 ## Place this scene in a floor, then choose Item Id in the Inspector.
-@export_enum("key_yellow", "key_blue", "key_purple", "key_gold", "book_blue", "book_white", "book_orange") var item_id: String = "key_yellow"
+@export_enum("key_yellow", "key_blue", "key_purple", "key_gold", "book_blue", "book_white", "book_orange", "Keywordft4") var item_id: String = "key_yellow"
 ## Optional unique ID. Otherwise floor scene path + node path identify this pickup.
 @export var pickup_id: String = ""
 var _saved_id: String

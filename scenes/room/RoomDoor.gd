@@ -40,7 +40,14 @@ func interact(_player: Node) -> void:
 	if not can_interact():
 		return
 
+	var target_scene = destination_scene
+
+	# Check if Room 408 has been powered
+	if destination_scene == "res://scenes/room/room408.tscn":
+		if GameState.room408_powered:
+			target_scene = "res://scenes/room/room408เปิดไฟ.tscn"
+
 	TransitionManager.change_scene_to_room(
-		destination_scene,
+		target_scene,
 		destination_spawn_marker
 	)

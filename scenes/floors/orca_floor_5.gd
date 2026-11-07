@@ -1,14 +1,17 @@
 extends Node
 
-@export var shake_duration: float = 0.4   # ลดเวลาสั่นให้น้อยลงนิดหน่อย
-@export var shake_intensity: float = 10.0 # ลดความแรงสั่นหน้าจอลง
+# ---------- ช่องใส่เพลง BGM ประจำชั้น (ลากไฟล์เสียงใส่ใน Inspector) ----------
+@export var floor_bgm: AudioStream
 
-# ---------- ปรับค่าสมดุลสำหรับชั้นแรก (เริ่มต้นง่ายขึ้น) ----------
-@export var floor5_speed: float = 85.0           # ความเร็วเดินปรกติ (ช้าลง)
-@export var floor5_chase_mult: float = 1.4       # ตัวคูณความเร็วไล่ล่า (ไล่ไม่กระชาก)
-@export var floor5_sight_range: float = 180.0    # ระยะสายตา (มองเห็นได้สั้นลง)
-@export var floor5_sight_angle: float = 75.0     # กรวยสายตา (แคบลง แอบซอกง่ายขึ้น)
-@export var floor5_lose_sight_time: float = 1.5  # เวลาติดตามดมกลิ่น (หลบพ้นแล้วถอยกลับไวขึ้น)
+@export var shake_duration: float = 0.25   # ลดเวลาสั่นเมื่อโดนจับ
+@export var shake_intensity: float = 5.0   # ลดความแรงสั่นหน้าจอลง
+
+# ---------- ปรับค่าสมดุลโหมดง่ายสุดๆ (เทียบกับ Player SPEED = 200.0) ----------
+@export var floor5_speed: float = 50.0           # ความเร็วเดินตรวจ (Player วิ่งเร็วกว่า 4 เท่า)
+@export var floor5_chase_mult: float = 1.15      # ตัวคูณไล่ล่า (วิ่งไล่แค่ 57.5 px/s วิ่งทิ้งห่างได้สบาย)
+@export var floor5_sight_range: float = 100.0    # ระยะสายตา (สั้นมาก ต้องยืนใกล้ประมาณ 1-2 ช่องกระเบื้อง)
+@export var floor5_sight_angle: float = 40.0     # กรวยสายตา (มุมมองแคบมาก ยืนเฉียงข้างนิดเดียวก็มองไม่เห็น)
+@export var floor5_lose_sight_time: float = 0.3  # เวลาดมกลิ่น (หลบหลังสิ่งกั้น 0.3 วินาที ถอดใจเลิกไล่ทันที)
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -34,19 +37,34 @@ func _ready() -> void:
 		if "lose_sight_time" in orca:
 			orca.lose_sight_time = floor5_lose_sight_time
 
+		# ส่งไฟล์เพลง BGM ประจำชั้นนี้ไปที่โหนด SfxBGM ของ Orca
+		if floor_bgm and orca.has_node("SfxBGM"):
+			var bgm_node: Node = orca.get_node("SfxBGM")
+			if "stream" in bgm_node:
+				bgm_node.set("stream", floor_bgm)
+				var is_playing: bool = bgm_node.get("playing") if "playing" in bgm_node else false
+				if bgm_node.has_method("play") and not is_playing:
+					bgm_node.call("play")
+
 		if orca.has_signal("player_caught"):
 			if not orca.player_caught.is_connected(_on_player_caught):
 				orca.player_caught.connect(_on_player_caught)
 
 func _on_player_caught() -> void:
 	print("GAME OVER - FLOOR 5")
+	for question_box in get_tree().get_nodes_in_group("question_box"):
+		question_box.hide()
 	get_tree().paused = true
 	
-	await _trigger_screen_shake()
+	# เริ่มสั่นหน้าจอก่อน 0.05 วินาที เพื่อให้ SfxCaught เล่นทันทีโดยไม่ติดดีเลย์ Pause
+	_trigger_screen_shake()
+	await get_tree().create_timer(0.05, true, false, true).timeout
+	
+	get_tree().paused = true
 	await get_tree().create_timer(0.8, true, false, true).timeout
 	
 	get_tree().paused = false
-	get_tree().reload_current_scene()
+	await TransitionManager.respawn_player()
 
 func _trigger_screen_shake() -> void:
 	var camera := get_viewport().get_camera_2d()

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxrbvybgj4e45"
-path="res://.godot/imported/derived_attribute.png-4255c0c93232ac0f020cda0b55b055c4.ctex"
+uid="uid://cil0o4p68colx"
+path="res://.godot/imported/iot_order.png-9428b471c151e79ea291b5d13dd846a6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://derived_attribute.png"
-dest_files=["res://.godot/imported/derived_attribute.png-4255c0c93232ac0f020cda0b55b055c4.ctex"]
+source_file="res://iot_order.png"
+dest_files=["res://.godot/imported/iot_order.png-9428b471c151e79ea291b5d13dd846a6.ctex"]
 
 [params]
 

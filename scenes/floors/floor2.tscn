@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="15_i6siy"]
 [ext_resource type="PackedScene" uid="uid://ue45dmbvuhw5" path="res://scenes/inventory/items/book_white.tscn" id="15_xofbi"]
 [ext_resource type="Script" uid="uid://duiupm8gbt4qy" path="res://scenes/floors/orca_floor_2.gd" id="16_5twv8"]
-[ext_resource type="PackedScene" uid="uid://cf1q33fnc1q32" path="res://scenes/inventory/items/book_orange.tscn" id="16_8xc52"]
+[ext_resource type="AudioStream" uid="uid://bxv23mgy81m1q" path="res://universfield-horror-background-atmosphere-09-219111.mp3" id="17_p1j4b"]
 [ext_resource type="Script" uid="uid://btqcavof58ieq" path="res://scenes/floors/static_body_2d.gd" id="17_ukwv0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_312yu"]
@@ -1684,15 +1684,21 @@ sources/12 = SubResource("TileSetAtlasSource_o81gl")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i6siy"]
 size = Vector2(66.125, 28)
 
-[sub_resource type="Curve2D" id="Curve2D_5twv8"]
+[sub_resource type="Curve2D" id="Curve2D_upcpg"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1160, 208, 0, 0, 0, 0, 648, 208, 0, 0, 0, 0, 640, 296, -55.096416, 1.1019284, 55.096416, -1.1019284, 672, 360, 0, 0, 0, 0, 736, 384, 0, 0, 0, 0, 1144, 384, 0, 0, 0, 0, 1136, 488, 0, 0, 0, 0, 1104, 536, 0, 0, 0, 0, 1056, 576, 0, 0, 0, 0, 688, 576, 0, 0, 0, 0, 584, 520, 0, 0, 0, 0, 552, 464, 0, 0, 0, 0, 488, 448, 0, 0, 0, 0, 480, 272, 0, 0, 0, 0, 488, 184, 0, 0, 0, 0, 1160, 208)
+"points": PackedVector2Array(0, 0, 0, 0, 1120, 552, 0, 0, 0, 0, 1120, 424, 0, 0, 0, 0, 1184, 424, 44.473694, -5.287082, -44.473694, 5.287082, 1184, 360, 0, 0, 0, 0, 1120, 328, 0, 0, 0, 0, 1120, 248, 0, 0, 0, 0, 1120, 208, 0, 0, 0, 0, 736, 208, 0, 0, 0, 0, 736, 272, 0, 0, 0, 0, 672, 272, 0, 0, 0, 0, 480, 272, 0, 0, 0, 0, 480, 192, 0, 0, 0, 0, 248, 192, 0, 0, 0, 0, 248, 304, -28.6, -24.2, 28.6, 24.2, 248, 360, 0, 0, 0, 0, 288, 360, 0, 0, 0, 0, 352, 376, 0, 0, 0, 0, 352, 424, 0, 0, 0, 0, 408, 464, 0, 0, 0, 0, 528, 464, 0, 0, 0, 0, 672, 464, 0, 0, 0, 0, 672, 360, -56.466667, -0.73333335, 56.466667, 0.73333335, 784, 424, -73.333336, 0.73333335, 73.333336, -0.73333335, 928, 360, 0, 0, 0, 0, 992, 424, 0, 0, 0, 0, 968, 552, 0, 0, 0, 0, 896, 552, 74.066666, -4.4, -74.066666, 4.4, 840, 616, 0, 0, 0, 0, 736, 552, 0, 0, 0, 0, 568, 552, 0, 0, 0, 0, 312, 560, 0, 0, 0, 0, 352, 424, 0, 0, 0, 0, 512, 304, 0, 0, 0, 0, 648, 304, 0, 0, 0, 0, 880, 416, -47.666668, -5.133333, 47.666668, 5.133333, 1040, 368, 0, 0, 0, 0, 1096, 424, 0, 0, 0, 0, 1120, 552)
 }
-point_count = 16
+point_count = 38
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4kxuq"]
 radius = 11.0
 height = 62.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p376d"]
+size = Vector2(160, 152)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2emf8"]
+size = Vector2(96, 136)
 
 [node name="floor2" type="Node2D" unique_id=2030209140]
 
@@ -1795,11 +1801,11 @@ shape = SubResource("RectangleShape2D_i6siy")
 
 [node name="Path2D" type="Path2D" parent="." unique_id=1608165156]
 position = Vector2(-160, -40)
-curve = SubResource("Curve2D_5twv8")
+curve = SubResource("Curve2D_upcpg")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=346658742]
-position = Vector2(1160, 208)
-rotation = 3.1415927
+position = Vector2(1120, 552)
+rotation = -1.5707964
 
 [node name="Orca" parent="." unique_id=2000482544 node_paths=PackedStringArray("path_follow") groups=["orca"] instance=ExtResource("15_i6siy")]
 position = Vector2(1048, 176.00003)
@@ -1807,6 +1813,7 @@ path_follow = NodePath("../Path2D/PathFollow2D")
 
 [node name="orca_floor_2" type="Node" parent="." unique_id=1698608641]
 script = ExtResource("16_5twv8")
+floor_bgm = ExtResource("17_p1j4b")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1094729855]
 script = ExtResource("17_ukwv0")
@@ -1820,3 +1827,28 @@ shape = SubResource("CapsuleShape2D_4kxuq")
 position = Vector2(424, 319)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_4kxuq")
+
+[node name="HidingSpot1" type="Area2D" parent="." unique_id=1654843254 groups=["hiding_spots"]]
+position = Vector2(424, 320)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot1" unique_id=468182490]
+position = Vector2(0, 44)
+shape = SubResource("RectangleShape2D_p376d")
+debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
+
+[node name="HidingSpot2" type="Area2D" parent="." unique_id=1667096748 groups=["hiding_spots"]]
+position = Vector2(560, 432)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot2" unique_id=1190024499]
+position = Vector2(-8, 36)
+shape = SubResource("RectangleShape2D_2emf8")
+debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
+
+[connection signal="body_entered" from="HidingSpot1" to="Player2" method="_on_hiding_spot_1_body_entered"]
+[connection signal="body_exited" from="HidingSpot1" to="Player2" method="_on_hiding_spot_1_body_exited"]
+[connection signal="body_entered" from="HidingSpot2" to="Player2" method="_on_hiding_spot_2_body_entered"]
+[connection signal="body_exited" from="HidingSpot2" to="Player2" method="_on_hiding_spot_2_body_exited"]
