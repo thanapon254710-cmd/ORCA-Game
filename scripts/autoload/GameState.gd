@@ -125,3 +125,10 @@ func collect_passkey(number: int) -> void:
 	popup.confirmed.connect(func(): popup.queue_free())
 	popup.canceled.connect(func(): popup.queue_free())
 	popup.popup_centered()
+
+func has_all_ft2_books() -> bool:
+	return (
+		Inventory.get_count("book_white") >= 6
+		and Inventory.get_count("book_blue") >= 6
+		and Inventory.get_count("book_orange") >= 3
+	)
