@@ -52,6 +52,9 @@ func _ready() -> void:
 
 func _on_player_caught() -> void:
 	print("GAME OVER - FLOOR 4")
+	for question_box in get_tree().get_nodes_in_group("question_box"):
+		question_box.hide()
+	get_tree().paused = true
 	
 	# เริ่มสั่นหน้าจอก่อน 0.05 วินาที เพื่อให้ SfxCaught เล่นทันทีโดยไม่ติดดีเลย์ Pause
 	_trigger_screen_shake()

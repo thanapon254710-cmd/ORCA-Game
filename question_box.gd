@@ -43,6 +43,7 @@ var questions_list: Array = []
 var current_question_index: int = 0
 
 func _ready():
+	add_to_group("question_box")
 	# สร้างปุ่มปิดกล่อง (X)
 	var close_button = Button.new()
 	close_button.name = "CloseButton"
@@ -74,30 +75,13 @@ func _ready():
 	input_4.text_submitted.connect(func(_t): _on_submit_input())
 	
 	load_questions_from_json()
-	
-	# จำลองให้กุญแจสีเหลืองตั้งต้นสำหรับการทดสอบ
-	if not Inventory.has_item("key_yellow"):
-		Inventory.collect("key_yellow", "start_key_yellow")
-		
-	# เปิดทดสอบข้อ 3.1
-	load_question_by_id("q_3_1")
+			
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_ESCAPE and visible:
 			close_question()
 			get_viewport().set_input_as_handled()
-			
-		# ปุ่มลัดทดสอบ (Debug)
-		elif event.keycode == KEY_1:
-			load_question_by_id("q_3_1")
-		elif event.keycode == KEY_2:
-			load_question_by_id("q_3_2")
-		elif event.keycode == KEY_3:
-			load_question_by_id("q_3_3")
-		elif event.keycode == KEY_K:
-			Inventory.collect("key_yellow", "debug_key_" + str(Time.get_ticks_msec()))
-			print("เพิ่มกุญแจสีเหลืองแล้ว! ปัจจุบันมี:", Inventory.get_count("key_yellow"))
 
 func open_question(data: Dictionary) -> void:
 	current_question_index = 0
