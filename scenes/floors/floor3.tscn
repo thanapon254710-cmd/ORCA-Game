@@ -21,6 +21,8 @@
 [ext_resource type="PackedScene" path="res://scenes/inventory/items/key_yellow.tscn" id="17_ptg47"]
 [ext_resource type="PackedScene" uid="uid://bayn15qbyvf7a" path="res://stair_puzzle.tscn" id="18_hmm4o"]
 
+[ext_resource type="PackedScene" path="res://scenes/ui/floor_dialogue.tscn" id="floor_dialogue"]
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hkwmq"]
 texture = ExtResource("1_qn337")
 texture_region_size = Vector2i(32, 32)
@@ -1488,6 +1490,9 @@ target_floor = 2
 destination_spawn_marker = "SpawnFromFloor3"
 prompt_text = "Press E to use stairs"
 stair_puzzle_scene = ExtResource("18_hmm4o")
+
+[node name="IntroUI" parent="." instance=ExtResource("floor_dialogue")]
+passages = Array[String](["Some things require the right sequence; don't rush. Slow and steady wins the race."])
 
 [node name="HidingSpot1" type="Area2D" parent="." unique_id=1804183380 groups=["hiding_spots"]]
 position = Vector2(304, 176)
