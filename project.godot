@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Inventory="*res://scenes/inventory/inventory.tscn"
 GameState="*uid://n64r777n0u6t"
 TransitionManager="*uid://cp11wy35hwv4s"
+SaveManager="*uid://blxiau60wdkao"
 
 [display]
 

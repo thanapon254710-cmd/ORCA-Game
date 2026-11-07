@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cpcfcdect0g1w"]
 
-[ext_resource type="Script" uid="uid://ctvvc81swq77b" path="res://scripts/name_input_popup.gd" id="1_t6r2c"]
+[ext_resource type="Script" uid="uid://ctvvc81swq77b" path="res://name_input_popup.gd" id="1_t6r2c"]
 
 [node name="NameInputPopup" type="CanvasLayer" unique_id=1794007]
 script = ExtResource("1_t6r2c")
