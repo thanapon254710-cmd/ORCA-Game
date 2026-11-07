@@ -1,6 +1,6 @@
 extends Control
 
-@export_file("*.tscn") var gameplay_scene: String = "res://scenes/floors/floor5.tscn"
+@export_file("*.tscn") var gameplay_scene: String = "res://scenes/room/room407cutscene.tscn"
 const MENU_SCENE = "res://scenes/ui/start_menu.tscn"
 const DESIGN_SIZE := Vector2(1152, 648)
 var _changing: bool = false

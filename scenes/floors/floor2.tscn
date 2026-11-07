@@ -21,9 +21,12 @@
 [ext_resource type="PackedScene" uid="uid://ld8pmtm6pleu" path="res://scenes/inventory/items/book_orange.tscn" id="16_8xc52"]
 [ext_resource type="AudioStream" uid="uid://bxv23mgy81m1q" path="res://universfield-horror-background-atmosphere-09-219111.mp3" id="17_p1j4b"]
 [ext_resource type="Script" uid="uid://btqcavof58ieq" path="res://scenes/floors/static_body_2d.gd" id="17_ukwv0"]
-[ext_resource type="Script" uid="uid://dy3lw4xashk10" path="res://bookshelf_puzzle.gd" id="22_4phxh"]
-[ext_resource type="Script" uid="uid://bm7ry8o2ahd1l" path="res://scenes/room/computer_hint.gd" id="22_mmjs1"]
-[ext_resource type="Texture2D" uid="uid://c2lfbh3k4ulac" path="res://data/picture/bookshelf.png" id="23_vlp0b"]
+[ext_resource type="Script" uid="uid://bowc81aprx3va" path="res://bookshelf_interaction.gd" id="22_4phxh"]
+[ext_resource type="Script" uid="uid://3i8yb8f0s5a6" path="res://scenes/room/computer_hint2ft.gd" id="23_vlp0b"]
+[ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="24_hwa2x"]
+[ext_resource type="PackedScene" uid="uid://bayn15qbyvf7a" path="res://stair_puzzle.tscn" id="25_a468h"]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/floor_dialogue.tscn" id="floor_dialogue"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_312yu"]
 texture = ExtResource("1_qoq52")
@@ -1708,7 +1711,7 @@ size = Vector2(96, 136)
 size = Vector2(61, 74)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vlp0b"]
-size = Vector2(43.5, 44)
+size = Vector2(52.75, 59)
 
 [node name="floor2" type="Node2D" unique_id=2030209140]
 
@@ -1769,7 +1772,7 @@ position = Vector2(533, 318)
 position = Vector2(965, 370)
 
 [node name="book_orange3" parent="." unique_id=1915615467 instance=ExtResource("16_8xc52")]
-position = Vector2(859, 128)
+position = Vector2(875, 147)
 
 [node name="Player2" parent="." unique_id=2022886588 groups=["player"] instance=ExtResource("14_i6siy")]
 position = Vector2(261, 503)
@@ -1865,13 +1868,26 @@ script = ExtResource("22_4phxh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BookShelfPuzzle" unique_id=453374635]
 shape = SubResource("RectangleShape2D_hwa2x")
 
-[node name="Hint" type="Area2D" parent="." unique_id=1984999572]
+[node name="Question_IoT" type="Area2D" parent="." unique_id=1984999572]
 position = Vector2(428, 316)
-script = ExtResource("22_mmjs1")
-HINT_IMAGE = ExtResource("23_vlp0b")
+script = ExtResource("23_vlp0b")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hint" unique_id=30275577]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Question_IoT" unique_id=30275577]
+position = Vector2(3, -2)
 shape = SubResource("RectangleShape2D_vlp0b")
+
+[node name="Question_ft2toft1" parent="." unique_id=2029985172 instance=ExtResource("24_hwa2x")]
+position = Vector2(337, 559)
+scale = Vector2(1.5, 0.5)
+script = ExtResource("14_o81gl")
+target_floor = 1
+destination_spawn_marker = "SpawnFromFloor2"
+prompt_text = "Press E to use stairs"
+stair_puzzle_scene = ExtResource("25_a468h")
+
+
+[node name="IntroUI" parent="." instance=ExtResource("floor_dialogue")]
+passages = Array[String](["Walk over to the empty bookshelf: The shelf is completely bare... If you don't read every single book, you'll never get out of this library."])
 
 [connection signal="body_entered" from="HidingSpot1" to="Player2" method="_on_hiding_spot_1_body_entered"]
 [connection signal="body_exited" from="HidingSpot1" to="Player2" method="_on_hiding_spot_1_body_exited"]

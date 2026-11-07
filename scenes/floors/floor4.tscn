@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://ddo1mmy0aws03"]
 
+[ext_resource type="Script" uid="uid://h7ghfoia6sgu" path="res://scenes/floors/floor_4.gd" id="1_2u1ge"]
 [ext_resource type="PackedScene" uid="uid://c7pwe2ghy86cb" path="res://player.tscn" id="1_5vcy3"]
 [ext_resource type="Texture2D" uid="uid://b85y2tkh3jsej" path="res://assets/sprites/TX Tileset Stone Ground.png" id="1_hy4yd"]
 [ext_resource type="Texture2D" uid="uid://c8x3mfy3f8ilv" path="res://assets/sprites/room-builder-stairs-school 48.png" id="2_ipnr1"]
@@ -33,6 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="31_e5plf"]
 [ext_resource type="Script" uid="uid://clnxba2ia12mh" path="res://scenes/floors/orca_floor_4.gd" id="31_l52j7"]
 [ext_resource type="AudioStream" uid="uid://bxv23mgy81m1q" path="res://universfield-horror-background-atmosphere-09-219111.mp3" id="32_y7s7m"]
+[ext_resource type="PackedScene" path="res://scenes/ui/floor_dialogue.tscn" id="floor_dialogue"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kxqf"]
 texture = ExtResource("1_hy4yd")
@@ -1345,7 +1347,17 @@ point_count = 29
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oqb0x"]
 size = Vector2(59.5, 60)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p376d"]
+size = Vector2(95, 135)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2emf8"]
+size = Vector2(100.5, 115.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrmdp"]
+size = Vector2(59, 110.5)
+
 [node name="floor4" type="Node2D" unique_id=1963433244]
+script = ExtResource("1_2u1ge")
 
 [node name="TileMap" type="TileMap" parent="." unique_id=227891699]
 tile_set = SubResource("TileSet_5vcy3")
@@ -1365,6 +1377,7 @@ layer_4/tile_data = PackedInt32Array(524300, 131093, 14, 589836, 131093, 15, 655
 position = Vector2(353, 505)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=893730580]
+position = Vector2(974, 112)
 color = Color(0.2789908, 0.27899083, 0.27899083, 1)
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1515179127]
@@ -1501,3 +1514,46 @@ target_floor = 3
 destination_spawn_marker = "SpawnFromFloor4"
 prompt_text = "Press E to use stairs"
 stair_puzzle_scene = ExtResource("27_y7s7m")
+
+[node name="IntroUI" parent="." unique_id=992612916 instance=ExtResource("floor_dialogue")]
+passages = Array[String](["Alright, the tutorial is over. From here on out, the choices you make will seal your fate forever."])
+
+[node name="HidingSpot1" type="Area2D" parent="." unique_id=1718068226 groups=["hiding_spots"]]
+position = Vector2(975, 134)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot1" unique_id=792410733]
+position = Vector2(1, -16.5)
+shape = SubResource("RectangleShape2D_p376d")
+debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
+
+[node name="HidingSpot2" type="Area2D" parent="." unique_id=1610940683 groups=["hiding_spots"]]
+position = Vector2(992, 460)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot2" unique_id=1710514611]
+position = Vector2(-18.75, -4.25)
+shape = SubResource("RectangleShape2D_2emf8")
+debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
+
+[node name="HidingSpot3" type="Area2D" parent="." unique_id=1072901887 groups=["hiding_spots"]]
+position = Vector2(170, 431)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot3" unique_id=986200825]
+position = Vector2(-16.5, -3)
+shape = SubResource("RectangleShape2D_lrmdp")
+debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
+
+[node name="HidingSpot4" type="Area2D" parent="." unique_id=743808178 groups=["hiding_spots"]]
+position = Vector2(141, 177)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HidingSpot4" unique_id=1170193134]
+position = Vector2(7, -3)
+shape = SubResource("RectangleShape2D_lrmdp")
+debug_color = Color(0.7332404, 0.55411446, 0.096330024, 0.41960785)
