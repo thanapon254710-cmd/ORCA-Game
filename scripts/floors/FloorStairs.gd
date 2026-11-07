@@ -49,6 +49,7 @@ func interact(_player: Node) -> void:
 	# Check all four passkeys first.
 	if target_floor == 3 and not GameState.has_all_passkeys():
 		var popup := AcceptDialog.new()
+		popup.add_to_group("question_box")
 		popup.title = "Gate Locked"
 		popup.dialog_text = "Four passkeys are required to unlock this gate."
 

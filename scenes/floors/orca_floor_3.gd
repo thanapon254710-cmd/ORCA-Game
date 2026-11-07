@@ -40,6 +40,8 @@ func _ready() -> void:
 
 func _on_player_caught() -> void:
 	print("GAME OVER - FLOOR 3")
+	for question_box in get_tree().get_nodes_in_group("question_box"):
+		question_box.hide()
 	get_tree().paused = true
 	
 	await _trigger_screen_shake()
