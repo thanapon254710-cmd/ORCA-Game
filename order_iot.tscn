@@ -11,7 +11,8 @@ script = ExtResource("1_jvo6w")
 anchors_preset = -1
 anchor_right = 0.58900005
 anchor_bottom = 0.67300004
-offset_right = 0.47192383
+offset_left = 228.0
+offset_right = 228.47192
 offset_bottom = 207.89597
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1369369528]
@@ -19,17 +20,20 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TitleLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1604094223]
 layout_mode = 2
 text = "Order Step to upload code into ESP32 (IoT)"
+horizontal_alignment = 1
 
 [node name="QuestionImage" type="TextureRect" parent="Panel/VBoxContainer" unique_id=897814408]
 custom_minimum_size = Vector2(100, 200)
 layout_mode = 2
 texture = ExtResource("2_lfjdr")
 expand_mode = 1
-stretch_mode = 4
+stretch_mode = 5
 
 [node name="TargetContainer" type="VBoxContainer" parent="Panel/VBoxContainer" unique_id=1164024626]
 layout_mode = 2
@@ -112,7 +116,9 @@ text = "Reset"
 layout_mode = 2
 
 [node name="RewardOverlay" type="TextureRect" parent="." unique_id=79962100]
+visible = false
 custom_minimum_size = Vector2(100, 200)
-offset_right = 676.0
+offset_left = 228.0
+offset_right = 904.0
 offset_bottom = 416.0
 expand_mode = 1

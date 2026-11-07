@@ -41,18 +41,6 @@ func _ready():
 	
 	check_button.pressed.connect(_on_check_pressed)
 	reset_button.pressed.connect(reset_puzzle)
-	
-	# เตรียมหนังสือ 15 เล่มเข้ากระเป๋าสำหรับทดสอบ (ฟ้า 6, ขาว 6, ส้ม 3)
-	if Inventory != null:
-		if Inventory.get_count("book_blue") < 6:
-			for i in range(6 - Inventory.get_count("book_blue")):
-				Inventory.collect("book_blue", "init_b_" + str(i))
-		if Inventory.get_count("book_white") < 6:
-			for i in range(6 - Inventory.get_count("book_white")):
-				Inventory.collect("book_white", "init_w_" + str(i))
-		if Inventory.get_count("book_orange") < 3:
-			for i in range(3 - Inventory.get_count("book_orange")):
-				Inventory.collect("book_orange", "init_o_" + str(i))
 
 func _setup_layout_dimensions():
 	shelves_container.position = Vector2(52, 29)

@@ -1,7 +1,10 @@
+
 extends CanvasLayer
 
 signal question_answered(correct: bool)
 signal puzzle_closed
+
+const QUESTION_ID = "q_2_esp32_order"
 
 @onready var title_label: Label = $Panel/VBoxContainer/TitleLabel
 @onready var feedback_label: Label = $Panel/VBoxContainer/FeedbackLabel
@@ -27,62 +30,98 @@ const CORRECT_STEPS = [
 	"Press RESET button"
 ]
 
+
 func _ready():
 	title_label.text = "Order Step to upload code into ESP32 (IoT)"
+
 	reward_overlay.visible = false
-	
+
 	var img_path = "res://data/picture/bookshelf.png"
+
 	if ResourceLoader.exists(img_path):
 		reward_overlay.texture = load(img_path)
-		
+	else:
+		push_error("bookshelf.png not found!")
+
 	check_button.pressed.connect(_on_check_pressed)
 	reset_button.pressed.connect(reset_puzzle)
+
 	reset_puzzle()
+
+	# Check whether this puzzle was already completed
+	if GameState.questions_answered.has(QUESTION_ID):
+		check_button.disabled = true
+		reset_button.disabled = true
+
+		feedback_label.text = "Already completed!"
+		feedback_label.modulate = Color.GREEN
+
+		_show_hint_and_close()
+
 
 func reset_puzzle():
 	feedback_label.text = ""
 	check_button.disabled = false
+	reset_button.disabled = false
 	reward_overlay.visible = false
-	
+
 	for slot in target_slots:
 		slot.set_symbol("")
-		
+
 	var shuffled = CORRECT_STEPS.duplicate()
 	shuffled.shuffle()
+
 	while shuffled == CORRECT_STEPS:
 		shuffled.shuffle()
-		
+
 	for i in range(source_slots.size()):
 		source_slots[i].set_symbol(shuffled[i])
 
+
 func _on_check_pressed():
+	if GameState.questions_answered.has(QUESTION_ID):
+		return
+
 	var player_steps = []
+
 	for slot in target_slots:
 		player_steps.append(slot.get_symbol().strip_edges())
-		
+
 	var is_correct = (player_steps == CORRECT_STEPS)
-	
+
 	if is_correct:
 		feedback_label.text = "✓ Correct! Step order completed."
 		feedback_label.modulate = Color.GREEN
+
 		check_button.disabled = true
-		
-		# แสดงรูปชั้นหนังสือทับขึ้นมาเต็มจอ
-		reward_overlay.modulate.a = 0.0
-		reward_overlay.visible = true
-		
-		var tween = create_tween()
-		tween.tween_property(reward_overlay, "modulate:a", 1.0, 0.4)
-		
+		reset_button.disabled = true
+
+		# Save completion in GameState
+		GameState.mark_question_answered(QUESTION_ID, true)
+
+		# Notify other connected systems
 		question_answered.emit(true)
-		if GameState.has_signal("question_answered"):
-			GameState.question_answered.emit("q_2_esp32_order", true)
-		if not GameState.questions_answered.has("q_2_esp32_order"):
-			GameState.questions_answered.append("q_2_esp32_order")
-			
-		await get_tree().create_timer(3.0).timeout
-		hide()
-		puzzle_closed.emit()
+
+		# Automatically display bookshelf hint for 3 seconds
+		_show_hint_and_close()
+
 	else:
 		feedback_label.text = "✗ Try again! Wrong sequence."
 		feedback_label.modulate = Color.RED
+
+func _show_hint_and_close() -> void:
+	reward_overlay.modulate.a = 0.0
+	reward_overlay.visible = true
+
+	var tween = create_tween()
+	tween.tween_property(
+		reward_overlay,
+		"modulate:a",
+		1.0,
+		0.4
+	)
+
+	await get_tree().create_timer(3.0).timeout
+
+	hide()
+	puzzle_closed.emit()
