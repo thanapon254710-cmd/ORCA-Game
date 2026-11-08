@@ -126,7 +126,7 @@ func collect_passkey(number: int) -> void:
 			push_warning("Invalid passkey number!")
 			return
 
-	message = "Passkey No.%d Acquired! %s" % [number, symbol]
+	message = "Passkey %s Acquired!" % [symbol]
 
 	var popup := AcceptDialog.new()
 	popup.title = "Passkey Acquired"
