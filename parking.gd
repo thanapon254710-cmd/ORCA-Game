@@ -60,13 +60,32 @@ func _on_red_car_escaped():
 	
 	# รอรับสัญญาณเมื่อผู้เล่นกดรับของรางวัลเสร็จสิ้น
 	# รอรับสัญญาณเมื่อผู้เล่นกดรับของรางวัลเสร็จสิ้น
+	# รอรับสัญญาณเมื่อผู้เล่นกดรับของรางวัลเสร็จสิ้น
 	gacha_instance.reward_claimed.connect(func(item):
-		# ใช้ name_th (หรือ name_en) แทนคีย์ "name"
 		var item_name = item.get("name_th", item.get("name", "Unknown Item"))
-		print("ผู้เล่นได้รับ: ", item_name, " (", item["rarity"], ")")
+		var item_desc = item.get("desc_th", "")
 		
-		get_tree().change_scene_to_file.call_deferred("res://score_board.tscn")
+		# นำชื่อไอเทมและคำอธิบายสุ่มมารวมกัน
+		var full_reward_desc = item_name
+		if item_desc != "":
+			full_reward_desc += " (%s)" % item_desc
+			
+		print("ผู้เล่นได้รับ: ", full_reward_desc)
 		
+		# ส่งเข้า SaveManager
+		if Engine.has_singleton("SaveManager") or get_node_or_null("/root/SaveManager"):
+			SaveManager.latest_reward_name = full_reward_desc
+			
+		# โหลดหน้า ScoreBoard
+		var sb_path = "res://score_board.tscn"
+		if not ResourceLoader.exists(sb_path):
+			sb_path = "res://scenes/ui/score_board.tscn"
+			
+		var sb_scene = load(sb_path)
+		if sb_scene:
+			var sb = sb_scene.instantiate()
+			add_child(sb)
+			
 		# บันทึกสถานะว่าเคลียร์ลานจอดรถแล้ว
 		if GameState.has_signal("question_answered"):
 			GameState.question_answered.emit("q_parking_escaped", true)

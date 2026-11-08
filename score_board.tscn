@@ -18,21 +18,18 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = 25.0
-offset_right = -30.0
-offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="BoardCard" type="Panel" parent="BackgroundDim/CenterContainer" unique_id=1176670793]
-custom_minimum_size = Vector2(560, 460)
+custom_minimum_size = Vector2(880, 520)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BackgroundDim/CenterContainer/BoardCard" unique_id=2025323978]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+alignment = 1
 
 [node name="HeaderLabel" type="Label" parent="BackgroundDim/CenterContainer/BoardCard/VBoxContainer" unique_id=1708931134]
 layout_mode = 2
@@ -47,7 +44,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ItemScroll" type="ScrollContainer" parent="BackgroundDim/CenterContainer/BoardCard/VBoxContainer" unique_id=821716776]
-custom_minimum_size = Vector2(0, 110)
+custom_minimum_size = Vector2(820, 300)
 layout_mode = 2
 
 [node name="ItemListLabel" type="Label" parent="BackgroundDim/CenterContainer/BoardCard/VBoxContainer/ItemScroll" unique_id=1742213451]
@@ -55,6 +52,7 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundDim/CenterContainer/BoardCard/VBoxContainer" unique_id=738800948]
 layout_mode = 2
+alignment = 1
 
 [node name="PlayAgainBtn" type="Button" parent="BackgroundDim/CenterContainer/BoardCard/VBoxContainer/HBoxContainer" unique_id=1756000279]
 layout_mode = 2
