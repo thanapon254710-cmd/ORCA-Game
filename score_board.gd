@@ -127,4 +127,5 @@ func _build_scoreboard_table(runs: Array):
 		grid.add_child(c5)
 
 func _on_play_again():
+	# รีสตาร์ทกลับไปหน้าแรกสุดของโปรเจกต์
 	get_tree().change_scene_to_file("res://scenes/ui/start_menu.tscn")
