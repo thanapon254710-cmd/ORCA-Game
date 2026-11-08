@@ -41,23 +41,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 40
 
 [node name="ShelfTop" type="HBoxContainer" parent="BookshelfBackdrop/ShelvesContainer" unique_id=1285409807]
 custom_minimum_size = Vector2(0, 105)
-layout_mode = 2
+layout_mode = 0
 theme_override_constants/separation = 1
 alignment = 1
 
 [node name="ShelfMiddle" type="HBoxContainer" parent="BookshelfBackdrop/ShelvesContainer" unique_id=1309537840]
 custom_minimum_size = Vector2(0, 105)
-layout_mode = 2
+layout_mode = 0
 theme_override_constants/separation = 1
 alignment = 1
 
 [node name="ShelfBottom" type="HBoxContainer" parent="BookshelfBackdrop/ShelvesContainer" unique_id=817818737]
 custom_minimum_size = Vector2(0, 105)
-layout_mode = 2
+layout_mode = 0
 theme_override_constants/separation = 1
 alignment = 1
 

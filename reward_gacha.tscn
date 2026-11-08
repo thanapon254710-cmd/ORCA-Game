@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ddboygtlbri53"]
 
-[ext_resource type="Script" uid="uid://x21x5wxtktld" path="res://scenes/puzzle/reward_gacha.gd" id="1_hrfu3"]
+[ext_resource type="Script" uid="uid://x21x5wxtktld" path="res://reward_gacha.gd" id="1_hrfu3"]
 
 [node name="RewardGacha" type="CanvasLayer" unique_id=1497838862]
 script = ExtResource("1_hrfu3")

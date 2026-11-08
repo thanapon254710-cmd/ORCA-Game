@@ -117,7 +117,7 @@ var current_reward: Dictionary = {}
 func _ready():
 	_setup_typography_and_ui()
 	
-	roll_button.text = "🎲 สุ่มของรางวัล / Roll Reward (PCG)"
+	roll_button.text = "🎲 สุ่มของรางวัล / Roll Reward"
 	claim_button.text = "ตกลง / Claim Item"
 	claim_button.visible = false
 	
@@ -136,7 +136,7 @@ func _setup_typography_and_ui():
 	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title_label.add_theme_font_size_override("font_size", 17)
 	
-	subtitle_label.text = "กดปุ่มด้านล่างเพื่อเริ่มการสุ่มแบบตามขั้นตอน (PCG)\nPress button below to trigger procedural loot generation."
+	subtitle_label.text = "กดปุ่มด้านล่างเพื่อเริ่มการสุ่มแบบตามขั้นตอน \nPress button below to trigger procedural loot generation."
 	subtitle_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	subtitle_label.add_theme_font_size_override("font_size", 13)
 	subtitle_label.modulate = Color(0.85, 0.85, 0.85)
