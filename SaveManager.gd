@@ -7,7 +7,6 @@ var run_start_ticks: int = 0
 var current_run_deaths: int = 0
 var latest_reward_name: String = ""
 
-# โครงสร้างไฟล์เซฟ: เก็บทั้งประวัติรวมของทุกรอบ และสถิติผู้เล่น
 var save_data: Dictionary = {
 	"runs_history": [],
 	"users": {}
@@ -17,14 +16,12 @@ func _ready():
 	load_data_from_disk()
 
 func start_new_run(username: String):
-	latest_reward_name = ""
 	current_username = username.strip_edges()
 	if current_username == "":
 		current_username = "Guest"
 	run_start_ticks = Time.get_ticks_msec()
-	current_run_deaths = 0 # รีเซ็ตการตายของรอบนี้ใหม่
+	current_run_deaths = 0
 
-# เรียกใช้ฟังก์ชันนี้เมื่อผู้เล่นตายในเกม
 func add_death():
 	current_run_deaths += 1
 
@@ -45,7 +42,11 @@ func record_run_completion(reward_name: String = "") -> Dictionary:
 	var time_spent_sec = (Time.get_ticks_msec() - run_start_ticks) / 1000.0
 	latest_reward_name = reward_name
 	
-	# 1. หากเป็นผู้เล่นใหม่ ให้สร้างโครงสร้างข้อมูลเริ่มต้น
+	if not save_data.has("users"):
+		save_data["users"] = {}
+	if not save_data.has("runs_history"):
+		save_data["runs_history"] = []
+		
 	if not save_data["users"].has(current_username):
 		save_data["users"][current_username] = {
 			"play_count": 0,
@@ -55,32 +56,25 @@ func record_run_completion(reward_name: String = "") -> Dictionary:
 		}
 	
 	var user_rec: Dictionary = save_data["users"][current_username]
-	
-	# 2. ป้องกันบั๊กเซฟเก่า: หากไม่มีคีย์ใหม่ ให้เติมคีย์ตั้งต้นทันที
-	if not user_rec.has("fewest_deaths"):
-		user_rec["fewest_deaths"] = 9999
-	if not user_rec.has("best_time_sec"):
-		user_rec["best_time_sec"] = 999999.0
 	if not user_rec.has("play_count"):
 		user_rec["play_count"] = 0
+	if not user_rec.has("best_time_sec"):
+		user_rec["best_time_sec"] = 999999.0
+	if not user_rec.has("fewest_deaths"):
+		user_rec["fewest_deaths"] = 9999
 	if not user_rec.has("items_history"):
 		user_rec["items_history"] = []
-	
+		
 	user_rec["play_count"] += 1
 	
-	# 3. อัปเดตเวลาที่ดีที่สุด
 	if time_spent_sec < user_rec["best_time_sec"]:
 		user_rec["best_time_sec"] = time_spent_sec
-		
-	# 4. อัปเดตจำนวนครั้งที่ตายน้อยที่สุดอย่างปลอดภัย
 	if current_run_deaths < user_rec["fewest_deaths"]:
 		user_rec["fewest_deaths"] = current_run_deaths
-		
-	# 5. บันทึกไอเทม
 	if reward_name != "" and not user_rec["items_history"].has(reward_name):
 		user_rec["items_history"].append(reward_name)
 		
-	# บันทึกข้อมูลของรอบปัจจุบันลงประวัติการเล่นทั้งหมด
+	# บันทึกข้อมูลของรอบปัจจุบันนี้
 	var current_run_summary = {
 		"username": current_username,
 		"clear_time": time_spent_sec,
@@ -90,12 +84,14 @@ func record_run_completion(reward_name: String = "") -> Dictionary:
 		"date": Time.get_datetime_string_from_system(false, true)
 	}
 	
-	if not save_data.has("runs_history"):
-		save_data["runs_history"] = []
+	# เก็บประวัติรอบนี้ลงบนสุดของประวัติรวม
 	save_data["runs_history"].append(current_run_summary)
-	
 	_save_data_to_disk()
-	return current_run_summary
+	
+	return {
+		"latest": current_run_summary,
+		"all_runs": save_data["runs_history"]
+	}
 
 func _save_data_to_disk():
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
