@@ -1878,13 +1878,13 @@ position = Vector2(3, -2)
 shape = SubResource("RectangleShape2D_vlp0b")
 
 [node name="Question_ft2toft1" parent="." unique_id=2029985172 instance=ExtResource("24_hwa2x")]
-position = Vector2(337, 559)
-scale = Vector2(1.5, 0.5)
+position = Vector2(337, 575)
 script = ExtResource("14_o81gl")
 target_floor = 1
 destination_spawn_marker = "SpawnFromFloor2"
-prompt_text = "Press E to use stairs"
+prompt_text = "Press E to unlock the gate"
 stair_puzzle_scene = ExtResource("25_a468h")
+is_gate_blocker = true
 
 [node name="IntroUI" parent="." unique_id=904212654 instance=ExtResource("floor_dialogue")]
 passages = Array[String](["Walk over to the empty bookshelf: The shelf is completely bare... If you don't read every single book, you'll never get out of this library."])

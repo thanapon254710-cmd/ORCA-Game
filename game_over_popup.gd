@@ -11,9 +11,7 @@ func show_game_over() -> void:
 	$Backdrop.show()
 	$GameOverImage.show()
 	show()
-	
-	if Engine.has_singleton("SaveManager") or get_node_or_null("/root/SaveManager"):
-		SaveManager.add_death()
+	SaveManager.add_death()   # <-- add this
 
 func _input(_event: InputEvent) -> void:
 	if visible:

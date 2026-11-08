@@ -1526,13 +1526,13 @@ position = Vector2(0.25, 0)
 shape = SubResource("RectangleShape2D_oqb0x")
 
 [node name="Question_PassKey" parent="." unique_id=2071297216 instance=ExtResource("31_e5plf")]
-position = Vector2(436.00003, 501)
-scale = Vector2(1.5, 0.5)
+position = Vector2(436.00003, 516)
 script = ExtResource("20_h4yqk")
 target_floor = 3
 destination_spawn_marker = "SpawnFromFloor4"
-prompt_text = "Press E to use stairs"
+prompt_text = "Press E to unlock the gate"
 stair_puzzle_scene = ExtResource("27_y7s7m")
+is_gate_blocker = true
 
 [node name="IntroUI" parent="." unique_id=992612916 instance=ExtResource("floor_dialogue")]
 passages = Array[String](["Alright, the tutorial is over. From here on out, the choices you make will seal your fate forever."])

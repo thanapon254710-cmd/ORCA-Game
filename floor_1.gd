@@ -89,4 +89,5 @@ func _on_floor_1_cleared() -> void:
 # แพ้ Orca → ไปชั้น 5
 func _on_floor_1_game_over() -> void:
 	print("LOSE! Going to Floor 5")
+	SaveManager.add_death()   # <-- add this
 	get_tree().change_scene_to_file("res://scenes/floors/floor5.tscn")

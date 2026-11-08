@@ -468,7 +468,7 @@ func _finish_answering(is_correct: bool):
 func _handle_floor_1_answer(is_correct: bool):
 	if is_correct:
 		monster_hearts -= 1
-		feedback_label.text = "✓ Correct! Oga loses one heart!"
+		feedback_label.text = "✓ Correct! Orga loses one heart!"
 		feedback_label.modulate = Color.GREEN
 		
 		var tween = create_tween()

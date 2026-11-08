@@ -130,7 +130,6 @@ func _check_wires():
 
 	if all_correct:
 		GameState.room408_powered = true
-		feedback_label.text = "you got ☾ "
 		feedback_label.modulate = Color.GREEN
 
 		# Notify the fuse box

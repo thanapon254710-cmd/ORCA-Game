@@ -9,6 +9,7 @@ extends Area2D
 @export var prompt_text: String = "Press E to use stairs"
 
 @export var stair_puzzle_scene: PackedScene
+@export var is_gate_blocker: bool = false
 
 var stair_puzzle: CanvasLayer = null
 
@@ -32,6 +33,7 @@ func can_interact() -> bool:
 		not destination_spawn_marker.is_empty()
 		and not TransitionManager.is_transitioning
 		and not GameState.game_is_over
+		and not (is_gate_blocker and is_gate_unlocked())   # <-- add
 	)
 
 # Show or hide the interaction prompt.
@@ -126,5 +128,7 @@ func is_gate_unlocked() -> bool:
 			return GameState.floor4_gate_unlocked
 		2:
 			return GameState.floor3_gate_unlocked
+		1:
+			return GameState.floor2_gate_unlocked   # <-- add
 
 	return false

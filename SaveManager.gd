@@ -6,6 +6,7 @@ var current_username: String = "Guest"
 var run_start_ticks: int = 0
 var current_run_deaths: int = 0
 var latest_reward_name: String = ""
+var run_recorded: bool = false
 
 var save_data: Dictionary = {
 	"runs_history": [],
@@ -21,6 +22,7 @@ func start_new_run(username: String):
 		current_username = "Guest"
 	run_start_ticks = Time.get_ticks_msec()
 	current_run_deaths = 0
+	run_recorded = false
 
 func add_death():
 	current_run_deaths += 1
@@ -41,6 +43,7 @@ func load_data_from_disk():
 func record_run_completion(reward_name: String = "") -> Dictionary:
 	var time_spent_sec = (Time.get_ticks_msec() - run_start_ticks) / 1000.0
 	latest_reward_name = reward_name
+	run_recorded = true
 	
 	if not save_data.has("users"):
 		save_data["users"] = {}

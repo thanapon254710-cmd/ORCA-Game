@@ -1502,13 +1502,13 @@ question_index = 2
 TARGET_FLOOR = 3
 
 [node name="Question_GoldKye" parent="." unique_id=251004385 instance=ExtResource("16_upcpg")]
-position = Vector2(143, 501)
-scale = Vector2(1.5, 0.5)
+position = Vector2(143, 513)
 script = ExtResource("13_i23eo")
 target_floor = 2
 destination_spawn_marker = "SpawnFromFloor3"
-prompt_text = "Press E to use stairs"
+prompt_text = "Press E to unlock the gate"
 stair_puzzle_scene = ExtResource("18_hmm4o")
+is_gate_blocker = true
 
 [node name="IntroUI" parent="." unique_id=1388625773 instance=ExtResource("floor_dialogue")]
 passages = Array[String](["Some things require the right sequence; don't rush. Slow and steady wins the race."])

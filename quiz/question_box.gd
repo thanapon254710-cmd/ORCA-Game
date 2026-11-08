@@ -463,7 +463,7 @@ func _finish_answering(is_correct: bool):
 func _handle_floor_1_answer(is_correct: bool):
 	if is_correct:
 		monster_hearts -= 1
-		feedback_label.text = "✓ Correct! Oga loses one heart!"
+		feedback_label.text = "✓ Correct! Orga loses one heart!"
 		feedback_label.modulate = Color.GREEN
 		
 		var tween = create_tween()
@@ -482,7 +482,7 @@ func _handle_floor_1_answer(is_correct: bool):
 	await get_tree().create_timer(1.5).timeout
 	
 	if monster_hearts <= 0:
-		feedback_label.text = "🎉 Congratulations! You have successfully defeated Oga!"
+		feedback_label.text = "🎉 Congratulations! You have successfully defeated Orga!"
 		feedback_label.modulate = Color.GREEN
 		await get_tree().create_timer(2.0).timeout
 		battle_hud.visible = false

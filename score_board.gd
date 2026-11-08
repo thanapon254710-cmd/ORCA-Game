@@ -35,7 +35,7 @@ func _ready():
 	#var all_runs: Array = data.get("all_runs", [])
 	# ป้องกันการบันทึกซ้ำซ้อนในเฟรมเดียวกัน
 	var all_runs: Array = []
-	if not _has_recorded:
+	if not _has_recorded and not sm.run_recorded:
 		_has_recorded = true
 		var data = sm.record_run_completion(sm.latest_reward_name)
 		all_runs = data.get("all_runs", [])

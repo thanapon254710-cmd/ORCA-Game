@@ -1,8 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cgqxrd46e2odp"]
 
-[ext_resource type="Script" path="res://scripts/ui/ending.gd" id="1"]
-
-[ext_resource type="Texture2D" path="res://assets/sprites/Chark/There IS FroM tail (1).png" id="story_bg"]
+[ext_resource type="Script" uid="uid://bxwwr60bju5gi" path="res://scripts/ui/ending.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bsr4o74nt1j7e" path="res://assets/sprites/Chark/There IS FroM tail (1).png" id="story_bg"]
 
 [node name="Ending" type="Control" unique_id=1917568264]
 layout_mode = 3
