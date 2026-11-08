@@ -46,6 +46,7 @@ var floor_1_pool: Array = []
 
 # --- ตัวแปรสำหรับระบบแบทเทิลชั้น 1 ---
 var is_floor_1_battle: bool = false
+var floor_1_battle_finished: bool = false
 var player_hearts: int = 3
 var monster_hearts: int = 3
 
@@ -189,7 +190,10 @@ func _update_hearts_ui():
 		monster_heart_icons[i].modulate.a = 1.0 if i < monster_hearts else 0.15
 
 func start_floor_1_battle():
-	# ถ้าเคยเริ่ม Battle แล้ว ให้กลับมาเล่นต่อ
+	if floor_1_battle_finished:
+		hide()
+		return
+
 	if is_floor_1_battle:
 		show()
 		battle_hud.visible = true
@@ -197,19 +201,18 @@ func start_floor_1_battle():
 		print("Continue Floor 1 Battle!")
 		return
 
-	# เริ่ม Battle ครั้งแรกเท่านั้น
 	is_floor_1_battle = true
 	player_hearts = 3
 	monster_hearts = 3
 	battle_hud.visible = true
 	_update_hearts_ui()
-
-	floor_1_pool.clear()	
+	
+	floor_1_pool.clear()
 	for q in questions_list:
 		var q_id = str(q.get("id", ""))
-		if q_id.begins_with("q1") or q.get("floor") == 1:
+		if q_id.begins_with("q_1_") or q.get("floor") == 1:
 			floor_1_pool.append(q)
-
+			
 	floor_1_pool.shuffle()
 	_next_floor_1_question()
 
@@ -294,6 +297,7 @@ func display_question(data: Dictionary):
 			inp.editable = true
 			inp.placeholder_text = "0 or 1"
 			inp.custom_minimum_size = Vector2(60, 35)
+			
 		submit_button.disabled = false
 		input_1.grab_focus()
 		
@@ -483,16 +487,16 @@ func _handle_floor_1_answer(is_correct: bool):
 	await get_tree().create_timer(1.5).timeout
 	
 	if monster_hearts <= 0:
-		feedback_label.text = "🎉 Congratulations! You have successfully defeated Oga!"
+		floor_1_battle_finished = true
+		feedback_label.text = "🎉 Congratulations! You have successfully defeated Orca!"
 		feedback_label.modulate = Color.GREEN
 		await get_tree().create_timer(2.0).timeout
 		battle_hud.visible = false
 		is_floor_1_battle = false
 		hide()
 		floor_1_cleared.emit()
-		get_tree().paused = false
-		get_tree().change_scene_to_file.call_deferred("res://scenes/parking.tscn")
 	elif player_hearts <= 0:
+		floor_1_battle_finished = true
 		feedback_label.text = "💀 GAME OVER... You have run out of heart."
 		feedback_label.modulate = Color.DARK_RED
 		await get_tree().create_timer(2.0).timeout
