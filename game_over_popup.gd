@@ -6,12 +6,14 @@ func _ready() -> void:
 	var orca: Node = get_parent()
 	if orca.has_signal("player_caught"):
 		orca.player_caught.connect(show_game_over)
-		SaveManager.add_death()
 
 func show_game_over() -> void:
 	$Backdrop.show()
 	$GameOverImage.show()
 	show()
+	
+	if Engine.has_singleton("SaveManager") or get_node_or_null("/root/SaveManager"):
+		SaveManager.add_death()
 
 func _input(_event: InputEvent) -> void:
 	if visible:

@@ -31,4 +31,4 @@ func _ready():
 
 func _on_play_again():
 	# รีสตาร์ทกลับไปหน้าแรกสุดของโปรเจกต์
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	get_tree().change_scene_to_file("res://scenes/ui/start_menu.tscn")
