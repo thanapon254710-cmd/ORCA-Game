@@ -13,7 +13,7 @@ config_version=5
 config/name="ORCA-Game"
 run/main_scene="res://scenes/ui/start_menu.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://dneco712aw78l"
 
 [autoload]
 
