@@ -24,7 +24,6 @@
 [ext_resource type="PackedScene" uid="uid://buys13wha88m7" path="res://orca.tscn" id="21_c5wpi"]
 [ext_resource type="Script" uid="uid://cdehyfvl6fmae" path="res://scenes/floors/orca_floor_5.gd" id="22_ty1mm"]
 [ext_resource type="PackedScene" uid="uid://beqy8axddwsj5" path="res://scenes/QuestionPoint.tscn" id="23_8rjlg"]
-
 [ext_resource type="PackedScene" path="res://scenes/ui/floor_dialogue.tscn" id="floor_dialogue"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ea2ge"]
@@ -1388,9 +1387,7 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 
-
-
-[node name="IntroUI" parent="." instance=ExtResource("floor_dialogue")]
+[node name="IntroUI" parent="." unique_id=1526767260 instance=ExtResource("floor_dialogue")]
 passages = Array[String](["You hear the Orca mascot’s voice declare: “I’m taking you with me.” You need to find a way to escape the Main Building now.", "If you don't know where to start, try picking a path and stay on your guard. The friends you know might not always be on your side."])
 
 [connection signal="body_entered" from="HidingSpot1" to="Player" method="_on_hiding_spot_1_body_entered"]

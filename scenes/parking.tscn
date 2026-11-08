@@ -614,6 +614,7 @@ offset_left = 207.0
 offset_top = 224.0
 offset_right = 991.0
 offset_bottom = 354.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "                            Click a car to select. Use WASD to move.
                               Clear the path for the red car to exit!
@@ -624,5 +625,6 @@ offset_left = 353.0
 offset_top = 272.0
 offset_right = 845.0
 offset_bottom = 321.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 35
 text = "You can now leave this place!"
