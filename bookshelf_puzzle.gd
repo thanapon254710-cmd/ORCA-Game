@@ -13,6 +13,7 @@ signal puzzle_closed
 @onready var reset_button: Button = $ResetButton
 
 var feedback_label: Label
+var _solved: bool = false
 var top_slots: Array[BookSlot] = []
 var middle_slots: Array[BookSlot] = []
 var bottom_slots: Array[BookSlot] = []
@@ -114,6 +115,7 @@ func _on_check_pressed():
 					  current_bottom == SOLUTION_BOTTOM)
 	
 	if is_correct:
+		_solved = true
 		check_button.disabled = true
 		feedback_label.text = "✓ That’s right! The bookshelf is perfectly organized."
 		feedback_label.modulate = Color.GREEN
@@ -136,10 +138,16 @@ func _on_check_pressed():
 
 func reset_puzzle():
 	feedback_label.text = ""
+	_return_books_to_inventory()
+
+# คืนหนังสือทุกเล่มที่วางบนชั้นกลับเข้า Inventory แล้วเคลียร์ช่อง
+func _return_books_to_inventory() -> void:
+	var index := 0
 	for slot in (top_slots + middle_slots + bottom_slots):
 		if slot.current_item != "":
-			Inventory.collect(slot.current_item, "reset_" + str(Time.get_ticks_msec()) + "_" + str(randi()))
+			Inventory.collect(slot.current_item, "return_%d_%d_%d" % [Time.get_ticks_msec(), index, randi()])
 			slot.set_book("")
+		index += 1
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -148,4 +156,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func close_puzzle() -> void:
+	# ถ้ายังไม่ผ่านปริศนา (เช่น กด ESC กลางคัน) ให้คืนหนังสือที่วางไว้กลับเข้า Inventory
+	# ถ้าผ่านแล้ว หนังสือถือว่าถูกใช้ไปแล้ว ไม่ต้องคืน
+	if not _solved:
+		_return_books_to_inventory()
 	queue_free()
